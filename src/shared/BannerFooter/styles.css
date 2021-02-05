@@ -1,0 +1,41 @@
+.banner-footer-container {
+  height: 1.194in;
+  width: 8.5in;
+  background-color: #7a1818;
+  display: flex;
+  align-items: center;
+}
+
+.banner-footer-phone-number-wrapper {
+  padding: 0 0.208in;
+}
+
+.banner-footer-ncmec-number {
+  color: white;
+  font-size: 0.27in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-agency-number {
+  color: white;
+  font-size: 0.22in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-gmcngine-logo {
+  background-color: white;
+  width: 1.388in;
+  height: 1.388in;
+  border-radius: 50%;
+  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.32in;
+  margin-bottom: 0.5in;
+}

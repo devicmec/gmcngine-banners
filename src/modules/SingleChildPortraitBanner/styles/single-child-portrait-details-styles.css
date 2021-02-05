@@ -1,0 +1,82 @@
+.scp-details-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.277in;
+  flex-direction: column;
+}
+
+.scp-banner-headline {
+  margin: 0in 0in 0.194in 0in;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.scp-child-image {
+  margin: 0 0.277in;
+  height: 3.472in;
+}
+
+.scp-banner-title > h2 {
+  font-size: 0.527in;
+  text-align: center;
+  font-weight: normal;
+  margin: 0.05in 0in;
+}
+
+.scp-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.25in;
+  margin: 0.05in 0in;
+}
+
+.scp-banner-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.scp-details-table {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 0.11in;
+}
+
+.scp-details-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.scp-row {
+  display: flex;
+}
+
+.scp-labels {
+  min-width: 1.361in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+}
+
+.scp-child-info {
+  font-weight: normal;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  min-width: 1.94in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+}
+
+.scp-circumstances > p {
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+}

@@ -1,0 +1,187 @@
+.banner-header-container {
+  background-color: #c72828;
+  width: 8.5in;
+  height: 1.361in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner-header-text {
+  color: white;
+  font-size: 0.763in;
+  font-weight: 900;
+  letter-spacing: 0.01in;
+  margin: 0in;
+}
+
+.banner-header-agency-wrapper {
+  background-color: white;
+  width: 1.388in;
+  height: 1.388in;
+  border-radius: 50%;
+  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.32in;
+  margin-top: 0.35in;
+}
+
+.banner-header-agency-logo {
+  width: 0.95in;
+}
+
+.banner-header-qrCode {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.388in;
+  height: 1.388in;
+  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  margin-right: 0.32in;
+  margin-top: 0.35in;
+}
+
+.banner-footer-container {
+  height: 1.194in;
+  width: 8.5in;
+  background-color: #7a1818;
+  display: flex;
+  align-items: center;
+}
+
+.banner-footer-phone-number-wrapper {
+  padding: 0 0.208in;
+}
+
+.banner-footer-ncmec-number {
+  color: white;
+  font-size: 0.27in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-agency-number {
+  color: white;
+  font-size: 0.22in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-gmcngine-logo {
+  background-color: white;
+  width: 1.388in;
+  height: 1.388in;
+  border-radius: 50%;
+  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.32in;
+  margin-bottom: 0.5in;
+}
+
+.scp-container {
+  width: 8.5in;
+  height: 11in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
+@media print {
+  @page {
+    size: portrait;
+  }
+}
+
+.scp-details-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.277in;
+  flex-direction: column;
+}
+
+.scp-banner-headline {
+  margin: 0in 0in 0.194in 0in;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.scp-child-image {
+  margin: 0 0.277in;
+  height: 3.472in;
+}
+
+.scp-banner-title > h2 {
+  font-size: 0.527in;
+  text-align: center;
+  font-weight: normal;
+  margin: 0.05in 0in;
+}
+
+.scp-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.25in;
+  margin: 0.05in 0in;
+}
+
+.scp-banner-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.scp-details-table {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 0.11in;
+}
+
+.scp-details-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.scp-row {
+  display: flex;
+}
+
+.scp-labels {
+  min-width: 1.361in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+}
+
+.scp-child-info {
+  font-weight: normal;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  min-width: 1.94in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+}
+
+.scp-circumstances > p {
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+}
