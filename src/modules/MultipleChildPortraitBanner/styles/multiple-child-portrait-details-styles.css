@@ -1,20 +1,20 @@
-.scp-details-table {
+.mcp-details-container {
   display: flex;
-  justify-content: space-between;
-  align-content: center;
-  margin: 0 0.2in 0.11in 0.2in;
+  align-items: center;
+  margin: 0 0.27in 0.5in 0.27in;
 }
 
-.scp-details-column {
+.mcp-date-location-container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.scp-row {
+.mcp-details-row {
   display: flex;
 }
 
-.scp-labels {
+.mcp-details-label {
   min-width: 1.361in;
   margin-bottom: 0.138in;
   margin-top: 0;
@@ -23,7 +23,7 @@
   letter-spacing: 0.01in;
 }
 
-.scp-child-info {
+.mcp-details-children-info {
   font-weight: normal;
   font-size: 0.194in;
   letter-spacing: 0.01in;
@@ -32,7 +32,7 @@
   margin-top: 0;
 }
 
-.scp-circumstances > p {
+.mcp-circumstances > p {
   font-weight: 300;
   font-size: 0.194in;
   letter-spacing: 0.01in;

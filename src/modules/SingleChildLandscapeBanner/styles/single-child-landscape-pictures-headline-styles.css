@@ -1,0 +1,11 @@
+.scl-images-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.scl-child-image {
+  margin: 0 0.1in;
+  height: 3.472in;
+}

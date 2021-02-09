@@ -1,0 +1,24 @@
+.scpa-headline-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.15in;
+}
+
+.scpa-child-image {
+  margin: 0 0.277in;
+  height: 3.472in;
+}
+
+.scpa-abductors-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.scpa-abductors-container > h4 {
+  margin: 0 0 0.03in 0;
+  color: #c72828;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 0.27in;
+  letter-spacing: 0.01in;
+}

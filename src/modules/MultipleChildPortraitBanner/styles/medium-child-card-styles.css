@@ -1,0 +1,58 @@
+.mcp-md-card-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mcp-md-image-wrapper {
+  display: block;
+  margin: auto;
+  height: 1.31in;
+  width: 1.31in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcp-md-child-image {
+  object-fit: contain;
+  width: 1.31in;
+  max-height: 1.31in;
+}
+
+.mcp-md-card-details-container {
+  height: 1.7in;
+  margin: 0.05in 0;
+  width: 5.5in;
+}
+
+.mcp-md-card-details-container > h2 {
+  font-size: 0.3in;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0.15in 0;
+}
+
+.mcp-md-card-details-table {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0.2in 0 0;
+}
+.mcp-md-child-card-row {
+  display: flex;
+  width: 2.5in;
+}
+
+.mcp-md-child-card-label {
+  margin: 0.05in 0;
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcp-md-child-card-info {
+  margin: 0.05in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
+}

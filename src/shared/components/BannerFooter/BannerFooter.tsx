@@ -1,9 +1,16 @@
-import React from "react";
 import "./styles.css";
-import gmcngineLogo from "../../images/gmcngineLogo.png";
-const BannerFooter = () => {
+import gmcngineLogo from "../../../images/gmcngineLogo.png";
+import React, { FC } from "react";
+
+type Props = {
+  pageOrientation: "landscape" | "portrait";
+};
+
+const BannerFooter: FC<Props> = ({ pageOrientation }) => {
+  const headerWidth = pageOrientation === "landscape" ? "11in" : "8.5in";
+
   return (
-    <div className="banner-footer-container">
+    <div className="banner-footer-container" style={{ width: headerWidth }}>
       <div className="banner-footer-phone-number-wrapper">
         <h3 className="banner-footer-ncmec-number">
           CALL: 1-800-843-5678 (1-800-THE-LOST)

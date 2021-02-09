@@ -1,6 +1,4 @@
 .banner-header-container {
-  background-color: #c72828;
-  width: 8.5in;
   height: 1.361in;
   display: flex;
   justify-content: space-between;
@@ -8,7 +6,6 @@
 }
 
 .banner-header-text {
-  color: white;
   font-size: 0.763in;
   font-weight: 900;
   letter-spacing: 0.01in;
@@ -30,7 +27,7 @@
 }
 
 .banner-header-agency-logo {
-  width: 0.95in;
+  width: 0.9in;
 }
 
 .banner-header-qrCode {
@@ -42,6 +39,6 @@
   height: 1.388in;
   box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
   z-index: 1;
-  margin-right: 0.32in;
+  margin-right: 0.35in;
   margin-top: 0.35in;
 }

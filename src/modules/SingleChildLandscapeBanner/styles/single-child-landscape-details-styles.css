@@ -1,0 +1,25 @@
+.scl-details-table {
+  width: 35%;
+}
+.scl-row {
+  display: flex;
+}
+
+.scl-label {
+  width: 40%;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+}
+
+.scl-child-info {
+  font-weight: normal;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  width: 60%;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  text-align: right;
+}

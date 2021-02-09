@@ -1,0 +1,56 @@
+.scl-body-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.277in;
+  flex-direction: column;
+  height: 5.38in;
+}
+
+.scl-upper-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.18in;
+}
+
+.scl-abductors-wrapper {
+  margin-left: 0.15in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.scl-abductors-wrapper > h4 {
+  margin: 0 0 0.03in 0;
+  color: #c72828;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 0.27in;
+  letter-spacing: 0.01in;
+}
+
+.scl-banner-title {
+  margin-bottom: 0.08in;
+}
+.scl-banner-title > h2 {
+  font-size: 0.5in;
+  text-align: center;
+  font-weight: normal;
+  margin: 0.03in 0in;
+}
+
+.scl-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.2in;
+  margin: 0.05in 0in;
+}
+
+.scl-circumstances > p {
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  width: 10in;
+}

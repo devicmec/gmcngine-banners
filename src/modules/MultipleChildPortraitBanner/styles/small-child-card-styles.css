@@ -1,0 +1,60 @@
+.mcp-sm-card-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.06in;
+}
+
+.mcp-sm-image-wrapper {
+  display: block;
+  margin: auto;
+  height: 1.25in;
+  width: 1.25in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcp-sm-child-image {
+  object-fit: contain;
+  width: 1.25in;
+  max-height: 1.25in;
+}
+
+.mcp-sm-card-details-container {
+  height: 1.3in;
+  margin: 0.05in 0;
+  width: 6in;
+  align-self: center;
+}
+
+.mcp-sm-card-details-container > h2 {
+  font-size: 0.25in;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0 0 0.1in 0;
+}
+
+.mcp-sm-card-details-table {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0.2in 0 0;
+}
+.mcp-sm-child-card-row {
+  display: flex;
+  width: 2.5in;
+}
+
+.mcp-sm-child-card-label {
+  margin: 0.03in 0;
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcp-sm-child-card-info {
+  margin: 0.03in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
+}

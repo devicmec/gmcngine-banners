@@ -1,0 +1,8 @@
+.mcp-headline-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.15in 0 0.3in 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 6.3in;
+}

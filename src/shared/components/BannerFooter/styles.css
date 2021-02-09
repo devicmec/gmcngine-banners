@@ -1,9 +1,9 @@
 .banner-footer-container {
   height: 1.194in;
-  width: 8.5in;
   background-color: #7a1818;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .banner-footer-phone-number-wrapper {
@@ -36,6 +36,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 0.32in;
+  margin-right: 0.35in;
   margin-bottom: 0.5in;
 }
