@@ -1,14 +1,14 @@
 import React from "react";
-import "../styles/single-child-landscape-body-styles.css";
-import SingleChildLandscapeDetails from "./SingleChildLandscapeDetails";
-import SingleChildLandscapePicturesHeadline from "./SingleChildLandscapePicturesHeadline";
-import AbductorsCard from "../../../shared/components/AbductorsCard/AbductorsCard";
+import "./styles.css";
+import SingleChildLandscapeDetails from "../SingleChildLandscapeDetails";
+import SingleChildLandscapeHeadline from "../SingleChildLandscapeHeadline";
+import AbductorsCard from "../../../../shared/components/AbductorsCard";
 
 const SingleChildLandscapeBody = () => {
   return (
     <div className="scl-body-container">
       <div className="scl-upper-section">
-        <SingleChildLandscapePicturesHeadline />
+        <SingleChildLandscapeHeadline />
         <SingleChildLandscapeDetails />
 
         <div className="scl-abductors-wrapper">

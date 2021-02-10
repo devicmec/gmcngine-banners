@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/single-child-landscape-details-styles.css";
+import "./styles.css";
 
 const SingleChildLandscapeDetails = () => {
   return (

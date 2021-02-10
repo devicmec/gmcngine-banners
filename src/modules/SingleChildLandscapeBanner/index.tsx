@@ -1,15 +1,16 @@
 import React, { useRef } from "react";
-import BannerHeader from "../../shared/components/BannerHeader/BannerHeader";
-import BannerFooter from "../../shared/components/BannerFooter/BannerFooter";
+import BannerHeader from "../../shared/components/BannerHeader";
+import BannerFooter from "../../shared/components/BannerFooter";
 import { useReactToPrint } from "react-to-print";
 import SingleChildLandscapeBody from "./components/SingleChildLandscapeBody";
+import "./styles.css";
 
 const SingleChildLandscapeBanner = () => {
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({ content: () => componentRef.current });
   return (
     <>
-      <div className="scp-container" ref={componentRef}>
+      <div className="scl-container" ref={componentRef}>
         <BannerHeader bannerColor="red" pageOrientation="landscape" />
         <SingleChildLandscapeBody />
         <BannerFooter pageOrientation="landscape" />

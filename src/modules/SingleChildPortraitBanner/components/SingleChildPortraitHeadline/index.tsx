@@ -1,7 +1,7 @@
 import React from "react";
-import childPhotoLeft from "../../../images/childPhotoLeft.png";
-import AbductorsCard from "../../../shared/components/AbductorsCard/AbductorsCard";
-import "../styles/single-child-portrait-abductors-headline-styles.css";
+import childPhotoLeft from "../../../../images/childPhotoLeft.png";
+import AbductorsCard from "../../../../shared/components/AbductorsCard";
+import "./styles.css";
 
 const SingleChildPortraitHeadline = () => {
   return (

@@ -1,4 +1,4 @@
-import "../styles/single-child-portrait-details-styles.css";
+import "./styles.css";
 
 const SingleChildPortraitDetails = () => {
   return (

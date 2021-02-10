@@ -1,16 +1,16 @@
 import React from "react";
-import BannerCard from "../../../shared/components/BannerCard/BannerCard";
-import "../styles/small-child-card-styles.css";
+import BannerCard from "../../../../shared/components/BannerCard";
+import "./styles.css";
 import childPhotoLeft from "../../../images/childPhotoLeft.png";
 
-const SmallChildCard = () => {
-  const smallChildCardDimensions = {
+const SmallPortraitChildCard = () => {
+  const smallPortraitChildCardDimensions = {
     width: "7.986in",
     height: "1.5in",
   };
 
   return (
-    <BannerCard dimensions={smallChildCardDimensions}>
+    <BannerCard dimensions={smallPortraitChildCardDimensions}>
       <div className="mcp-sm-card-content-wrapper">
         <div className="mcp-sm-image-wrapper">
           <img
@@ -57,4 +57,4 @@ const SmallChildCard = () => {
   );
 };
 
-export default SmallChildCard;
+export default SmallPortraitChildCard;

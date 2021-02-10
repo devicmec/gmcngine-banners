@@ -1,0 +1,14 @@
+.mcl-container {
+  height: 8.5in;
+  width: 11in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
+@media print {
+  @page {
+    size: landscape;
+  }
+}

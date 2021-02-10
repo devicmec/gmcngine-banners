@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/multiple-child-portrait-details-styles.css";
+import "./styles.css";
 
 const MultipleChildPortraitDetails = () => {
   return (

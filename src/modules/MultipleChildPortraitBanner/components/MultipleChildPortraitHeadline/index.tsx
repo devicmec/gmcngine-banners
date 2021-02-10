@@ -1,13 +1,13 @@
 import React from "react";
-import "../styles/multiple-child-portrait-headline-styles.css";
-import MediumChildCard from "./MediumChildCard";
+import "./styles.css";
+import MediumPortraitChildCard from "../MediumPortraitChildCard";
 
 const MultipleChildPortraitHeadline = () => {
   return (
     <div className="mcp-headline-container">
-      <MediumChildCard />
-      <MediumChildCard />
-      <MediumChildCard />
+      <MediumPortraitChildCard />
+      <MediumPortraitChildCard />
+      <MediumPortraitChildCard />
     </div>
   );
 };

@@ -1,0 +1,58 @@
+.mcl-card-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.1in;
+}
+
+.mcl-image-wrapper {
+  display: block;
+  margin: auto;
+  height: 1.31in;
+  width: 1.31in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcl-child-image {
+  object-fit: contain;
+  width: 1.31in;
+  max-height: 1.31in;
+}
+
+.mcl-card-details-container {
+  margin: 0.05in 0;
+  width: 95%;
+}
+
+.mcl-card-details-container > h2 {
+  font-size: 0.25in;
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0.1in 0;
+}
+
+.mcl-child-card-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mcl-child-card-label {
+  margin: 0.05in 0;
+
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcl-child-card-info {
+  font-size: 0.18in;
+  margin: 0.05in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
+  text-align: right;
+}

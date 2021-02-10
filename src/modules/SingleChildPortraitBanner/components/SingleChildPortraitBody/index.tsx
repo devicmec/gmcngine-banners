@@ -1,6 +1,6 @@
-import "../styles/single-child-portrait-body-styles.css";
-import SingleChildPortraitDetails from "./SingleChildPortraitDetails";
-import SingleChildPortraitHeadline from "./SingleChildPortraitHeadline";
+import "./styles.css";
+import SingleChildPortraitDetails from "../SingleChildPortraitDetails";
+import SingleChildPortraitHeadline from "../SingleChildPortraitHeadline";
 
 const SingleChildPortraitBody = () => {
   return (

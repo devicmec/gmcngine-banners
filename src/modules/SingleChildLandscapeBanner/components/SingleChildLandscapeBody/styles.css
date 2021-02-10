@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 0.277in;
+  margin: 0.15in;
   flex-direction: column;
   height: 5.38in;
 }
@@ -21,7 +21,7 @@
 }
 
 .scl-abductors-wrapper > h4 {
-  margin: 0 0 0.03in 0;
+  margin: 0 0 0.03in 0.08in;
   color: #c72828;
   font-style: normal;
   font-weight: 900;

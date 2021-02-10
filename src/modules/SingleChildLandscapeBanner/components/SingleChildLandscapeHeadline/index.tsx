@@ -1,9 +1,9 @@
 import React from "react";
-import childPhotoLeft from "../../../images/childPhotoLeft.png";
-//import childPhotoRight from "../../../images/childPhotoRight.png";
-import "../styles/single-child-landscape-pictures-headline-styles.css";
+import childPhotoLeft from "../../../../images/childPhotoLeft.png";
+//import childPhotoRight from "../../../../images/childPhotoRight.png";
+import "./styles.css";
 
-const SingleChildLandscapePicturesHeadline = () => {
+const SingleChildLandscapeHeadline = () => {
   return (
     <div className="scl-images-container">
       <img
@@ -20,4 +20,4 @@ const SingleChildLandscapePicturesHeadline = () => {
   );
 };
 
-export default SingleChildLandscapePicturesHeadline;
+export default SingleChildLandscapeHeadline;

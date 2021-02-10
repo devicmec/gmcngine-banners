@@ -1,0 +1,52 @@
+.mcl-body-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.25in 0.18in;
+  flex-direction: column;
+  height: 5.45in;
+}
+
+.mcl-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.25in;
+}
+
+.mcl-circumstances > p {
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  width: 10in;
+}
+.mcl-missing-date-location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mcl-column {
+  display: flex;
+}
+.mcl-row {
+  display: flex;
+}
+
+.mcl-label {
+  min-width: 1.361in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+}
+
+.mcl-child-info {
+  font-weight: normal;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  min-width: 1.94in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+}

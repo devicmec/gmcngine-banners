@@ -1,6 +1,6 @@
 import "./styles.css";
 import gmcngineLogo from "../../../images/gmcngineLogo.png";
-import React, { FC } from "react";
+import { FC } from "react";
 
 type Props = {
   pageOrientation: "landscape" | "portrait";

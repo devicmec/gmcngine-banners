@@ -1,21 +1,19 @@
 import React, { useRef } from "react";
-import BannerHeader from "../../shared/components/BannerHeader/BannerHeader";
-import BannerFooter from "../../shared/components/BannerFooter/BannerFooter";
-import MultipleChildPortraitHeadline from "./components/MultipleChildPortraitHeadline";
-import "./styles/multiple-child-portrait-styles.css";
-import MultipleChildPortraitDetails from "./components/MultipleChildPortraitDetails";
+import "./styles.css";
+import BannerHeader from "../../shared/components/BannerHeader";
+import BannerFooter from "../../shared/components/BannerFooter";
 import { useReactToPrint } from "react-to-print";
+import SingleChildPortraitBody from "./components/SingleChildPortraitBody";
 
-const MultipleChildPortraitBanner = () => {
+const SingleChildPortraitBanner = () => {
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({ content: () => componentRef.current });
 
   return (
     <>
-      <div className="mcp-container" ref={componentRef}>
+      <div className="scp-container" ref={componentRef}>
         <BannerHeader bannerColor="red" pageOrientation="portrait" />
-        <MultipleChildPortraitHeadline />
-        <MultipleChildPortraitDetails />
+        <SingleChildPortraitBody />
         <BannerFooter pageOrientation="portrait" />
       </div>
       <button
@@ -35,4 +33,4 @@ const MultipleChildPortraitBanner = () => {
   );
 };
 
-export default MultipleChildPortraitBanner;
+export default SingleChildPortraitBanner;

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import BannerCard from "../BannerCard/BannerCard";
+import BannerCard from "../BannerCard";
 import childAbductor from "../../../images/childAbductor.png";
 import "./styles.css";
 

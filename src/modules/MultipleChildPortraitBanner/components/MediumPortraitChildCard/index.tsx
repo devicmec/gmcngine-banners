@@ -1,16 +1,16 @@
 import React from "react";
-import BannerCard from "../../../shared/components/BannerCard/BannerCard";
-import "../styles/medium-child-card-styles.css";
-import childPhotoLeft from "../../../images/childPhotoLeft.png";
+import BannerCard from "../../../../shared/components/BannerCard";
+import "./styles.css";
+import childPhotoLeft from "../../../../images/childPhotoLeft.png";
 
-const MediumChildCard = () => {
-  const mediumChildCardDimensions = {
+const MediumPortraitChildCard = () => {
+  const mediumPortraitChildCardDimensions = {
     width: "7.986in",
     height: "1.83in",
   };
 
   return (
-    <BannerCard dimensions={mediumChildCardDimensions}>
+    <BannerCard dimensions={mediumPortraitChildCardDimensions}>
       <div className="mcp-md-card-content-wrapper">
         <div className="mcp-md-image-wrapper">
           <img
@@ -57,4 +57,4 @@ const MediumChildCard = () => {
   );
 };
 
-export default MediumChildCard;
+export default MediumPortraitChildCard;
