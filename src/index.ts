@@ -1,2 +1,2 @@
-import SingleChildPortraitBanner from "./modules/SingleChildPortraitBanner/SingleChildPortraitBanner";
+import SingleChildPortraitBanner from "./modules/SingleChildPortraitBanner";
 export { SingleChildPortraitBanner };
