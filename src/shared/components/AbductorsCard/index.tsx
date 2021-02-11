@@ -2,12 +2,14 @@ import React, { FC } from "react";
 import BannerCard from "../BannerCard";
 import childAbductor from "../../../images/childAbductor.png";
 import "./styles.css";
+import { IAbductor } from "../../types/cases/abductor";
 
 type Props = {
   bannerOrientation: "portrait" | "landscape";
+  abductorData: IAbductor;
 };
 
-const AbductorsCard: FC<Props> = ({ bannerOrientation }) => {
+const AbductorsCard: FC<Props> = ({ bannerOrientation, abductorData }) => {
   const portraitDimensions = {
     width: "4.33in",
     height: "1.55in",
@@ -30,18 +32,18 @@ const AbductorsCard: FC<Props> = ({ bannerOrientation }) => {
           />
         </div>
         <div className="banner-abductor-details-container">
-          <h3>Matthew Young</h3>
+          <h3>{abductorData.fullName}</h3>
           <div className="banner-abductor-row">
-            <p className="banner-abductor-label">Current Age:</p>
-            <p className="banner-abductor-info">26</p>
+            <p className="banner-abductor-label">Birthdate:</p>
+            <p className="banner-abductor-info">{abductorData.birthDate}</p>
           </div>
           <div className="banner-abductor-row">
             <p className="banner-abductor-label">Sex:</p>
-            <p className="banner-abductor-info">Male</p>
+            <p className="banner-abductor-info">{abductorData.sex}</p>
           </div>
           <div className="banner-abductor-row">
             <p className="banner-abductor-label">Height:</p>
-            <p className="banner-abductor-info">5'10"</p>
+            <p className="banner-abductor-info">{abductorData.height}</p>
           </div>
         </div>
       </div>

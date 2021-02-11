@@ -1,3 +1,4 @@
+import React from "react";
 import "./styles.css";
 import gmcngineLogo from "../../../images/gmcngineLogo.png";
 import { FC } from "react";

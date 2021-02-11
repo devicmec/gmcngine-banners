@@ -1,21 +1,34 @@
-import React from "react";
-import childPhotoLeft from "../../../../images/childPhotoLeft.png";
+import React, { FC } from "react";
 import AbductorsCard from "../../../../shared/components/AbductorsCard";
+import { ICase } from "../../../../shared/types/cases/case";
+import { IChild } from "../../../../shared/types/cases/children";
 import "./styles.css";
 
-const SingleChildPortraitHeadline = () => {
+type Props = {
+  caseData: ICase;
+  childData: IChild;
+};
+
+const SingleChildPortraitHeadline: FC<Props> = ({ caseData, childData }) => {
   return (
     <div className="scpa-headline-container">
       <img
-        src={childPhotoLeft}
+        src={childData.images[0]}
         alt="childPhotoLeft"
         className="scpa-child-image"
       />
-      <div className="scpa-abductors-container">
-        <h4>Companions</h4>
-        <AbductorsCard bannerOrientation="portrait" />
-        <AbductorsCard bannerOrientation="portrait" />
-      </div>
+      {caseData.abductors.length ? (
+        <div className="scpa-abductors-container">
+          <h4>Companions</h4>
+          {caseData.abductors.map((abductor, index) => (
+            <AbductorsCard
+              bannerOrientation="portrait"
+              abductorData={abductor}
+              key={abductor.abductorId + index}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 };

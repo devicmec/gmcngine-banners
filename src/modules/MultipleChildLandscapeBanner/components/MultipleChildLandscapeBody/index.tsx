@@ -1,36 +1,42 @@
-import React from "react";
+import React, { FC } from "react";
 import "./styles.css";
 import LandscapeChildCard from "../LandscapeChildCard";
+import { ICase } from "../../../../shared/types/cases/case";
 
-const MultipleChildLandscapeBody = () => {
+type Props = {
+  caseData: ICase;
+};
+
+const MultipleChildLandscapeBody: FC<Props> = ({ caseData }) => {
   return (
     <div className="mcl-body-container">
       <div className="mcl-cards-container">
-        <LandscapeChildCard childrenAmount={4} />
-        <LandscapeChildCard childrenAmount={4} />
-        <LandscapeChildCard childrenAmount={4} />
-        <LandscapeChildCard childrenAmount={4} />
+        {caseData.children.map((child, index) => (
+          <LandscapeChildCard
+            key={caseData.caseId + index}
+            childrenAmount={caseData.children.length}
+            childData={child}
+          />
+        ))}
       </div>
       <div className="mcl-missing-date-location">
         <div className="mcl-column">
           <div className="mcl-row">
             <p className="mcl-label">Missing date:</p>
-            <p className="mcl-child-info">Aug 13, 2020</p>
+            <p className="mcl-child-info">{caseData.missingDate}</p>
           </div>
         </div>
         <div className="mcl-column">
           <div className="mcl-row">
             <p className="mcl-label">Location:</p>
-            <p className="mcl-child-info">Sacramento, CA</p>
+            <p className="mcl-child-info">
+              {caseData.city}, {caseData.state}
+            </p>
           </div>
         </div>
       </div>
       <div className="mcl-circumstances">
-        <p>
-          Ekaterina was supposed to meet with her boyfriend at a local bar,
-          however she never arrive to the date. She was wearing a hot pink dress
-          with black high heels and heavy makeup.
-        </p>
+        <p>{caseData.circumstances}</p>
       </div>
     </div>
   );

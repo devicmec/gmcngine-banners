@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import ncmecLogo from "../../../images/ncmecLogo.png";
 import "./styles.css";
 import QRCode from "qrcode.react";

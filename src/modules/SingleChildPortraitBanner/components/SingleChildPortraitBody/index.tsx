@@ -1,27 +1,37 @@
+import React, { FC } from "react";
 import "./styles.css";
 import SingleChildPortraitDetails from "../SingleChildPortraitDetails";
 import SingleChildPortraitHeadline from "../SingleChildPortraitHeadline";
+import { ICase } from "../../../../shared/types/cases/case";
+import { IChild } from "../../../../shared/types/cases/children";
 
-const SingleChildPortraitBody = () => {
+type Props = {
+  caseData: ICase;
+};
+
+const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
+  const childSelected: IChild = caseData.children[0];
   return (
     <div className="scp-body-container">
       <div className="scp-banner-headline">
-        <SingleChildPortraitHeadline />
+        <SingleChildPortraitHeadline
+          caseData={caseData}
+          childData={childSelected}
+        />
 
         <div className="scp-banner-title">
-          <h2>Ekaterina Lisitsa</h2>
-          <h3>Missing from: Sacramento, CA</h3>
+          <h2>{childSelected.fullName}</h2>
+          <h3>Missing from: {caseData.city}</h3>
         </div>
       </div>
 
       <div className="scp-banner-details">
-        <SingleChildPortraitDetails />
+        <SingleChildPortraitDetails
+          caseData={caseData}
+          childData={childSelected}
+        />
         <div className="scp-circumstances">
-          <p>
-            Ekaterina was supposed to meet with her boyfriend at a local bar,
-            however she never arrive to the date. She was wearing a hot pink
-            dress with black high heels and heavy makeup.
-          </p>
+          <p>{caseData.circumstances}</p>
         </div>
       </div>
     </div>

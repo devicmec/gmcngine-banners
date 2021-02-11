@@ -1,9 +1,24 @@
 import { IChild } from "./children";
 import { IAbductor } from "./abductor";
 
+export enum CaseTypes {
+  Missing = "Missing",
+  EndangeredMiss = "Endangered Missing",
+  EndangeredRun = "Endangered Runaway",
+  FamilyAbduction = "Family Abduction",
+  LostInjuredMiss = "Lost Injured Missing",
+  NonFamilyAbduction = "Non-Family Abduction",
+  Unidentified = "Unidentified",
+}
 export interface ICase {
+  agencyCode: string;
   contactInformation: string;
+  caseId: string;
   poster: string;
+  caseType: CaseTypes;
+  public: boolean;
+  status: string;
+  openDate: any;
   circumstances: string;
   country: string;
   state: string;
@@ -13,7 +28,11 @@ export interface ICase {
   childrenIds?: string[];
   abductors: IAbductor[];
   abductorsIds?: string[];
+  sendMatches: string;
+  closedDate?: any;
+  closedComments?: string;
   miscellaneous?: string[];
   lastSeen?: string;
   missingDate: any;
+  agenciesAccess?: string[];
 }
