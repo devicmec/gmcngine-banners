@@ -15,7 +15,7 @@ const AbductorsCard: FC<Props> = ({ bannerOrientation, abductorData }) => {
     height: "1.55in",
   };
   const landscapeDimensions = {
-    width: "3.9in",
+    width: "4in",
     height: "1.55in",
   };
 

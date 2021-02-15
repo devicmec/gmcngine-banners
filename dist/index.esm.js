@@ -2899,7 +2899,7 @@ var AbductorsCard = function (_a) {
         height: "1.55in",
     };
     var landscapeDimensions = {
-        width: "3.9in",
+        width: "4in",
         height: "1.55in",
     };
     var cardDimensions = bannerOrientation === "portrait" ? portraitDimensions : landscapeDimensions;
@@ -3208,7 +3208,7 @@ var SingleChildLandscapeBody = function (_a) {
             React.createElement("h3", null,
                 "Missing from: ",
                 caseData.city || "Unknown",
-                ",",
+                ", ",
                 caseData.state)),
         React.createElement("div", { className: "scl-circumstances" },
             React.createElement("p", null, caseData.circumstances))));
