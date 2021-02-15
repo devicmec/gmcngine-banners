@@ -1,11 +1,12 @@
-import React, { createContext, FC } from "react";
+import React, { createContext, FC, ReactElement, useMemo, useRef } from "react";
 import SingleChildPortraitBanner from "../SingleChildPortraitBanner";
 import { ICase } from "../../shared/types/cases/case";
 import MultipleChildLandscapeBanner from "../MultipleChildLandscapeBanner";
 import MultipleChildPortraitBanner from "../MultipleChildPortraitBanner";
 import SingleChildLandscapeBanner from "../SingleChildLandscapeBanner";
+import ReactToPrint from "react-to-print";
 
-enum BannerType {
+export enum BannerType {
   SINGLE_CHILD_PORTRAIT = "SINGLE_CHILD_PORTRAIT",
   SINGLE_CHILD_LANDSCAPE = "SINGLE_CHILD_LANDSCAPE",
   MULTIPLE_CHILD_PORTRAIT = "MULTIPLE_CHILD_PORTRAIT",
@@ -22,39 +23,42 @@ const Banners = {
 type Props = {
   data: ICase;
   type: BannerType;
-  onPrint: () => void;
+  printTrigger: () => ReactElement;
 };
 
 export const DataContext = createContext<{ data: ICase }>({ data: {} as any });
 
-const MissingBanners: FC<Props> = ({
-  data,
-  type,
-  // onPrint,
-}) => {
-  function renderBanner() {
+const MissingBanners: FC<Props> = ({ data, type, printTrigger }) => {
+  const componentRef = useRef(null);
+  const renderBanner = useMemo(() => {
     const BannerToBeRendered = Banners[type];
-    const orientation =
-      BannerToBeRendered === SingleChildPortraitBanner ||
-      BannerToBeRendered === MultipleChildPortraitBanner
-        ? "portrait"
-        : "landscape";
-    return (
-      <BannerToBeRendered>
-        <style>
-          {`@media print{
-          @page{
-            size: ${orientation}
-          }
-        }`}
-        </style>
-      </BannerToBeRendered>
-    );
-  }
+    return <BannerToBeRendered />;
+  }, [type]);
 
+  const orientation =
+    type === BannerType.SINGLE_CHILD_LANDSCAPE ||
+    type === BannerType.MULTIPLE_CHILD_LANDSCAPE
+      ? "landscape"
+      : "portrait";
+
+  const bannerPrintStyles = `@media print {
+    @page {
+      size: ${orientation};
+    }
+  }
+  `;
   return (
     <DataContext.Provider value={{ data }}>
-      <div>{renderBanner()}</div>
+      <ReactToPrint
+        trigger={printTrigger}
+        content={() => componentRef.current}
+      />
+      <div style={{ display: "none" }}>
+        <div ref={componentRef}>
+          <style>{bannerPrintStyles}</style>
+          {renderBanner}
+        </div>
+      </div>
     </DataContext.Provider>
   );
 };

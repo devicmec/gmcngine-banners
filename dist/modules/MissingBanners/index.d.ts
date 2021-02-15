@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, ReactElement } from "react";
 import { ICase } from "../../shared/types/cases/case";
-declare enum BannerType {
+export declare enum BannerType {
     SINGLE_CHILD_PORTRAIT = "SINGLE_CHILD_PORTRAIT",
     SINGLE_CHILD_LANDSCAPE = "SINGLE_CHILD_LANDSCAPE",
     MULTIPLE_CHILD_PORTRAIT = "MULTIPLE_CHILD_PORTRAIT",
@@ -9,7 +9,7 @@ declare enum BannerType {
 declare type Props = {
     data: ICase;
     type: BannerType;
-    onPrint: () => void;
+    printTrigger: () => ReactElement;
 };
 export declare const DataContext: React.Context<{
     data: ICase;

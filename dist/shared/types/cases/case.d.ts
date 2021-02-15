@@ -1,5 +1,5 @@
-import { IChild } from "./children";
 import { IAbductor } from "./abductor";
+import { IChild } from "./children";
 export declare enum CaseTypes {
     Missing = "Missing",
     EndangeredMiss = "Endangered Missing",
@@ -27,6 +27,7 @@ export interface ICase {
     childrenIds?: string[];
     abductors: IAbductor[];
     abductorsIds?: string[];
+    providers?: IListProviders;
     sendMatches: string;
     closedDate?: any;
     closedComments?: string;
@@ -34,4 +35,10 @@ export interface ICase {
     lastSeen?: string;
     missingDate: any;
     agenciesAccess?: string[];
+}
+export interface IListProviders {
+    [key: string]: {
+        threshold: number;
+        checked: boolean;
+    };
 }

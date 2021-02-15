@@ -1,2 +1,2 @@
-import MissingBanners from "./modules/MissingBanners";
-export { MissingBanners };
+import MissingBanners, { BannerType } from "./modules/MissingBanners";
+export { MissingBanners, BannerType };

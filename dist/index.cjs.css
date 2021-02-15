@@ -1,13 +1,13 @@
-.scp-container {
-  width: 8.5in;
-  height: 11in;
+.mcl-container {
+  height: 8.5in;
+  width: 11in;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
 }
 
-.mcp-container {
+.scp-container {
   width: 8.5in;
   height: 11in;
   display: flex;
@@ -25,55 +25,13 @@
   background-color: white;
 }
 
-.mcl-container {
-  height: 8.5in;
-  width: 11in;
+.mcp-container {
+  width: 8.5in;
+  height: 11in;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
-}
-
-.banner-footer-container {
-  height: 1.194in;
-  background-color: #7a1818;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.banner-footer-phone-number-wrapper {
-  padding: 0 0.208in;
-}
-
-.banner-footer-ncmec-number {
-  color: white;
-  font-size: 0.27in;
-  letter-spacing: 0.01in;
-  font-weight: 900;
-  margin: 0.16in 0;
-}
-
-.banner-footer-agency-number {
-  color: white;
-  font-size: 0.22in;
-  letter-spacing: 0.01in;
-  font-weight: 900;
-  margin: 0.16in 0;
-}
-
-.banner-footer-gmcngine-logo {
-  background-color: white;
-  width: 1.388in;
-  height: 1.388in;
-  border-radius: 50%;
-  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 0.35in;
-  margin-bottom: 0.5in;
 }
 
 .banner-header-container {
@@ -119,6 +77,48 @@
   z-index: 1;
   margin-right: 0.35in;
   margin-top: 0.35in;
+}
+
+.banner-footer-container {
+  height: 1.194in;
+  background-color: #7a1818;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.banner-footer-phone-number-wrapper {
+  padding: 0 0.208in;
+}
+
+.banner-footer-ncmec-number {
+  color: white;
+  font-size: 0.27in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-agency-number {
+  color: white;
+  font-size: 0.22in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-gmcngine-logo {
+  background-color: white;
+  width: 1.388in;
+  height: 1.388in;
+  border-radius: 50%;
+  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.35in;
+  margin-bottom: 0.5in;
 }
 
 .scp-body-container {
@@ -168,61 +168,63 @@
   height: 3em;
 }
 
-.mcp-details-container {
+.banner-abductor-card-content-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0.27in 0.1in 0.27in;
+  justify-content: space-between;
+  margin: 0 0.2in;
 }
 
-.mcp-date-location-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mcp-details-column :first-child {
-  margin-right: 0.15in;
-}
-.mcp-details-row {
-  display: flex;
-}
-
-.mcp-details-label {
-  min-width: 1.361in;
-  margin-bottom: 0.138in;
-  margin-top: 0;
-  font-weight: 300;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-}
-
-.mcp-details-children-info {
-  font-weight: normal;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-  min-width: 1.94in;
-  margin-bottom: 0.138in;
-  margin-top: 0;
-}
-
-.mcp-circumstances > p {
-  font-weight: 300;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-  margin: 0in;
+.banner-abductor-image-wrapper {
+  display: block;
+  margin: auto 0.15in auto 0;
+  height: 1.31in;
+  width: 1.31in;
+  border-radius: 50%;
   overflow: hidden;
-  line-height: 1.5em;
-  height: 6em;
+  background-color: #c4c4c4;
 }
 
-.mcp-headline-container {
+.banner-abductor-image {
+  object-fit: contain;
+  max-width: 1.31in;
+  max-height: 1.31in;
+  margin: auto;
+  display: flex;
+}
+
+.banner-abductor-details-container {
+  height: 1.6in;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  margin: 0.15in 0 0.3in 0;
-  align-items: center;
-  justify-content: flex-start;
-  height: 6.3in;
+  justify-content: space-between;
+  padding: 0.15in 0;
+}
+
+.banner-abductor-details-container > h3 {
+  margin: 0;
+}
+.banner-abductor-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 0.28in;
+}
+
+.banner-abductor-row > p {
+  margin: 0;
+}
+
+.banner-abductor-label {
+  font-weight: 300;
+  letter-spacing: 0.01in;
+  font-size: 0.18in;
+}
+
+.banner-abductor-info {
+  font-weight: normal;
+  font-size: 0.18in;
+  letter-spacing: 0.01in;
 }
 
 .mcl-body-container {
@@ -288,6 +290,15 @@
   margin-top: 0;
 }
 
+.mcp-headline-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.15in 0 0.3in 0;
+  align-items: center;
+  justify-content: flex-start;
+  height: 6.3in;
+}
+
 .scl-body-container {
   display: flex;
   justify-content: center;
@@ -348,63 +359,52 @@
   height: 3em;
 }
 
-.banner-abductor-card-content-wrapper {
+.mcp-details-container {
   display: flex;
-  justify-content: space-between;
-  margin: 0 0.2in;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.27in 0.1in 0.27in;
 }
 
-.banner-abductor-image-wrapper {
-  display: block;
-  margin: auto 0.15in auto 0;
-  height: 1.31in;
-  width: 1.31in;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #c4c4c4;
+.mcp-date-location-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.banner-abductor-image {
-  object-fit: contain;
-  max-width: 1.31in;
-  max-height: 1.31in;
-  margin: auto;
+.mcp-details-column :first-child {
+  margin-right: 0.15in;
+}
+.mcp-details-row {
   display: flex;
 }
 
-.banner-abductor-details-container {
-  height: 1.6in;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.15in 0;
-}
-
-.banner-abductor-details-container > h3 {
-  margin: 0;
-}
-.banner-abductor-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 0.28in;
-}
-
-.banner-abductor-row > p {
-  margin: 0;
-}
-
-.banner-abductor-label {
+.mcp-details-label {
+  min-width: 1.361in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
   font-weight: 300;
+  font-size: 0.194in;
   letter-spacing: 0.01in;
-  font-size: 0.18in;
 }
 
-.banner-abductor-info {
+.mcp-details-children-info {
   font-weight: normal;
-  font-size: 0.18in;
+  font-size: 0.194in;
   letter-spacing: 0.01in;
+  min-width: 1.94in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+}
+
+.mcp-circumstances > p {
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 6em;
 }
 
 .scpa-headline-container {
@@ -473,126 +473,6 @@
   margin: 0in;
 }
 
-.mcp-sm-card-content-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.06in;
-}
-
-.mcp-sm-image-wrapper {
-  display: flex;
-  margin: auto;
-  height: 1.25in;
-  width: 1.25in;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #c4c4c4;
-}
-
-.mcp-sm-child-image {
-  object-fit: contain;
-  width: 1.25in;
-  max-height: 1.25in;
-}
-
-.mcp-sm-card-details-container {
-  height: 1.3in;
-  margin: 0.05in 0;
-  width: 6in;
-  align-self: center;
-}
-
-.mcp-sm-card-details-container > h2 {
-  font-size: 0.25in;
-  letter-spacing: 0.01in;
-  font-weight: normal;
-  margin: 0 0 0.1in 0;
-}
-
-.mcp-sm-card-details-table {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0.2in 0 0;
-}
-.mcp-sm-child-card-row {
-  display: flex;
-  width: 2.5in;
-}
-
-.mcp-sm-child-card-label {
-  margin: 0.03in 0;
-  width: 1.2in;
-  font-weight: 300;
-  letter-spacing: 0.01in;
-}
-
-.mcp-sm-child-card-info {
-  margin: 0.03in 0;
-  font-weight: normal;
-  letter-spacing: 0.01in;
-  width: 1.2in;
-}
-
-.mcp-md-card-content-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.mcp-md-image-wrapper {
-  display: flex;
-  margin: auto;
-  height: 1.31in;
-  width: 1.31in;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #c4c4c4;
-}
-
-.mcp-md-child-image {
-  object-fit: contain;
-  width: 1.31in;
-  max-height: 1.31in;
-}
-
-.mcp-md-card-details-container {
-  height: 1.7in;
-  margin: 0.05in 0;
-  width: 5.5in;
-}
-
-.mcp-md-card-details-container > h2 {
-  font-size: 0.25in;
-  letter-spacing: 0.01in;
-  font-weight: normal;
-  margin: 0.15in 0;
-}
-
-.mcp-md-card-details-table {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0.2in 0 0;
-}
-.mcp-md-child-card-row {
-  display: flex;
-  width: 2.5in;
-}
-
-.mcp-md-child-card-label {
-  margin: 0.05in 0;
-  width: 1.2in;
-  font-weight: 300;
-  letter-spacing: 0.01in;
-}
-
-.mcp-md-child-card-info {
-  margin: 0.05in 0;
-  font-weight: normal;
-  letter-spacing: 0.01in;
-  width: 1.2in;
-}
-
 .mcl-card-content-wrapper {
   display: flex;
   flex-direction: column;
@@ -656,16 +536,6 @@
   text-align: right;
 }
 
-.banner-card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 5px;
-  background-color: white;
-  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
-  margin: 0.08in;
-}
-
 .scl-details-table {
   width: 35%;
 }
@@ -703,4 +573,134 @@
   margin: 0 0.1in;
   max-width: 3in;
   max-height: 3.5in;
+}
+
+.mcp-md-card-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mcp-md-image-wrapper {
+  display: flex;
+  margin: auto;
+  height: 1.31in;
+  width: 1.31in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcp-md-child-image {
+  object-fit: contain;
+  width: 1.31in;
+  max-height: 1.31in;
+}
+
+.mcp-md-card-details-container {
+  height: 1.7in;
+  margin: 0.05in 0;
+  width: 5.5in;
+}
+
+.mcp-md-card-details-container > h2 {
+  font-size: 0.25in;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0.15in 0;
+}
+
+.mcp-md-card-details-table {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0.2in 0 0;
+}
+.mcp-md-child-card-row {
+  display: flex;
+  width: 2.5in;
+}
+
+.mcp-md-child-card-label {
+  margin: 0.05in 0;
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcp-md-child-card-info {
+  margin: 0.05in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
+}
+
+.mcp-sm-card-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.06in;
+}
+
+.mcp-sm-image-wrapper {
+  display: flex;
+  margin: auto;
+  height: 1.25in;
+  width: 1.25in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcp-sm-child-image {
+  object-fit: contain;
+  width: 1.25in;
+  max-height: 1.25in;
+}
+
+.mcp-sm-card-details-container {
+  height: 1.3in;
+  margin: 0.05in 0;
+  width: 6in;
+  align-self: center;
+}
+
+.mcp-sm-card-details-container > h2 {
+  font-size: 0.25in;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0 0 0.1in 0;
+}
+
+.mcp-sm-card-details-table {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0.2in 0 0;
+}
+.mcp-sm-child-card-row {
+  display: flex;
+  width: 2.5in;
+}
+
+.mcp-sm-child-card-label {
+  margin: 0.03in 0;
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcp-sm-child-card-info {
+  margin: 0.03in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
+}
+
+.banner-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
+  margin: 0.08in;
 }
