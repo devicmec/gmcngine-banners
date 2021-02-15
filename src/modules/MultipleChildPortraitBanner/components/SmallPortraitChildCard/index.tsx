@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import BannerCard from "../../../../shared/components/BannerCard";
 import "./styles.css";
 import { IChild } from "../../../../shared/types/cases/children";
+import { no_photo_found } from "../../../../shared/utils/helpers";
 
 type Props = {
   childData: IChild;
@@ -18,7 +19,7 @@ const SmallPortraitChildCard: FC<Props> = ({ childData }) => {
       <div className="mcp-sm-card-content-wrapper">
         <div className="mcp-sm-image-wrapper">
           <img
-            src={childData.images[0]}
+            src={childData.images[0] || no_photo_found}
             className="mcp-sm-child-image"
             alt="medium-child-card"
           />
@@ -29,16 +30,20 @@ const SmallPortraitChildCard: FC<Props> = ({ childData }) => {
             <div className="mcp-sm-child-card-column">
               <div className="mcp-sm-child-card-row">
                 <p className="mcp-sm-child-card-label">Current Age:</p>
-                <p className="mcp-sm-child-card-info">{childData.age}</p>
+                <p className="mcp-sm-child-card-info">
+                  {childData.age || "Unknown"}
+                </p>
               </div>
               <div className="mcp-sm-child-card-row">
                 <p className="mcp-sm-child-card-label">Sex:</p>
-                <p className="mcp-sm-child-card-info">{childData.sex}</p>
+                <p className="mcp-sm-child-card-info">
+                  {childData.sex || "Unknown"}
+                </p>
               </div>
               <div className="mcp-sm-child-card-row">
                 <p className="mcp-sm-child-card-label">Height:</p>
                 <p className="mcp-sm-child-card-info">
-                  {childData.height} {childData.heightUnit}
+                  {childData.height || "Unknown"} {childData.heightUnit}
                 </p>
               </div>
             </div>
@@ -46,16 +51,20 @@ const SmallPortraitChildCard: FC<Props> = ({ childData }) => {
               <div className="mcp-sm-child-card-row">
                 <p className="mcp-sm-child-card-label">Weight:</p>
                 <p className="mcp-sm-child-card-info">
-                  {childData.weight} {childData.weightUnit}
+                  {childData.weight || "Unknown"} {childData.weightUnit}
                 </p>
               </div>
               <div className="mcp-sm-child-card-row">
                 <p className="mcp-sm-child-card-label">Eye Color:</p>
-                <p className="mcp-sm-child-card-info">{childData.eyeColor}</p>
+                <p className="mcp-sm-child-card-info">
+                  {childData.eyeColor || "Unknown"}
+                </p>
               </div>
               <div className="mcp-sm-child-card-row">
                 <p className="mcp-sm-child-card-label">Hair Color:</p>
-                <p className="mcp-sm-child-card-info">{childData.hairColor}</p>
+                <p className="mcp-sm-child-card-info">
+                  {childData.hairColor || "Unknown"}
+                </p>
               </div>
             </div>
           </div>

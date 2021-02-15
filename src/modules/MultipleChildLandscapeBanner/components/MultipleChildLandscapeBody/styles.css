@@ -11,16 +11,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.25in;
+  margin: 0.15in 0 0.25in 0;
 }
 
 .mcl-circumstances > p {
   font-weight: 300;
   font-size: 0.194in;
   letter-spacing: 0.01in;
-  margin: 0in;
-  width: 10in;
+  margin: 0;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 6em;
 }
+
+.mcl-circumstances {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 0.25in;
+}
+
 .mcl-missing-date-location {
   display: flex;
   justify-content: center;

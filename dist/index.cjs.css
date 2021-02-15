@@ -7,27 +7,6 @@
   background-color: white;
 }
 
-@media print {
-  @page {
-    size: portrait;
-  }
-}
-
-.mcl-container {
-  height: 8.5in;
-  width: 11in;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: white;
-}
-
-@media print {
-  @page {
-    size: landscape;
-  }
-}
-
 .mcp-container {
   width: 8.5in;
   height: 11in;
@@ -35,12 +14,6 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
-}
-
-@media print {
-  @page {
-    size: portrait;
-  }
 }
 
 .scl-container {
@@ -52,10 +25,13 @@
   background-color: white;
 }
 
-@media print {
-  @page {
-    size: landscape;
-  }
+.mcl-container {
+  height: 8.5in;
+  width: 11in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
 }
 
 .banner-footer-container {
@@ -161,7 +137,7 @@
 }
 
 .scp-banner-title > h2 {
-  font-size: 0.527in;
+  font-size: 0.45in;
   text-align: center;
   font-weight: normal;
   margin: 0.05in 0in;
@@ -187,6 +163,66 @@
   font-size: 0.194in;
   letter-spacing: 0.01in;
   margin: 0in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 3em;
+}
+
+.mcp-details-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.27in 0.1in 0.27in;
+}
+
+.mcp-date-location-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mcp-details-column :first-child {
+  margin-right: 0.15in;
+}
+.mcp-details-row {
+  display: flex;
+}
+
+.mcp-details-label {
+  min-width: 1.361in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+}
+
+.mcp-details-children-info {
+  font-weight: normal;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  min-width: 1.94in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+}
+
+.mcp-circumstances > p {
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 6em;
+}
+
+.mcp-headline-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.15in 0 0.3in 0;
+  align-items: center;
+  justify-content: flex-start;
+  height: 6.3in;
 }
 
 .mcl-body-container {
@@ -202,16 +238,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.25in;
+  margin: 0.15in 0 0.25in 0;
 }
 
 .mcl-circumstances > p {
   font-weight: 300;
   font-size: 0.194in;
   letter-spacing: 0.01in;
-  margin: 0in;
-  width: 10in;
+  margin: 0;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 6em;
 }
+
+.mcl-circumstances {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 0.25in;
+}
+
 .mcl-missing-date-location {
   display: flex;
   justify-content: center;
@@ -242,54 +288,64 @@
   margin-top: 0;
 }
 
-.mcp-headline-container {
+.scl-body-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.15in 0.35in;
+  flex-direction: column;
+  height: 5.38in;
+}
+
+.scl-upper-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.18in;
+}
+
+.scl-abductors-wrapper {
+  margin-left: 0.15in;
   display: flex;
   flex-direction: column;
-  margin: 0.15in 0 0.3in 0;
-  align-items: center;
-  justify-content: space-between;
-  height: 6.3in;
+  justify-content: flex-start;
 }
 
-.mcp-details-container {
-  display: flex;
-  align-items: center;
-  margin: 0 0.27in 0.5in 0.27in;
-}
-
-.mcp-date-location-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mcp-details-row {
-  display: flex;
-}
-
-.mcp-details-label {
-  min-width: 1.361in;
-  margin-bottom: 0.138in;
-  margin-top: 0;
-  font-weight: 300;
-  font-size: 0.194in;
+.scl-abductors-wrapper > h4 {
+  margin: 0 0 0.03in 0.08in;
+  color: #c72828;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 0.27in;
   letter-spacing: 0.01in;
 }
 
-.mcp-details-children-info {
+.scl-banner-title {
+  margin-bottom: 0.08in;
+}
+.scl-banner-title > h2 {
+  font-size: 0.4in;
+  text-align: center;
   font-weight: normal;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-  min-width: 1.94in;
-  margin-bottom: 0.138in;
-  margin-top: 0;
+  margin: 0.03in 0in;
 }
 
-.mcp-circumstances > p {
+.scl-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.2in;
+  margin: 0.05in 0in;
+}
+
+.scl-circumstances > p {
   font-weight: 300;
   font-size: 0.194in;
   letter-spacing: 0.01in;
   margin: 0in;
+  width: 10in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 3em;
 }
 
 .banner-abductor-card-content-wrapper {
@@ -312,6 +368,8 @@
   object-fit: contain;
   max-width: 1.31in;
   max-height: 1.31in;
+  margin: auto;
+  display: flex;
 }
 
 .banner-abductor-details-container {
@@ -347,63 +405,6 @@
   font-weight: normal;
   font-size: 0.18in;
   letter-spacing: 0.01in;
-}
-
-.scl-body-container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin: 0.15in;
-  flex-direction: column;
-  height: 5.38in;
-}
-
-.scl-upper-section {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.18in;
-}
-
-.scl-abductors-wrapper {
-  margin-left: 0.15in;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.scl-abductors-wrapper > h4 {
-  margin: 0 0 0.03in 0.08in;
-  color: #c72828;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 0.27in;
-  letter-spacing: 0.01in;
-}
-
-.scl-banner-title {
-  margin-bottom: 0.08in;
-}
-.scl-banner-title > h2 {
-  font-size: 0.5in;
-  text-align: center;
-  font-weight: normal;
-  margin: 0.03in 0in;
-}
-
-.scl-banner-title > h3 {
-  text-align: center;
-  letter-spacing: 0.01in;
-  font-weight: 300;
-  font-size: 0.2in;
-  margin: 0.05in 0in;
-}
-
-.scl-circumstances > p {
-  font-weight: 300;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-  margin: 0in;
-  width: 10in;
 }
 
 .scpa-headline-container {
@@ -472,65 +473,6 @@
   margin: 0in;
 }
 
-.mcl-card-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.1in;
-}
-
-.mcl-image-wrapper {
-  display: block;
-  margin: auto;
-  height: 1.31in;
-  width: 1.31in;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #c4c4c4;
-}
-
-.mcl-child-image {
-  object-fit: contain;
-  width: 1.31in;
-  max-height: 1.31in;
-}
-
-.mcl-card-details-container {
-  margin: 0.05in 0;
-  width: 95%;
-}
-
-.mcl-card-details-container > h2 {
-  font-size: 0.25in;
-  text-align: center;
-  letter-spacing: 0.01in;
-  font-weight: normal;
-  margin: 0.1in 0;
-}
-
-.mcl-child-card-row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.mcl-child-card-label {
-  margin: 0.05in 0;
-
-  width: 1.2in;
-  font-weight: 300;
-  letter-spacing: 0.01in;
-}
-
-.mcl-child-card-info {
-  font-size: 0.18in;
-  margin: 0.05in 0;
-  font-weight: normal;
-  letter-spacing: 0.01in;
-  width: 1.2in;
-  text-align: right;
-}
-
 .mcp-sm-card-content-wrapper {
   display: flex;
   justify-content: space-between;
@@ -539,7 +481,7 @@
 }
 
 .mcp-sm-image-wrapper {
-  display: block;
+  display: flex;
   margin: auto;
   height: 1.25in;
   width: 1.25in;
@@ -599,7 +541,7 @@
 }
 
 .mcp-md-image-wrapper {
-  display: block;
+  display: flex;
   margin: auto;
   height: 1.31in;
   width: 1.31in;
@@ -621,7 +563,7 @@
 }
 
 .mcp-md-card-details-container > h2 {
-  font-size: 0.3in;
+  font-size: 0.25in;
   letter-spacing: 0.01in;
   font-weight: normal;
   margin: 0.15in 0;
@@ -649,6 +591,69 @@
   font-weight: normal;
   letter-spacing: 0.01in;
   width: 1.2in;
+}
+
+.mcl-card-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.1in;
+  height: 3.5in;
+}
+
+.mcl-image-wrapper {
+  display: flex;
+  margin: 0 auto;
+  height: 1.31in;
+  width: 1.31in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcl-child-image {
+  object-fit: contain;
+  width: 1.3in;
+  max-height: 1.3in;
+}
+
+.mcl-card-details-container {
+  margin: 0.03in 0;
+  width: 95%;
+  height: 2.1in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.mcl-card-details-container > h2 {
+  font-size: 0.23in;
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0 0 0.05in 0;
+}
+
+.mcl-child-card-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mcl-child-card-label {
+  margin: 0.05in 0;
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcl-child-card-info {
+  font-size: 0.18in;
+  margin: 0.05in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
+  text-align: right;
 }
 
 .banner-card-container {
@@ -696,5 +701,6 @@
 
 .scl-child-image {
   margin: 0 0.1in;
-  height: 3.472in;
+  max-width: 3in;
+  max-height: 3.5in;
 }

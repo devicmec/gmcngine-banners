@@ -11,7 +11,7 @@ const MultipleChildPortraitDetails: FC<Props> = ({ caseData }) => {
     <div className="mcp-details-container">
       <div className="mcp-banner-details">
         <div className="mcp-date-location-container">
-          <div className="mcp-date-column">
+          <div className="mcp-details-column">
             <div className="mcp-details-row">
               <p className="mcp-details-label">Missing Date:</p>
               <p className="mcp-details-children-info">
@@ -19,11 +19,11 @@ const MultipleChildPortraitDetails: FC<Props> = ({ caseData }) => {
               </p>
             </div>
           </div>
-          <div className="mcp-location-column">
+          <div className="mcp-details-column">
             <div className="mcp-details-row">
               <p className="mcp-details-label">Location:</p>
               <p className="mcp-details-children-info">
-                {caseData.city}, {caseData.state}
+                {caseData.city || "Unknown"}, {caseData.state}
               </p>
             </div>
           </div>

@@ -30,7 +30,7 @@ const MultipleChildLandscapeBody: FC<Props> = ({ caseData }) => {
           <div className="mcl-row">
             <p className="mcl-label">Location:</p>
             <p className="mcl-child-info">
-              {caseData.city}, {caseData.state}
+              {caseData.city || "Unknown"}, {caseData.state}
             </p>
           </div>
         </div>

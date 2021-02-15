@@ -11,6 +11,7 @@ type Props = {
 
 const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
   const childSelected: IChild = caseData.children[0];
+
   return (
     <div className="scp-body-container">
       <div className="scp-banner-headline">
@@ -21,7 +22,10 @@ const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
 
         <div className="scp-banner-title">
           <h2>{childSelected.fullName}</h2>
-          <h3>Missing from: {caseData.city}</h3>
+          <h3>
+            Missing from: {caseData.city || "Unknown"},
+            {caseData.state || "Unknown"}
+          </h3>
         </div>
       </div>
 

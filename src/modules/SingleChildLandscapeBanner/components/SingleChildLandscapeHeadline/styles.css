@@ -7,5 +7,6 @@
 
 .scl-child-image {
   margin: 0 0.1in;
-  height: 3.472in;
+  max-width: 3in;
+  max-height: 3.5in;
 }

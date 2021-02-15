@@ -18,6 +18,8 @@
   object-fit: contain;
   max-width: 1.31in;
   max-height: 1.31in;
+  margin: auto;
+  display: flex;
 }
 
 .banner-abductor-details-container {

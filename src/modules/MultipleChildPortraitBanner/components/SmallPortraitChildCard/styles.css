@@ -6,7 +6,7 @@
 }
 
 .mcp-sm-image-wrapper {
-  display: block;
+  display: flex;
   margin: auto;
   height: 1.25in;
   width: 1.25in;

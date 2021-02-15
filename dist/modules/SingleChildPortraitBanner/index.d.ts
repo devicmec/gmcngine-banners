@@ -1,7 +1,5 @@
-import { FC, MutableRefObject } from "react";
+import { FC } from "react";
 import "./styles.css";
-declare type Props = {
-    ref: MutableRefObject<null>;
-};
+declare type Props = {};
 declare const SingleChildPortraitBanner: FC<Props>;
 export default SingleChildPortraitBanner;

@@ -1,5 +1,4 @@
-import React, { createContext, FC, useRef } from "react";
-import { useReactToPrint } from "react-to-print";
+import React, { createContext, FC } from "react";
 import SingleChildPortraitBanner from "../SingleChildPortraitBanner";
 import { ICase } from "../../shared/types/cases/case";
 import MultipleChildLandscapeBanner from "../MultipleChildLandscapeBanner";
@@ -23,7 +22,6 @@ const Banners = {
 type Props = {
   data: ICase;
   type: BannerType;
-  buttonClassName: string;
   onPrint: () => void;
 };
 
@@ -32,33 +30,31 @@ export const DataContext = createContext<{ data: ICase }>({ data: {} as any });
 const MissingBanners: FC<Props> = ({
   data,
   type,
-  // buttonClassName,
   // onPrint,
 }) => {
-  const componentRef = useRef(null);
-  const handlePrint = useReactToPrint({ content: () => componentRef.current });
-
   function renderBanner() {
     const BannerToBeRendered = Banners[type];
-    return <BannerToBeRendered ref={componentRef} />;
+    const orientation =
+      BannerToBeRendered === SingleChildPortraitBanner ||
+      BannerToBeRendered === MultipleChildPortraitBanner
+        ? "portrait"
+        : "landscape";
+    return (
+      <BannerToBeRendered>
+        <style>
+          {`@media print{
+          @page{
+            size: ${orientation}
+          }
+        }`}
+        </style>
+      </BannerToBeRendered>
+    );
   }
 
   return (
     <DataContext.Provider value={{ data }}>
-      {renderBanner()}
-      <button
-        onClick={handlePrint}
-        style={{
-          marginLeft: "100px",
-          backgroundColor: "green",
-          border: "0px",
-          padding: "20px",
-          color: "white",
-          fontSize: "30px",
-        }}
-      >
-        Print
-      </button>
+      <div>{renderBanner()}</div>
     </DataContext.Provider>
   );
 };

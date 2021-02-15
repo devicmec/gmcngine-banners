@@ -6,9 +6,3 @@
   justify-content: space-between;
   background-color: white;
 }
-
-@media print {
-  @page {
-    size: portrait;
-  }
-}

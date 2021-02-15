@@ -9,7 +9,6 @@ declare enum BannerType {
 declare type Props = {
     data: ICase;
     type: BannerType;
-    buttonClassName: string;
     onPrint: () => void;
 };
 export declare const DataContext: React.Context<{

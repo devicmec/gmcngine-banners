@@ -19,42 +19,40 @@ const SingleChildPortraitDetails: FC<Props> = ({ caseData, childData }) => {
         <div className="scp-row">
           <p className="scp-labels">Location:</p>
           <p className="scp-child-info">
-            {caseData.city}, {caseData.state}
+            {caseData.city || "Unknown"}, {caseData.state}
           </p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Birthdate:</p>
-          <p className="scp-child-info">{childData.birthDate}</p>
+          <p className="scp-child-info">{childData.birthDate || "Unknown"}</p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Current Age:</p>
-          <p className="scp-child-info">{childData.age}</p>
+          <p className="scp-child-info">{childData.age || "Unknown"}</p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Sex:</p>
-          <p className="scp-child-info">{childData.sex}</p>
+          <p className="scp-child-info">{childData.sex || "Unknown"}</p>
         </div>
       </div>
       <div className="scp-details-column">
         <div className="scp-row">
           <p className="scp-labels">Height:</p>
           <p className="scp-child-info">
-            {childData.height} {childData.heightUnit}
+            {childData.height || "Unknown"} {childData.heightUnit}
           </p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Weigth:</p>
-          <p className="scp-child-info">
-            {childData.weight} {childData.weightUnit}
-          </p>
+          <p className="scp-child-info">{childData.weight || "Unknown"}</p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Eye Color:</p>
-          <p className="scp-child-info">{childData.eyeColor}</p>
+          <p className="scp-child-info">{childData.eyeColor || "Unknown"}</p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Hair Color:</p>
-          <p className="scp-child-info">{childData.hairColor}</p>
+          <p className="scp-child-info">{childData.hairColor || "Unknown"}</p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Country:</p>

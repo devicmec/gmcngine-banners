@@ -18,40 +18,40 @@ const SingleChildLandscapeDetails: FC<Props> = ({ childData, caseData }) => {
       <div className="scl-row">
         <p className="scl-label">Location:</p>
         <p className="scl-child-info">
-          {caseData.city}, {caseData.state}
+          {caseData.city || "Unknown"}, {caseData.state}
         </p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Birthdate:</p>
-        <p className="scl-child-info">{childData.birthDate}</p>
+        <p className="scl-child-info">{childData.birthDate || "Unknown"}</p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Current Age:</p>
-        <p className="scl-child-info">{childData.age}</p>
+        <p className="scl-child-info">{childData.age || "Unknown"}</p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Sex:</p>
-        <p className="scl-child-info">{childData.sex}</p>
+        <p className="scl-child-info">{childData.sex || "Unknown"}</p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Height:</p>
         <p className="scl-child-info">
-          {childData.height} {childData.heightUnit}
+          {childData.height || "Unknown"} {childData.heightUnit}
         </p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Weigth:</p>
         <p className="scl-child-info">
-          {childData.weight} {childData.weightUnit}
+          {childData.weight || "Unknown"} {childData.weightUnit}
         </p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Eye Color:</p>
-        <p className="scl-child-info">{childData.eyeColor}</p>
+        <p className="scl-child-info">{childData.eyeColor || "Unknown"}</p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Hair Color:</p>
-        <p className="scl-child-info">{childData.hairColor}</p>
+        <p className="scl-child-info">{childData.hairColor || "Unknown"}</p>
       </div>
       <div className="scl-row">
         <p className="scl-label">Country:</p>

@@ -16,7 +16,10 @@ const SingleChildLandscapeBody: FC<Props> = ({ caseData }) => {
   return (
     <div className="scl-body-container">
       <div className="scl-upper-section">
-        <SingleChildLandscapeHeadline childData={childSelected} />
+        <SingleChildLandscapeHeadline
+          childData={childSelected}
+          hasAbductors={Boolean(caseData.abductors.length)}
+        />
         <SingleChildLandscapeDetails
           childData={childSelected}
           caseData={caseData}
@@ -38,7 +41,7 @@ const SingleChildLandscapeBody: FC<Props> = ({ caseData }) => {
       <div className="scl-banner-title">
         <h2>{childSelected.fullName}</h2>
         <h3>
-          Missing from: {caseData.city}, {caseData.state}
+          Missing from: {caseData.city || "Unknown"},{caseData.state}
         </h3>
       </div>
       <div className="scl-circumstances">

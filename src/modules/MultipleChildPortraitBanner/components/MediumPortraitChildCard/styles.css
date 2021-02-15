@@ -5,7 +5,7 @@
 }
 
 .mcp-md-image-wrapper {
-  display: block;
+  display: flex;
   margin: auto;
   height: 1.31in;
   width: 1.31in;
@@ -27,7 +27,7 @@
 }
 
 .mcp-md-card-details-container > h2 {
-  font-size: 0.3in;
+  font-size: 0.25in;
   letter-spacing: 0.01in;
   font-weight: normal;
   margin: 0.15in 0;

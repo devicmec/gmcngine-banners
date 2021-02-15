@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import BannerCard from "../BannerCard";
-import childAbductor from "../../../images/childAbductor.png";
 import "./styles.css";
 import { IAbductor } from "../../types/cases/abductor";
+import { no_photo_found } from "../../../shared/utils/helpers";
 
 type Props = {
   bannerOrientation: "portrait" | "landscape";
@@ -11,7 +11,7 @@ type Props = {
 
 const AbductorsCard: FC<Props> = ({ bannerOrientation, abductorData }) => {
   const portraitDimensions = {
-    width: "4.33in",
+    width: "4.6in",
     height: "1.55in",
   };
   const landscapeDimensions = {
@@ -26,7 +26,7 @@ const AbductorsCard: FC<Props> = ({ bannerOrientation, abductorData }) => {
       <div className="banner-abductor-card-content-wrapper">
         <div className="banner-abductor-image-wrapper">
           <img
-            src={childAbductor}
+            src={abductorData.images[0] || no_photo_found}
             className="banner-abductor-image"
             alt="abductor"
           />
