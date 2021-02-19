@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "gmcngine-banners": {
-      "signature": "73e196fea3f1ac8c87ef22399892b553",
-      "file": true
-    }
-  }
-}
