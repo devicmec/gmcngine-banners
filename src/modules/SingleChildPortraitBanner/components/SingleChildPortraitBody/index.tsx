@@ -4,6 +4,7 @@ import SingleChildPortraitDetails from "../SingleChildPortraitDetails";
 import SingleChildPortraitHeadline from "../SingleChildPortraitHeadline";
 import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   caseData: ICase;
@@ -11,6 +12,7 @@ type Props = {
 
 const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
   const childSelected: IChild = caseData.children[0];
+  const { t } = useTranslation("translation");
 
   return (
     <div className="scp-body-container">
@@ -23,8 +25,9 @@ const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
         <div className="scp-banner-title">
           <h2>{childSelected.fullName}</h2>
           <h3>
-            Missing from: {caseData.city || "Unknown"},
-            {caseData.state || "Unknown"}
+            {t("labels.missingFrom")}
+            {caseData.city || t("information.unknown")},{" "}
+            {caseData.state || t("information.unknown")}
           </h3>
         </div>
       </div>

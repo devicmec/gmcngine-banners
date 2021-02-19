@@ -12,7 +12,6 @@ const SingleChildLandscapeHeadline: FC<Props> = ({
   childData,
   hasAbductors,
 }) => {
-  console.log(childData.images);
   return (
     <div className="scl-images-container">
       <img

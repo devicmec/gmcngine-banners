@@ -14,12 +14,22 @@
 .mcp-details-column :first-child {
   margin-right: 0.15in;
 }
+
 .mcp-details-row {
   display: flex;
 }
 
-.mcp-details-label {
-  min-width: 1.361in;
+.mcp-details-label-missingDate {
+  width: 1.5in;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.194in;
+  letter-spacing: 0.01in;
+}
+
+.mcp-details-label-location {
+  width: 1in;
   margin-bottom: 0.138in;
   margin-top: 0;
   font-weight: 300;
@@ -43,5 +53,5 @@
   margin: 0in;
   overflow: hidden;
   line-height: 1.5em;
-  height: 6em;
+  height: 4em;
 }

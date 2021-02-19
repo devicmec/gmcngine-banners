@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 0.15in 0.35in;
+  margin: 0.15in 0.25in;
   flex-direction: column;
   height: 5.38in;
 }
@@ -25,7 +25,7 @@
   color: #c72828;
   font-style: normal;
   font-weight: 900;
-  font-size: 0.27in;
+  font-size: 0.2in;
   letter-spacing: 0.01in;
 }
 

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
 import "./styles.css";
@@ -9,52 +10,64 @@ type Props = {
 };
 
 const SingleChildLandscapeDetails: FC<Props> = ({ childData, caseData }) => {
+  const { t } = useTranslation("translation");
   return (
     <div className="scl-details-table">
       <div className="scl-row">
-        <p className="scl-label">Missing date:</p>
+        <p className="scl-label">{t("labels.missingDate")}</p>
         <p className="scl-child-info">{caseData.missingDate}</p>
       </div>
       <div className="scl-row">
-        <p className="scl-label">Location:</p>
+        <p className="scl-label">{t("labels.location")}</p>
         <p className="scl-child-info">
-          {caseData.city || "Unknown"}, {caseData.state}
+          {caseData.city || t("information.unknown")},{" "}
+          {caseData.state || t("information.unknown")}
         </p>
       </div>
       <div className="scl-row">
-        <p className="scl-label">Birthdate:</p>
-        <p className="scl-child-info">{childData.birthDate || "Unknown"}</p>
-      </div>
-      <div className="scl-row">
-        <p className="scl-label">Current Age:</p>
-        <p className="scl-child-info">{childData.age || "Unknown"}</p>
-      </div>
-      <div className="scl-row">
-        <p className="scl-label">Sex:</p>
-        <p className="scl-child-info">{childData.sex || "Unknown"}</p>
-      </div>
-      <div className="scl-row">
-        <p className="scl-label">Height:</p>
+        <p className="scl-label">{t("labels.birthdate")}</p>
         <p className="scl-child-info">
-          {childData.height || "Unknown"} {childData.heightUnit}
+          {childData.birthDate || t("information.unknown")}
         </p>
       </div>
       <div className="scl-row">
-        <p className="scl-label">Weigth:</p>
+        <p className="scl-label">{t("labels.currentAge")}</p>
         <p className="scl-child-info">
-          {childData.weight || "Unknown"} {childData.weightUnit}
+          {childData.age || t("information.unknown")}
         </p>
       </div>
       <div className="scl-row">
-        <p className="scl-label">Eye Color:</p>
-        <p className="scl-child-info">{childData.eyeColor || "Unknown"}</p>
+        <p className="scl-label">{t("labels.sex")}</p>
+        <p className="scl-child-info">
+          {childData.sex || t("information.unknown")}
+        </p>
       </div>
       <div className="scl-row">
-        <p className="scl-label">Hair Color:</p>
-        <p className="scl-child-info">{childData.hairColor || "Unknown"}</p>
+        <p className="scl-label">{t("labels.height")}</p>
+        <p className="scl-child-info">
+          {childData.height || t("information.unknown")} {childData.heightUnit}
+        </p>
       </div>
       <div className="scl-row">
-        <p className="scl-label">Country:</p>
+        <p className="scl-label">{t("labels.weight")}</p>
+        <p className="scl-child-info">
+          {childData.weight || t("information.unknown")} {childData.weightUnit}
+        </p>
+      </div>
+      <div className="scl-row">
+        <p className="scl-label">{t("labels.eyeColor")}</p>
+        <p className="scl-child-info">
+          {childData.eyeColor || t("information.unknown")}
+        </p>
+      </div>
+      <div className="scl-row">
+        <p className="scl-label">{t("labels.hairColor")}</p>
+        <p className="scl-child-info">
+          {childData.hairColor || t("information.unknown")}
+        </p>
+      </div>
+      <div className="scl-row">
+        <p className="scl-label">{t("labels.country")}</p>
         <p className="scl-child-info">{caseData.country}</p>
       </div>
     </div>

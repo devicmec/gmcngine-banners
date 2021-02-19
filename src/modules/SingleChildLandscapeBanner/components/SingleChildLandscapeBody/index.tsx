@@ -5,12 +5,14 @@ import SingleChildLandscapeHeadline from "../SingleChildLandscapeHeadline";
 import AbductorsCard from "../../../../shared/components/AbductorsCard";
 import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   caseData: ICase;
 };
 
 const SingleChildLandscapeBody: FC<Props> = ({ caseData }) => {
+  const { t } = useTranslation("translation");
   const childSelected: IChild = caseData.children[0];
 
   return (
@@ -27,7 +29,7 @@ const SingleChildLandscapeBody: FC<Props> = ({ caseData }) => {
 
         {caseData.abductors.length ? (
           <div className="scl-abductors-wrapper">
-            <h4>Companions</h4>
+            <h4>{t("labels.companions")}</h4>
             {caseData.abductors.map((abductor, index) => (
               <AbductorsCard
                 bannerOrientation="landscape"
@@ -41,7 +43,8 @@ const SingleChildLandscapeBody: FC<Props> = ({ caseData }) => {
       <div className="scl-banner-title">
         <h2>{childSelected.fullName}</h2>
         <h3>
-          Missing from: {caseData.city || "Unknown"}, {caseData.state}
+          {t("labels.missingFrom")} {caseData.city || t("information.unknown")},{" "}
+          {caseData.state || t("information.unknown")}
         </h3>
       </div>
       <div className="scl-circumstances">

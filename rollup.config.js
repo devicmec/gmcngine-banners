@@ -6,6 +6,7 @@ import image from "@rollup/plugin-image";
 import commonjs from "rollup-plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import json from "@rollup/plugin-json";
 
 const external = [
   ...Object.keys(pkg.dependencies || {}),
@@ -23,6 +24,7 @@ export default [
       peerDepsExternal(),
       css(),
       typescript({ module: "CommonJS" }),
+      json(),
       resolve({
         customResolveOptions: {
           moduleDirectories: ["node_modules"],

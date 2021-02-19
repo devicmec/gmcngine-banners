@@ -1,0 +1,22 @@
+{
+  "header": {
+    "missing": "MISSING"
+  },
+  "labels": {
+    "missingFrom": "Missing From: ",
+    "missingDate": "Missing Date:",
+    "location": "Location:",
+    "birthdate": "Birthdate:",
+    "currentAge": "Current Age:",
+    "sex": "Sex:",
+    "height": "Height:",
+    "weight": "Weight:",
+    "eyeColor": "Eye Color:",
+    "hairColor": "Hair Color:",
+    "country": "Country:",
+    "companions": "Companions"
+  },
+  "information": {
+    "unknown": "Unknown"
+  }
+}

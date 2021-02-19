@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useRef, useMemo } from 'react';
+import React, { useContext, useState, useRef, useEffect, createContext, useMemo, Suspense as Suspense$1 } from 'react';
 import ReactToPrint from 'react-to-print';
 
 var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAELMSURBVHhe7V0FnFTV9z8zuwss3SndHcuS0indKSohgkgICEoLiihKSgkiXYIt3SHdKcgPFEG6Ydma9z/fM+/uvpmdmZ23gfj/zBfeZ+fdVzfOPfecc88916IxyAcfEhhW/a8PPiQofITlQ6LgXxsKtbDbRKE3+IcNZ0T+aciSPLf9og//eTw3wtJubiDbtRVEtzaR9viqnVda7NcEyAXTmCUwLVGW5mTN3ZMs6avYr/nwn0OiE5btzFCy/fGZ/cQvGRNUErJY/PnLRqpS0EjTIokiQ4kinhElTU/WckvJmrmhft2H/woSjbBsl6aS7cQAJiYmIv9UTEfmxTnNFsHD5QOyZKpGflV36qk+/BeQKIQVua0YaY/OEiVJFyeCcoYW8Ug4nf8r/NeH/wQSlLC0sDsUuSEjc6lAsvgl11MTBlokD408VPo1euIgmvnwYiLBzA3a00sUuZaJCtpdAhMVYIF8xoRl21bUnuDDC42EIazwBxS5OR9RMiYqK8tUiQQQrPboHNkufKyn+PCiIkGGwohfA5lEA5iokugpHsCf02ys9dl4aIMGqL5uZRq3JuUjmWe5DM8/u0t+zcL4ewF6YuzQbqwj2z/fEt3dTdrjCywI6hfQGVKXIEuGmmTJ3p5/l9Qv+BAfxJuwIndVJO3hCbL4p9BT3AAEEfmEuVsoWbLUIUvW5mRJVZwF/Mycdocb+zxptzeRdpUbH0JUADc4zBIuoEU8Jmv2tmQtu1hPcQ/b6XfJdnGK/cQPhMvEb+FOAHMH8gTjmS2cjzAuDP9NkpKsBUeQtcBQ+zM+xAnxIizblW/IdqQbWZJl0FNcQ2xTz+6TNW9Pspaeo6e6h+3vpWQ70VMa2+KfmnPpJK4rrtVCcyvI2/6nmzv8mav5p/RaO9W0CGbBrH1G2shaairnuZ9+xQcziBdhRfzIzZrUs0lBAyfghvKrfZ4sKQrqqd7Bdrwn2S7NZcJNH4O4tHAm1KITyJp/sJ4SjcgdZUh7cDxe5g4NU01h98gS+BJZazJHDkinX/HBG8St1hm20wPF+OmZqLj3R4aQf1PmLCaJCrCW/oqs5ZeSFnIXLa2n6vBLQdqlL/UTO6CZRvwSQNoTJuKkGeJMVACexTu0iPsU+Ut6sl3/Ub/igzeIO2FdmMzDVCr9zAVACKEPyK/eVT0hbrC+1ImsFVfK0GckLshf2pM/7ZPZDAzLkRtYM2VZLyHNHRZWKCyB6ci2twXZ/vhET/UhNsSJsGz/Y2HYnx/1xK3C75K15Ofc61k4jyes2duRtcgHTERMXAoYGll+0q4soMjjb5LtMMt6gemF4BIc4F78btupYWQ7P1ZP9MET4iRjRW7OyYTz0K26r0HL8gsk//rX9ZSEQeSOsvZhjt+tINM93D/caqVcPE1jOQ/DMpQIZd+w+PFjmBDnMricEHcFftdT7jDl5oj3hQ/uYZqwtNAbFLkuK/dgN5ogGjKUNbaXd5AlQ3U9MYHAOY34mYkgNqEcebCF8M188DOWdEFEqUtxnnMywafkBL4n5Iq48mgPzxMFJBGZzSuZDO9mmc+v9lGypCmjJ/rgDNOEZbv4BdnODmUtKa2e4ghogZYkmcivzkU9JWFhuzSdh6R+/A0XhM2aHGxcFBFOlpfakDXfu7H7dEU+I9u54Sw/TWIC826OU8wn4Q9YKYGTog+uYJqwIn+rRdr9g9wAmLuLCUxEW8t/R9ZsLfWUhEfEWlYarH7R8hS4SCQTVHgYWQsOImvxz+3pJiFlu7Wd5cKY5g1ngIAtGWuSX8X1eooPRpgW3rU7XPHupm7EzdiSqEQFWEtMJQp7oBNUiAxN1hydyb+FFmeiAvyqbGOFY4pr84YTLDB3/MND6d29eooPRpgiLFHthXZcP4ZGtuTsqp8lHqy5uvGwlVoEaUu6yuTXhAmrzHz9avxgzdef/Cr/FMO8EQPgaElTU+ThtnqCD0aY41j3D3t+guUVa8439JPEhV+D2+TX7CETweYEt4pbsjYla9k5ooQwddkTXUC04qdXWQlYp6f4oGCOYz06hTFAP3MCejf/t2SopickLtCoHg208YQs5sjejGWpJ3qKGyRJKcqMD44wR1hPWdNz53GgsTYItf7/EfyCf+ShP4zLpnxsYsJiSULavZNihvEhGuaGwpCr7jkWJpsz1NBP/v9AFIVwVhTcQWYA/Em7PEtP8AEwR1hhsKS7ecQWTpa0wfrJ/x9Y8/bFuOuRa2GWQbu2Uj/xATBHWOGP7T3UFVjGEse9/4ew5nqTFZMQ/SwmMC2kPTynn/kAmJOxIh+RxZVrnS64U4r89vP/Z7Dk6s6EFaqfuQA6G//XHhzVE3wwx7FcEZUBibE650WAJW15e9HFAOwGIK6HJ/UTH0wSljswu0qgNyUUzp07R/fu3dfP4g9LymLMmCP0MxdgpUYL+Us/8SHhCAteAy8A3ntvCBUuVITat+tAlSpWou7de+hX4gl4MsD1xh0g4Ifd0U/+PezZ8xt17dqNygcFU6mSZWjgu4P0K88XpiahIzbnIgtUb2c/LO7JmjVZgvtfmUXdOnXp4cNHlCIFXGAszGE0CgkJIX9/f9q9Z5d+V9wQeWYIaZemujXKwi/Mkust8is5TU+JiTOnz9C+ffvoxo0b1KRpUypZsoR+JWHQr29/2rJlC6VNm5YCAuxthPKjHvYf2Mt18vyGFVNfslhTMG/ymg6fK95//wN68OAhpUyJFTl2WRB/kydPTmFhYTTsg+GSFldYk2b0LGOhfwak0U8cMemLSRQcVIE6duhEs2fNoR9++JHatW1HA/q/q98RP6B8QeXK04EDByhz5syUNGlSslqtcqCTJUmShKpVTWDfuFhgjoQD4KXpirC4IWOb+khkfP/d90JUroDK/fHH+C6G8Ky4oF5ccbNRI0fTggULKUXKFJQhYwZKmSql5Cdr1qw8bO2h1q3a6HfGHc2btRBiQidSncoIEFakTUuQb3kLc4Tln87eM2OAC4PFqP8icufOTZGRro2YqGwMhydPntJTzMM+Z+iBuJibWcDVDLh69SqtWLGCMmTIINzDCOQJHQFKxqVLl/XUuKFAgQJks3l2OgwMTEZnzpyh69efj7hijrCSZeUKdNV4XOHcI/5NDBs+jJ48eaqfxQTkjAzp0+tn5qE9ZY3P3XSWgBs2CdePAWjswMBo/3xngLhAdN27dddT4obpX06Td8VOXMnp+LHj+lniwhxhJUXFeZIzPEx7JDJCn9nDHLkCiApH9hzZ9ZQ44NExri3Xi0cEqBantZM5c+akDu070DPJm2uAkz558oR693pbT4kbKlepTOHh4fpZTKD89+/fo2LFiukpiQtThGUJzO2aePQR4t+c4U/H3MhdxUK4zZY9m34WN8Cq7nZpmS4eWFLGXJQLjhU7JwkUwTs+iIjAKiT9xAUePHhAkydPopy5cuopiQtzhIUe6W4oBHE9SZwFFN6gQoVgSpMmDd27d096pwLkLgjLGzdu0FPMQ3tw2N5o7jxntQgmqrz6mSPSZ0hHtkjPhAX5C0PZ1/O+1lPMA/JayDPX85mog2TJklHzFs31lMSHuaEwRQH3IyEMhE/+0E/+HezavZOmTZ9Gjx8/jiIu9OQqlSvTo0eP5Twu0P6cRxKpxh1sz8iStYV+4oi27drSPR6CkA8jwTsDXC1nrlz6mXmMH/8xlS1blu7ciWmkffjwITVo0EA/ez4wybHy23uuqwqy+pP2+LR+8u9h27ZtIreAAwBQwzdt3szEVYVKlypDU6e6N2C6g+0vEJZ7IRyrgyxuFrBimJv/zXzhSu6ISwn5NWvGz5/t6/nz6P3335eOpQD5rmnTpjR6zCg95fnAHMcCAjMybbmSswLI8oAF3H8RM2fMpNXfrpZGMgLElSlTJkqXLh0tXrSYKleqQmfPntWveobtygLuSDzUudEIserbkiI7D4VF9JSYqF69Gm3fsU3yYXOhPYPoYCmHkbNSxco0ZMhQl5zHG9StV0dkTUXAsGH99ttvtHHDRjl/XjBNWOLMhyX0ToAPug2LLf5FzJs3n9J7MCmgAVOnTi2V3bplGxo+LHZrvO0UYmy5tqgLIh6SpfAY/cQ1vvxyBhUvWkIa3M/PdZUjbyB+yEK7du6i6tVqiEFz4cJFdsHcCxw8eJAa1G8osqbi2IpTfvDBMJlDRcd7HjBPWFhZDDfkGOBXhSWcN4FZ7N27l7lBpFRkbPDz86MsWbPQli1bucGL04wZM/QrjrBdmsKE84A7jTs/f+bc1iR2R0A3WLhgIc2aOYsyZ8ks340NyD84LqZmbt68SV9O/5KKFC5GH3/kOe4qyoIpI3Qc5zrAOYgte/bsNHbsOHqrZy/9SuLBfOyGu7socnd1iR3lDC30DvlV20eWdBX1lOeHTz/9TKZ1MK1hBij+o0ePZJhau+5XaQCF2ALLobzW0rPImtt1Q504cZIbu6MQieIgcQHyeOvWLZbVvmbtt4Ke6oiqVV4W2dIb4oXdLHWqVLRpyyY9JeERB45Vjbsy/3BFjxDg7/47O0js2L5DhjizQIOjl8PW9dWcr/RUVtF3VyYKwNybG6KCOJA0k1uiAjDRjOEtPkQF4Hm85/Uub9CUyVP11GhMmzadQkNDvSIqAOaXJ0+fUp1adfSUhIdpwgIsaYoyXbkwRvKwoN3eop88P9y6dZv+/PPPqIpFD/dkhVbAfWp+EZW9evV39Pf1h0S3pxPdZc7rThNEpwp9SH6V3NvG1q5dJ+80DksmBwcHgLiyZstK8+fPl+HMiNmzZrudgHcHyHK379ylLawxJwbiRljZWnCXjjlNgeh32q3EyagnbN+2TSoKlY/Gw99y5crFOsWBA0MfhkK7yp+M6tWpSzPGTyK/TCmJ36bf7QiNBXZrzg7cwcrqKY5YtmwZDXp3kHBCBfhFwZ70lDlFbEBebt64KW5A+B0RERlVLswtLl+2gk4ZJtSrVavmtYBvROrUqWjKFPPmF28QN8LK3p4Jy1WjMctnDqCF/K2fPx+0at1KGgCVDw6UPkN6atasqcc5OjQSCGrq1CnUrXs3Sp4iFYWFa5SVCWrOzkI0ZG4RsqZGGR2JS4ZA7kDWoOV6iiMWsRb38UfjhbvA4g7ivnv3rswMHD5yiOrVrydE5g4oBzjvqTMn6ZNPPpaZBBDAndt3ZLhGvrOwItCly2v6E0RZs2eL4rxmABMHFISeb76lpyQc4kZYqUtDteKGdCoMF5pYndZu/KwnPB/cvXeXK9YmlQ5ZIwdrPwUKFox1OITAPpM1tt69e9H69b9QmoA79DTMjzKmiqBNp9LT0LmFyS8dN6YiLiZcesZDYI2YHgJQ9d94oytNmjRZhHUQLXywYDtr06Y1TZ1ml41Gjx4tXAudwBVQBhATUL9BfTp+4hj98uvPdPjYIfHhun37ttwDJaVli9ZyXwgL40jzFuBuIETkAcP1/v37xWcsIREnwgKsL73ucjjEzhLa9e/1k+eD79Z8z0NhUqkwNCQaMXfuXNzDow2FroAee+iwvmRrSw5aN+4iFc3+lG4/8qfUgRG0EcQ1J5pzIUiItcw0+wyEAe3btaeub3SjPy78Id+Hz1PXrm+IlvnTzz/SiJEj9DvhzeAnSoYnwkK+Pp/oGI4pwD+AVq/5lj7/fKIQF97xv/9dpB07doog7o2ZBUAd5cmTWwgTBIxz2P4+Y606LsOpO8SZsCx5WBvCZpVOEDnrZuKpsa6wfv164T7gVsZpkfbt2zlMbzgDjXGHZXWJCx92l2zPAmnB4JM0rs1l4Vwwkq87np76fFmM/NLcJf/cbe0ro3XcYDmoTOmydOXK30JQGHpBVJ9/8Tn1eaePfldMvPTSSx6HLtixVq78Vj9zBLjYG0y0KBdkuCWLFos85q1GGBoaRsHBwbRu/Vo6dvyoEDgICrLmoIExY+bHFXEnrLTBZEmSkjPmROW6eq7d2yd/ExtozPO/XxAbDhZSvP12tF8T5sewsMBdTwR3AHFdvHydLAGBXBYLRT4IoOYVb9LBL/bRkt5nKU+mUNp+Ng0Nn1uCQoqv0p8kOnL4CNWvV585R1K6f/++DH8DBgygs+fOUOPGjfS7XOOtXj3FluQOyFNYWCidOHFCT3HEoEEDpby47/yFC2LjUhwrNq4DI3J6VgAU1q79he7fuy/Pr1+/QYbwhECcCQuw5B/CJXFRQX5JyHbVtXCb0Pj++x+YrQdKhXz00VhKnSZaEwPGfDjGI9fy99Po9+v8DP+1g4mLuVXkowAqmfcR/fTeEcqU9BqtZc5VoWxpmc8rW6acLCtDY2Ae8MTJ47Tmu9X0apfO+js8o2HDhkLUENTdIVWqVPTF55P0s5j4ePxHTNAPJA94Fw7IlPnz5/dIXFbu+E8NRJ2Kud7J0ydYIcgi9fjddwkjxsSPsAqy7IBCOMsLCJLx9yL9JHGx+ts1YmoA52rNQrIzqlatEiWoukKyABut3J+JJXkMTcZ7LDzSc1rYM9q+dzflzJ6JIrmsaDTIQNDQqlevzsPeROEeZvHh2A+F07kDvnH48GE6ffqMnuKI2rVrszCfRcoGokL50LkGDhzg0UXbP8CfjrlwTx477kMRJQ7G0+FQIX6EhaEkRytWwR3VZwvxeB96n7REdvx7ymr7uXNnpeeXKl1KT3UEejEO5NUVAphTHbucim5cS8EKbTRhiVkhnIeFeiyEURr66afVtGXbZvrhx++pZcuWoiBMnabvKhYHNGnSmPLly+dWc0V+YbPq1rWbnhIT/Qf0ixpSQ0KeUbt27ahYcUx2u5rLtQNC/86dMWdHSpQoIR1k69ZtHs0h3iJehAVYSk5nIuKMGDkCGtGfNZ8/o6dIEgOrVqwUQRdDwjQ3jYyeDyHXnbCMrCZnbrX6AHMt5l6Anagekl/DO8x9o6NDZ8uWjfLmzUsfDHuf6taN/3RInTq13RIWAIEc+cZEtCs0atQoyn73+PEj6te/Lz/DTcpN4UnrTB6YnCZPillfyA8Ib97ceXpK3BF/wkqWnSxZa3JjOGmIPBza/ox9C7n44NixY8L2J06cQBkzMmG4waDBgzxavCFnnbmaXOQs2aQz8jH5Nwlh5STuq3q8wd59+2MdRmEW2LDRvS8VCAXElyNHjqhpnXz583qUs5IFJmMO/JN+Zgc4H0wXsGvt43zFF/EmLMBabhlzLW44Qy+R4TDsAWmPEs+rNJJ7a65cOalR48Z6imuUq1DLI2eItFkofxbmuuHcObgI/o35XqvrOPYJiRMs64CjegKE8+v/uF4LOHLkKOEw4Fq5DG7NGKohL7kDOOH1644LX0BYQUFBIvd5kv28RYIQliVpNrLkbEuyg6qCDIdJSbvs2tcpIbB7126P0zYKOa92pkiro7ZoRESkhUpl48bzy0j+jViucuPRkJBYt24dBSTRd3r1ABCWO9PEU+bWeB7HjZvRhIJFEyAsd8MhIAbWi9EyMMwlc+d9Re+88w41a95MT407EqwG/cqv4h6PwkSr0PAOsCWSnAUhE5X3zYJvPLrxajtLUpKHm0izuvdZj4gIpYJFShLViN8WeGZw/rzd9uYNwGEwi+CMFkxAkC8xzOc2cKxUKWKPJg2Cve2i3nq/3Yveeiv+G1AlaNe0lprMw599nksAP3Ebq/p3Et5HC6uaoV7ny5dXtCdXiNiYlSxPz9OtJ5nIanHfexG8Nmml57vR5T/X/vHaWg6OdF+fPzSiWvVq1LRpYypSpAhN+GyCnsqEGIDtYGLjhBa6dzfmOxMKCUtY+QaQJWUhHhINw5N/IGmXWHNMYJQuU1qmITA77wx4V0T8zI2GDZuSJKffrweKgO4O6L337zxfj4wrV/7ymrBw37V/rulnjvhs4me0dNkSSpE8elu9Bw8fiqzoCVLmBJCl3CHBhQmZ+Q9jmUAfEi0sBNuuJY4D/6nTJ0U2MEK7sZYiN+Rkgk7FDJMFcKtGp66kpACDjcoZ0Lzgl37nzl3av/+ALGY4cuQIrVq5SgK4wbqP2FYrVqykc16u7okNf/11RRrXCKx9xLDubJHHkHn+9/P6Wey4fes2psw9ci0Ylb/77jv9LOFh2ufdG9j+mk+2o92jdrdHpDu/8qvJki2mZTwhYTs3kmxnPyIKjPZT90seTn2/KkpHLqWkpAHuiwp5DVM/aGw0CGoFnggyuf0slAV8LAFjXdfPnw4eir86Xq5MEKVJG72aBj5b738wlFq3bk2VKlahlClTRHE0mA5gi4P7jDdAfoODK4iIoN4PkwRkMUwVKUApyJMnD61ctUJPsWPuV/PozZ7xi4SYKIQFRO6qRNqjE8w1ksvQiAUWfpUTz205cm9d0m5tsdueonqqRn4pw+mVMUH0JNTKw6GezECxPfVod8DQu2PndrdynTeA20utmnUoUyZ72CNMDxUuXFgWnAI3b92i2jVqUSbDIgxYw+H3vmTpYiGy2FCmdBlKlw5bGdvtXHhm4KCB9O6AgZQ+ffTeQ/B2gHG1aNGiFBDgT78zZ0QH69y5E9WtW5f++OMPcaR0XqsZGxJ8KFTAah3scAotUVxpbmzVryQsYCWP2JhFFnHIyiFnYgn3o/tP4AmgnzNAVOAC3rgJOwNq+tmz8YvpfvHi/yjAoBHCxlaGZUaFzExAQ4e9L1xMAQ0L/6mgcsH04w+eFY2DBw5yeaMFeLwfUza1atWknDlfcrDpJU2aRPyxEMvr8uU/RSyAQ+Evv/xKvXv3ofHjP5EVUGaRaIQF+FVaR/SMNQ8UkLmF9vdi/UrCAHsFRv6chNnVU7L4x+zFUq0Rzygkgoc3SbEDPXLU6JHUuEljustylZFp4zc4CIZG/MWBIUPdg+EJjRAfwH7kZ2CfeHcyJ47Q5dVXKSionORDAcbUl17KQUOHvM/C/xU9NSbeeaevw5CHTpQ3bx75PW36VOaYdxzKDALEu3EouQ+EnJaH6owZM9LmjebXMSQqYVkyNyRLjhakhTNxMdeyXXecRogPsN1u5I4q9nV//G5nwG3aEnqXQtK0o8jwUAdGhqEhbdp0NHLkCGrbrg1du3ZNiA2LHSA8FylSmIIrBEuUQETLg9MewgChMeB2YuQkcQG0Nudh2Pkc+GziRHEmdCYC+NO/0rARbdoUs8FBiODERsUgMiJSJrwBzHU2b96Uy+va6OoMdKR7rD2ibswgUQkL8Av+nizJ87OkyI2bo6OeGj/A49N2fjxZAiFDOBWBGwGraGBqsNQ+SNdf+oqskTHVatVYw0cMlxBHr73WhXt6H/Gtmvf1PJoyZbKo8QsWfiPXWrOcATnHYrXQg3iq6cmZGxhoxS0yZswg1nBwSBCMyjOIBvIW5KW3ejouhAAhGIkKz4SGhVLVl6vqKUQTPp3AHC2lyHoYXtFRYBMMY3kL3M1IyADcvs3OHyY6YQF+tc+Tfzvu7dla6SlxA4KfYRd77cl5l/KUZuNKwTa+WVuSfxOWI1KWp3TJnkplGQH1/fSp6OVTufPkpnf6viMuv+4wePAg4WqodKWtxRWp06Th90SbFEAIt1lgdwXIRUePH6XCzEVvXL8hQzMAzpU5cyY6evQYNWoUPVfqTBQwXWBpvbPwvXXbFpo1exZ9zZ3o29XfykR9ocKFZAgFwWH4V2YPDJFm/bSeC2ElBGynB1Hk1nJcyrSiaTqAKxM+6xCk/GofIWtQ9E5cadOlEzkBw58CKnn+/G/0M++QNFkyKliwoBgVMUTGB1lY2zPaqtBwR46434cnBQvU8+d/TRs2rZdJd6O/FDwabt28JdwL2A+PCb/oME7K88EV4ARZjuW4ggULUIcO7WUJ/69rf+G8HKKOHTvI8AdOifyZDQz8whMW3HEiN+ch2/8m6UOfg82ANBbcsX+ztdBo8m943+UiUsSHMk5Wg+OAi736ahc9xTusWbNahpTadWrpKXEDOIiR0MFBEdE4Nn9zxDRdtnyZcCXjxDS4zNatW2nx4iW0evUacYtRAAFjSDWDANZ8B7w7gA4xgWXLnk3q6uRJc/sEvdCEZbvxC0X+xPJI+B2yJHEc+uA3hWHPkqEm+TWPIGvh0fqVmOjV+y3pfcZhAlzr93O/s/YVvfAzNlj9rMI5PPl+eQMMveAoKj/4Dc6DjQa8wb79e6mp04JcLBr58YcfxJ0ZJhEjDMU2BSvnazUPk6g7rLY2Y55JNANpfGE7/iZzqXkOVnRAvDvDWKtKXZiswT+SJWVh/YpnIL7nV1/NFUc2BRQdw8jBwwdiyCCJhZUrV9Ge3XvESRGcUw1ZsC0lTZKUNm+Nfenc2A/H0k8//kypUqeKeh4AF4S8ZkwDtwHXiu+WL2bxQnKsyF3BEp7RkhxTEvYsgqC0Z8y5AlKTteo28qt1zmuiAtCjAed+lJQ1HqMWlVhAry9ZvJQsDAVXMRIV8PRpCI0aHb2w1R369+svc5fORAU4vxPAkDn0/ee/GfoLx7Eid1ch7f4BJiCdELDjVvgDsiTLTJayS8iaqZ6kewusuRs86D06fvy4LCo1VjyKDrmmVq1aNPFz89ZlM5gw4VMJwgbLtjEP4CbIBwjgvfcG05s93QdxAwrkK+iyM9hb0bEp1Xsv/3lJT3l+eKEICzKVbW9TJqL0TFCsVsMWlYS1wNLzyBqHCWwYPjGhi2kMaDbKko7hQUwQXPIcL+UQU0PTpk30pxIH8JY4ePCQWMDDw8JlhRGqHuv5YFN6cP8BBZUP8moeELIOhj212y3ekzxFcrsZxNCc6pczF3seeKEIS3t0liI3FpMB2pIxmAXyMWTJ7HlVsSfAxtO4UWOxsidLmpTq1qvLQujLVKx4MZnVl4bwIVHwwgrvPvy38UIK7z789+EjLB8SBT7C8iFR4CMsHxIFPsLyIVHgIywfEgWmzA2Irgv/oI6dHB32sIXGpMlfOMzDwX/67d5vSxxOhSGDh9DpM2fEjQUWYXhrbt6yid7s0VNcNhTgfDZ82Ajat2+fGPcQWvujj8eJMVGhZYtW4phXxynqy6udu8iCAyP27PmNZs+aRYuXOKb/+utaCgsNpZatWuopMYE8Ii+HDh2S84oVK9KETz+Jcv39cvoM2rRpU5QREm41GzdtkPigA999j77/fo1YyhUQj37lipWc77r0/pD3ZQNyeDdghqBXr54UEWmjJYuXRL3v4YOHtGLVclkaNnjQYLHUw+qOWA0ffPC+eJM6o1/f/lz/l+U+TFRjwrpPn+hIh8OGDadNGzeJZ2mBggVo+IhhVLp0tM89ZirOn7cvN4PBtkGD+tTlNXOeILDaeo06tetqZcuU07iy9RQ7qlZ5WXv48KF+Zkeft9/RatWqrf3w/Q96iqaFhobK31YtWmlnz57VwsPD5bxcmSD5C+zbt1/Ln6+AdvjwET1F006ePKkVLlRE27Jli56iaaVLldUqBFfUz6JRskQp/Vc0GjdqotWqWVs7fvy4nmLHN98s0GbPmq2fxcT+/fu1PHnyyV+F/Zy/AvkLabt37ZZz7myc18MaN7gW+uyZFvL0qaTv3buX66Wa1rplGzlXOHvud63rG131M01bs3q1NmL4CP1M04Z/MEJjQpXf8r6QEPmNeunR4035HRYWph06eIjrqaD2999XJc0ItBGA+n4W8iyqnm/cuK7lyZ1X+/XXX+UcuHr1qlajek1tyuQpeoqmVa5UlZ8N0yIiIrS7d+9q7/Tpq/V9p59+1TuYGgrh9AUOU7eO43wdpkuM0waYbti1axdt3bqFPhwzVk+1r3ABsJAA3gQqdoE/P6+AbUL+uHiBuVS0XxVWmJz7/Sz16N6T82D3oMQS8WXLl1LDBg3lXAF5MQIrYvAduBmP/dBxRwdY3j1Z31u3akuXLl102L+mQsUKdObsKa4H+1I2cIXA5IFS/iRJk0YtisCUUaNGDSl/gfy0dOlSSQPgimL8ZhLmZkkCDG4uXI3JktnfIe9LFu1bpeoPZcT0z6JFC+iT8eMlzQj1ftwPbqnquUa1muJyg7haCvANw5Z3y5dHb0qAGFtJkgTIezC/is3MN5vcwcIUYWGOC0uFWrVqRZ97iI85edJk6j+gv/zOmy+vbFbkAB58wdKdgb1shgx9Tz+LiTFjRtH06fbl+twTJd5mzly5PW6VNuGTT2jwe4MlaNqlS5e8XhTA3Iz69nUd+RgNO3p09MaSqVK6DsKBoP+ffjZBCBqd0hU0myZzfUakcLN9ifN9sl0v14M32L17N1WrUd1BnDBi1uyZNPHzL/SzmEB8Uplf9RJxEt5HjBxOCxcskBUkroBZ/G7dusrvTyZ8Iq4i3uDCH39QcPlg/Swmypcvz7LL//QzO+bOnSN78Rk9MhXQEMePn6CX9YUEY8eOFaL3BnACLO8hLwqpU6eR7dzAxWvXqkMVK1SSdHAwm+7XvurbVbKqxhtAduvDsinex6IHlSsbJOnO3gzoIK91eZ2J/x09JRro/Op5bPqJgLWXL12mCsHuy1OqVCmHsEZGfMEEB5lOcT5vEGetcNPmjVSvXn35rWbZAeybF85CYbu27alF85Y0etRoTtviVRwrBPn4559/9LOYuHrtGqVNY3enMWLltyt5SHxFP4vOy9yv5grBtWndVoT9efPm0ZIly/SrnoFVyjduug54ZsSjRw9lBTNEBCxQ2H/AHobcyF1Kly4lwvHSJUsdtq1zBSzY+GLSF/K+LVs305Gj9s1FweExtCFKTbq06UWRmjd/LpUpW0auGwHlRz2/d99vPMK0FP8tT3ULJoEIPkY0eqWxbHeMOvzue3NxHuJMWFgt2+XVzjx8zXWorDFjxtDGjetp+YpltGrVCvk7btw4+uyzifod7vFaly70ySfR4XicMYGvvdrlVf0sGuXKlhXtZv269RLzQAFbsEGmQB5WrlxO3//wHbVu3VLkidjQrn075rTu87yVOxAA+omMjH2ImDxlEnPvT5kwrnrs+SBId0MOXH7gg47dKTCkgYO7gvOQCTRv3lyGd3f4dMIE6ti5k35mBzR6DOFDhg7RU7xHnAkLeG/Ie9xIy+jK31dEyIQqnTJ5SsqVO5cIfhA+gR5vdqf5X8+X356A57DzQhcXixx69epNJUqWoGLFiuopjpg1ayYTtT2kNLBhwwZ5F+QhHCov77OKPtFA5HC8cwUsXEBkPHA7ZzRr1oKVk936mcbDV+w+VMAPTNgdO3YW2cgTUhpWMbtC9x7dJabCtya34Z08eTJVrVpNP4vGtKnT6NSp07KThzNW8WjAmrZ+ZgJM3V4D6q0zmO1qgUmTy+/Wrdtqu3fvkd/OGPjuYG3mzFnyu27tutrvv/8uvwHn9y5atEjMC6+//obWrWt3+T1n9hz9qh0ZM2TWf0Xj9JkzWuqUaeR3ULkgjVm//HZGo4aNtX1792krV67SihUprrE8IuaI4PIVNJtNv0nHggULtQL5C2pvvN5V8lOoYBGNG1S/qmm9evYWswdMMSxjiaoPc8DWrVu1bm900++KxogRIzXuOPqZpq1ctVIbPHCwfqZpw4eN0FiuinpfULny2o0bN7Q9e/ZqnTq9qt9lR9bM2bQzXGZn5MmdT/8VEyzEa8WLldDat+ug9e7VWytauJjkyYiiXCdGjP94vNaxfUf9zDu80P5Y8ABF9tyti3ueuHb1GgvkxENRdj3lxYAymJoFVj9DAYDDY2LA5+jnQ6IgXjKWDz64w3+WsKA6Ywu3uABrCTG0/VeAYG//pfwCpobCJo2b0iMel61O0yCYeD10+KDDVMWB/QdlizdjnCYAWlvt2jXpo48/lnNoHJiUdsbjR49p3MfjqGHDBnoK0YnjJ2j06DF09uzZqOkNTPG0at2StbfWojlC44LsMHPmDKpYqaLcA8A+9MHQD8TO5sfqPuQlqO+YLpo9ZxY1a9pcwkLC3ta8eTPRHgFMsJ8+fTrGVBGerVSpEn0xyb5hJQv/xJI/WXR5B9UKs4FxoSgL+Q4T9QqIXrx1+xYxbCpg1c7w4SPEBohNMGGeQ1kRoO2jj8bJ1r2YFsM3cuXMRUuXL9GfjB2QXb/8cobUJ8IZZcuWVbY76fFm/MJDGmGKY6EQ2A0CAqPx8LP60TdOQTbmzJktjeF8L4xt2GZXITzcvlLX+UDMTyPNI7Bs69ZtJBIKpmdgO0MjwZC5fdt2JuI+YjqQZ53sQDCDlA+qwMR/mLJkzSKhEvEswj2C8zWs/4oQKp5F/vBXwZ5fe5rxkDRDOZzrBnkH8Q0cOEi/Q7/HxbvCOd0413ro4CGJIYolY7AXZuQyovNlz55NQhp16NBROgGexfsi+PAW8Gqo9nJ12rZlmwRvQ5QbzGZgC+NaNeMXk8IIU4QFzoSl4OBMxgN7HxuNb+j1v/22V2xbzvdiTRy4hwLcUsDFjPegUVQ6AA1m1MhRsjMpjIt4B2xejRq9QoUKFZJFp6ho4zuMDdWpY2cJ+aN6OO7FnoGYXMZcm9ohAs9Bw8JEsQK4H3aTN74bB+rioSGIB7gOosAY7wHxbli3QTgDgKjMKLvxHhAHygoCAVAWBCvB5DDqD/kSImVupeoJrizIp3oHJuS9BQgdNrrwiHCa89VsOnHqOBUrVkw6JTYjWL48YfaZNEVYsGLXZpZpnJ5BoVE4VNiBAwclDdZ4FF5VigIqbcIn42n6l9Fx32/dvkGvv/ZaVMAJNHz6dOnoryt/ys4LwNKly2SJPN4HwsYQtHTpEho5aqT4cWEYBm7cuCFhEHHAzwo4feq0EAcIEo0ITgh/Key+Cmv4kaOHeHgpw8PDP/IcGvmxIZILDISbt2xg4o4Oto97Dhw8QF/Pn6unkOw6D4OxsdMgv+A2vd7qJed//nWJZs+eJdEBAZQFIYSu37gWJQ5g+1wMicqEAIIDly5ZqqT4nmEUwDfwbrOQMN16e0BEQT3iO02aNhHuCq7912X3ISjNwBRhOQOZRMHxF7LN1/p2ZEuWLBHuoFi1Kgz+OstnAOpI3QOoyVsFBBwD8QIgEMQ+wPSNInD07J27dsixafMG2rt3DwVXtLu6YOhQ8hgaA8PXtKnTpbEUMLO/d98eJqCNEhEZ3hBG+LOMA/lJAeVyNS2DRjKWA0C+MVQhkIf93MrPR9eH8X783rNnj3BUAHWH4/CRQ5LHcePGyhwg5v5kGNM7giLU2AAixzdQD+hs362xz//NnDFT2gvEVaBQAbkH9QblSB1/XzG3wUK8CAusuW3bNtKD0HgHDx2mn3/+WSoeQAHA4eBuo2CsSAVXaUZkzxEdTwqNh0YdMWKkyE2YJMW0y9ix48TrEXNoWDavGidnrlwyjADID1g+/KPgiVCsaAmZaB08+D1xK8FmBBiCVAARBVUeI7xJU+cYEiEjYgLZwffKCbt37+F6TCr5BMDhsXG56hgKHwz7gDnmflYMdtK+fXuFq3oL7JMDb1TIqJiXLVmitIwSaANMeyEkJsQayGEN6jWMOqB4YJ9qbxEvwgKFw/ENcg4ylyZNavpo3MfCZsFNEBUOW8U6cyCz6NSpI927dz+qoUBcGGohN2HYwBC4bu066t3rbXFbMbrWFC1ahNJnSB8lr6HR0NAYerJkySyd4rc9v4lDYtHCxcRtOCGAvGLYQh3hm/ge9pGGr5U7mQjuxNi0AEBD4x2VDJotsGzZclqzeg3t3LmLtrHSsm37dtq8eQutWvWt7CgWG/r17ycKDzoq2gm/UZ8hT0NoP4s6ADou6hdu0zjSQdnhfMeI9+oB8SIs4BELttgxCj7siiMAYLU9uXc88TI6ryeAg0CWAktGL0ZjKS6Hb6IBwcpBZOBUrzRsHCWzAQh/iEaCOwkITBEonkUlYihFD4b/+KhRo2mzi2jEZoHvtGzZQsJLIr/4DgT+MR9+KITtCjDlRIVt4vK5mqzGkDp+/AQaN/ajqAOdefzH42nObM87rWHIfLlqNalDDNHGeoAC0+dtu28XhHv49iPf6h6YI3Cft4g3YYUwZ3r55ZeF6pEJfBxCKTgZAE6WEEAwD7gnv9XrLYkBCtni5s1bQiwgakVoaMC0TCTTp0Vvd4sGgl8S7D/wiwLRgcupaMFqmEXeM2fOQpMme+cMGBsQXRkdAt9B/kDAcLhDHl0BXEIFvUVeoI06A3UMjpc6dSqHA8NlbA1fr47dfw73YlsU5El1QOQNi1f69x8gC2bQyfAtcPRXX+1MsPW5y7crxJuwVIMiZLUKuorG6tPHtVtvfNGjR3fxX0fY7AMH97Fm9jV15oKjglRe0PvOnI25+zs2DJg5a4bIJ6fPnJI9ZBAtGBxPEReGInc7mppFGHcwNDZWyICDA54aB5GR0SkBPBcYmCyGfXDJksU0avQoB+0T3LFGjerUVffadQX4rIeF2zU/cCL44kNRqcyaITgpAK69b+8+atyoiShHqBcgLoZT04SltDMF9fFePByKqs4FBocIDrY7obm73wjjYgrAueehx2fOlIWF7eJUqGBhql6thqRj2MWii379+tKw4cOEcynoNCYIKhdEhQsVoaJFilHuXHmjGgX71yBaMDY/gqU7CoZnAePyLQVjAFkFELQRioiwAQFcmGPj3sHBwcIl1PCDIXPKlKnieaqQJ28ecQsHh1GARb5GzerUrFlTPSUmsNuYqnsQYudX7U59k6dOpprMoRRTwDdRP2LX4qHzx5/ito+jKcJC7EzjBo7IKGJpQiaBtvPuuwMkCOrYcR/K9Y0bNtLNGzcd7sf6PGMEXgiccFpTjQCiQq/dtnVb1NYiuJY1S1axQsNIigZCbHMIr7CqY+8YxBhVlY3nizDRKCDYPp6FxT5Pntwy/QItDSt4sC/OkPeGipEXAOfKzEK9AgLnr1+73oG48J2ffvyJy2J3GwYwVXTyxKmoxkOZ//77qqw5BAeHzQsmDsVV3eG1116T6SwAdQG5ccqUaVSieEkqXqwE1a/XQEQAZ86nVi+5A+pAcWXIocuWRhtCJ036QohZ5Q15B1dr3qwZ5WCNHGsbcW4GpuYKwSkiwiMceiuGIBwYmoxAGrQsWMiNXAoyUa2aNWnSFPsqn5w5csk9yjwAoAIwnzVp8iSJtIdh5OUq1cQOo64j2+BQ+A35DlwSlY10EOTu33bLZkcAlojBwo4KUxWI/IEA0Xjoner7mPD9kAXs1m3smx107vSqzBUa5/EAEEmVKlVZ9pgp51j0gGFGKS8AGgNTRgsXLZQFHSNHjKKNGzdGCe+4DgMpth82AgshFNdwBeQfHEZdf/jwEX0wzL4lnScU4fbImjWL1Be0dpQZu37t379fNESko9MqogVnQ92D0EeNGUVdPWyw4AxTHAsfxFSAIiYcaCgYEJ2BBsMQh8Yz3o9KMW5QBHMEiMN4DwoEYlQTuvjG0xD7NfR+qO6QC1AxkAvURDeu//333zSF2bsiKgCNgGuqsVCpqEQIyzhAcEgDN27SpEkUUQEIxo97Vd7UgWf8+VBAHUg+DfegkaQcuqY37qOxUlbkw35PSJSR1wgYQbH3DRQM5B3vwXP4i86EjaVgj4KBFO8J4brBtdjw9ddzpdPhHcg/nsGIA40a+YDXB9YRom7xXnwTnQBhKI3MwRu4lyRdANxDNYoCCAWTr85Axjt26kCpnFRmTDrDtqTQqVMn0WqcAW1TbaCNrc9gEwNXAtG1adNGiGrKlCl05sxZqSAQGLwZsOze2cDZjFk6NuuGPS13rtz0apfOYrdCT33KlQzDYPnyQfTa66/J9I4RtWrXpEJFCjkQEYCJY6xrVGjVqoWIZsZ5RgCxRsElFObNm8tyy08SuhIW+axu1vlhMe7xY8dp+YoVPMSeFGLESFG/fj2RJ0Fwl1jDTMGN/ow1PGNe3AGbHxw7cZRmTJ8hQzxkV7QlDMNlWVZFHWMTp8WLFtNfV65ElRnvB2c1A58HqQ+JAlOEhcWezhzLE9Aj4erRtWtXmYJx5l7gPrVq1xKBfyoLqE+fPnF4N7hC8eLFWJjOQls2b6GkTlMbRti4GJi8LsLcsEYNu9YIfPH5JJFlnK3d4IgtWzan0qVjrstzBVj2f/75F5k2Qh3A9aY8a3Gvv/465WYZ0YidO3eKK49RbgSQRww7VatUoXXrWSHwUB5nQKTAsnpMT508xUqCk/DuDmhc2Kww6Y5VTFA83Fm7QAqBgcllT8TyrNXHZ88gU4SF+TVltfUGmCMsVqIYLV68SOKTK+FbAewdpgJY6KHtgDUbtR0QHhz9ChYqRFMmTZGx3hMg46ABMDTOnDVTjKo1qtcSgnXOM4TSTyZ8TM2bt9BTXAPTLHC7wZQHvq/yh2oDwcJMgc4B+5jC7NlzZLhRmqYC8pcmdRrq1r2r7FzqzgLvCiDmtu3b0tPHT2nt2rUxiNYdkE/UM+x2MNdAHnU25xiB+yFb4XtYwPrpZ59Spcr21d1m4B3r0YEGA0eBAKwO9AA0pvFQ2hGCZagKgNCP38ZncY7KBhDDwHgNByogkr8ZabMLrs7XUQmKkJAvyGAQPuHA161rN3kn6lBpfuoA18Az6tvucOLECapft4EQE+bLkF8QKA6k4V2wUMPbAsvZFSBzorz4jvG7ANKx97JKg1CMMqj3qQN1aEzHu7AlChod5TbeiwPlUfWPA3lU18CF5Nss3xrTcaBM9mfs9YHvQqGB3IXKe+2112nhwkXyvBn4jcHSZS+B3UYjIiJlkhcFRkZQMQh88TIPZ3Xq1BEjHYROaB6oAEwAYxUunMl27Ngh7wERoIIwiQyfKhAnPBiwyNSuRdndOho3bkydWdAuVKgwVagQzD11XRSh4v3YxaFdu7YyBYFYTximUDGikXL+cA+4IVx7lXsx8oRG+GziZzK9g0p0BeSvft364nGquB2eg2cAtDBVdnwL38S3Dh88JL5N6Vh5qFq1qtjiUFbcA2G7fYd2zK260z//XKcDBw5IOoRlaIv/XP2Hrv1zTb6F78DuhrgXcBmCJod8Y6lW125vyCbi8H1DRBgAdYXV0TVr1aDa3AaoN6Rd+euKvA+ctedbb1KRInal6eLFi1I/KCMUJ7iJV2fuDqXqr7/+Em0U9Yy8g8P98ssv4vXgrq5cwRTHqla9mmxrCwoHUFhkHJWIIQsH5CVYcsFKcV1xBQTvWrRooWQa6cg0rMFQd4GlS5ZEEQWeRZQaGFqLFy/OqndeWdWMxlFAZeFbIOYGDRowoXwqmpHKGyru9OkzErQN8Q2MeUaF1qtXV4yt7jBm9BgequCJYK8i5ClF8hQ08fNPJbBbjx49xCanyofev3PXLiFuTDzXrVsnirsAyC8s6xUrVpB34Tmo9LgP6XD1wf0ArqERMXsBZ0cQLdIgF8IMUbNmDX5ftAsL6gV1jnpAG+A6VjXj/XhOzT9CoyxcuFBUXcAvDLunwsbWgJ/DRqA//Pg9vd3nbTE5IO9oDxhXJ37mPhKNK5giLAC9yQhXrhQQTpExVAgqUQHEgjgAaBBkOE2atLJxNqKZYKNFEBYqF+rtt9+u0p9yD2fhUBGBgmpUVZFR8EKqhKCuDMEoM0wY6zaspdq1awuxv9mzB327elXUBLO9PGlo0UJD1ECn74C4AGz/iw6J58ozJwac61URrMRn4Pfgfj+9fJA9Y0PlypXFsIk2MHbImN+JWRmYj0UoA1VvaJfdu3fJb29hmrCMQGEhGEMozJsnnzjMAdAozl/4nY4dP0orVjj6UCO8UdmyZaVyoKmhp69evUZ6KCoaLBzBRGIDppAw9Ozff4B27dxFQ4YMpQvnL8jwBGBoBCHHBYijhYZVhArXn+Ejh8tvI8CZwK0VweDbkLdiQ88335SoNIgkU6yo61gUCmnTpaWjx4/Qb3v3iHeGK8C5EdM9mEetWsUesgmEfuHieXHbPnP2tKSZAWyFioBRDzDmmkG8CAsAcUEewIEe6w2+WTBfepLq6RBMAXArbGKEyDGxARoXgln07tWbBgx4l3bv2k0pU9nNGSCKO3fv0BtvvC7nZoFFBSiXAgTu4kWL6WeOKF3G7oEJoAGgNf8bAHGhDZTvfHyBUAJqaAbALWNwfg+IN2Hh4xjalF+UN8CCgeSsqYCoQARwQAORQS7688+/aM6c6EUKngBvAgiZYNV4Ht/HEAw5Dgs24hrzAdZsaJQKILKbt1wHmYOLjeJsyIMSqJ83UG60ATh+QuDBg/tR5QIwa4H28RbxIiwQFRr2u+/WiI9Ur172rfoREieobBBVq1qNh77ukqawfNlymYiF/AKiQkUsWLhAogajYTAkTp40KdZVzhh+YDCEUF+3bl0Rgtt3aE/jx39MZ8+dESHWDN54vav4eWMyGb1fwz/ODwCOOuNL+2SzM3766acoTRWcq0gRz0NbYgBEhSkg2AunTZump9onxmvWqCX+6maxY8dO6bAA2glTUGAE3sI0YTm/3MrCO2SZoKCgqMgle/fulQlk2HOM7BQy0IcfjhV2jUaD/9a0aVOpZMkS4qQGQx7eDxtKh/aOIb+dAe40YMAAft8YUdfHsfwxcOC71PAVx2C3QIwKcVE/2CgT90GuwJCO8ijZCeYQ+JiPGW13BwKwSqZB/YZi5FQ9G6uK4Y4cBafvGDmAM5zzaIyS6Azn9yDPMCVA+8UyMeDI0aNM6PbFsUaBPUZduAAm8uEWpDoM6qFa9ery21uYJixk1CFz+m8Qiurh8EJEY6AClKwCQmjXrr3IAXgemW3ZsiW9XO1luT5o0EAxboIQlQ3KOcqxsULxDviIewPnPKMzGHHhwgXJO76LVd3QZEeNHimEr8qUjoVo2NkQEgDKStMmzUTbUsoC5I8MGdJTPVbpFYzfwfeNncwVHOtV/+sCMBobtXFjvaj87t2zlzmtfcGwlcukANOD+g7+qN/IP5Z4zZo5W+KlwsSAa3gf1iOqYMXewtSUTqWKlYX6jYYyVBYawAio5mCjIB70oN69e3NDNBVjoLES4LA2duwYatW6lWwiAAdAaIkKIC40cr8B/Wj8R+NjzF1BpoCgfemy66CsQHD5CpJHo8cDCM1INCAOEDWAStz92y4p47Rp0+mr2V9Rpsz2SnYH1An8s7CuEdwYz2FeFfk1lhdDFizcJ09F+64dZc6CmBi4F51RAXUHY+XkyZOodZtoP6vu3d6UJV8Yro1QooQCOCkOpMGoe+jwAcqdM48YfDFDoYC8w2SC8oEAYddCG+Ac9QR59e23e1Pffn31J7xDdKm9ABoHhUdDqQPAFIrxQC/BNSwORebAUvEsCml8FlMbqjJTprAX1ngdz8HBDobJ9OnSO1zDAauwswOeM0AwqCjjc8gHnlP5BRFFXbdFGzUxj9m3f1+xfIPAjQ0H4H7IiE+ePBUfKqWR4XsZ0meIUV40NCbKjQBRIw/4a7wXdYh0I7EBqbnMKLfxXhzG8qjn1DUblwnALIhz+4GAcD+ex/K9gIAkUlYstwPBYa7QLFEBpgjLPlTw8Obt4WeVHgvicvWsUcuw8r2oTON1PIs0CNJwDjReU9dBnJ4ARz3n93o64DVgJCA41ME4iDgP4GbgDHCwg3KB4CYwJh4+clAWuiqgsdzl11hmBXf16upeV/UU26E8IeQ7bp5F3tAhcuXKKVscfzZxgngFe/Kj9wSfP5ZJwHsz5FmIKBhKvvIhJnyE5UOiwNRQ6IMPAKatEOvCE3yE5YMpHD58RBazIjgc3ILcIU6ENX/+N1SsSHGqUb0mlSpZWrYbufS/S/pV74H9A6ezau4MmDXMAlFnzAAKRVy+owAvTnwTVu0ypctKXXzxhfuNqzwBiyVQj3hXULnyMgOAwB9m0bF9JyofFEwVylcUM0vBAoVkGZ0ZFMhfUBZTOKNGjZqiRcJdBwbkTJky0zNPXhaQscygQ/sOEkzfiKtXr2lcCG3D+g16indYsHCBwz55CmUN+xd6iyKFi+q/vEdcvqOwatUqbfKkyfqZprGGqE2ZMlUrXLCInuI9Dh44qPV5u69+Zke9OvW01YaNCrwBNkGID7izadWr19CYOLUHDx7oqXZUrlxFCwmx78W4fft2beNG+56K7mCKY8HMD5sNvBOMwIIJuGZcunxZT/EOsEy7MjxC/TULqMtmEZfvKCDfRl8zuAD179+Pxo4bK4tczQDvcvYcWPP9GjG0mgHqAEbY+AD+Wes3rKfaNWvrKXbY69feVlisAkdJTzBVs199NVcswa4AGwlsPmZhtLQrxIVIXhS0a99WvGLjq2tj2IkLjDMMcUFo6DPC1FStOnUcIvaYhakWhIsIopQkFLDYAr0SwdIgF+CA3GP0ePwvAnv/Xbz4h35mHnAjwnzdUJO7bsF6jnlMOVgGzpQxOgaFWUyc+CnN+PJLsb7HBaYIK1XqVITIvwkFLKnCtAm8KQ8c2i8HAugqx7//KrDYxGiJ9waYQcB8Y+qUaahHj570yYTx1Kixd5tnKoAIIJLIce403brt2ofMW6xdv1aW/MUFpgirbdu2shWuO8QlEh4c/p0Bje2/CmxukDJFCpdDvCdgchpzjYsWL5Rl+jVr1tSvmEN8ZSwjsHCjadOmtHjhYkrtpXewginCertPb4l3OWvmLD0lGrVq1KbjJ+zxzP8rwLxbfBDoNEF85swZCVO5wguffXdo0bKFEOUkL7cYdoa37uHeAr5us2bPppvXb5iqL9M1e/TYETGSwS/p/aEfyDYj+fIWoP4D+olPlRmAW8E1xhnwVzcLbOxtFljl3LZNO9liGDINdmQ1g6+//oZat2oj26VgMQO2Yzlx8pj4MpkBXGQePowO/Aate+aMWbR9u30dpreANwmi8bVo0VLKhDhgcHvxFhgpXMlUa9asFpcmo7t2bIj7XCE/duz4cZGHEBkvLsCncThrgRGsejtH+YsNcXlGVlnr2hcqAfkwM7EMEwHiv+NZ5W0ZVyAf8DwwAh61Rt+p2ADCEG9RvUll3aAhlpk3wPOuvCrQTq5MQ+7gm4T2IVEQPyHDBx/cwEdYPiQCiP4PXsFJ2UgXsXIAAAAASUVORK5CYII=";
@@ -2811,11 +2811,341 @@ QRCode$1.defaultProps = _objectSpread({
 }, DEFAULT_PROPS);
 var lib = QRCode$1;
 
+function _defineProperty$1(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var defineProperty = _defineProperty$1;
+
+function _classCallCheck$1(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+var classCallCheck = _classCallCheck$1;
+
+function _defineProperties$1(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass$1(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$1(Constructor, staticProps);
+  return Constructor;
+}
+
+var createClass = _createClass$1;
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var defaultOptions = {
+  bindI18n: 'languageChanged',
+  bindI18nStore: '',
+  transEmptyNodeValue: '',
+  transSupportBasicHtmlNodes: true,
+  transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p'],
+  useSuspense: true
+};
+var i18nInstance;
+var I18nContext = React.createContext();
+function setDefaults() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  defaultOptions = _objectSpread$1(_objectSpread$1({}, defaultOptions), options);
+}
+function getDefaults() {
+  return defaultOptions;
+}
+var ReportNamespaces = function () {
+  function ReportNamespaces() {
+    classCallCheck(this, ReportNamespaces);
+
+    this.usedNamespaces = {};
+  }
+
+  createClass(ReportNamespaces, [{
+    key: "addUsedNamespaces",
+    value: function addUsedNamespaces(namespaces) {
+      var _this = this;
+
+      namespaces.forEach(function (ns) {
+        if (!_this.usedNamespaces[ns]) _this.usedNamespaces[ns] = true;
+      });
+    }
+  }, {
+    key: "getUsedNamespaces",
+    value: function getUsedNamespaces() {
+      return Object.keys(this.usedNamespaces);
+    }
+  }]);
+
+  return ReportNamespaces;
+}();
+function setI18n(instance) {
+  i18nInstance = instance;
+}
+function getI18n() {
+  return i18nInstance;
+}
+var initReactI18next = {
+  type: '3rdParty',
+  init: function init(instance) {
+    setDefaults(instance.options.react);
+    setI18n(instance);
+  }
+};
+
+function warn() {
+  if (console && console.warn) {
+    var _console;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (typeof args[0] === 'string') args[0] = "react-i18next:: ".concat(args[0]);
+
+    (_console = console).warn.apply(_console, args);
+  }
+}
+var alreadyWarned = {};
+function warnOnce() {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+
+  if (typeof args[0] === 'string' && alreadyWarned[args[0]]) return;
+  if (typeof args[0] === 'string') alreadyWarned[args[0]] = new Date();
+  warn.apply(void 0, args);
+}
+function loadNamespaces(i18n, ns, cb) {
+  i18n.loadNamespaces(ns, function () {
+    if (i18n.isInitialized) {
+      cb();
+    } else {
+      var initialized = function initialized() {
+        setTimeout(function () {
+          i18n.off('initialized', initialized);
+        }, 0);
+        cb();
+      };
+
+      i18n.on('initialized', initialized);
+    }
+  });
+}
+function hasLoadedNamespace(ns, i18n) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  if (!i18n.languages || !i18n.languages.length) {
+    warnOnce('i18n.languages were undefined or empty', i18n.languages);
+    return true;
+  }
+
+  var lng = i18n.languages[0];
+  var fallbackLng = i18n.options ? i18n.options.fallbackLng : false;
+  var lastLng = i18n.languages[i18n.languages.length - 1];
+  if (lng.toLowerCase() === 'cimode') return true;
+
+  var loadNotPending = function loadNotPending(l, n) {
+    var loadState = i18n.services.backendConnector.state["".concat(l, "|").concat(n)];
+    return loadState === -1 || loadState === 2;
+  };
+
+  if (options.bindI18n && options.bindI18n.indexOf('languageChanging') > -1 && i18n.services.backendConnector.backend && i18n.isLanguageChangingTo && !loadNotPending(i18n.isLanguageChangingTo, ns)) return false;
+  if (i18n.hasResourceBundle(lng, ns)) return true;
+  if (!i18n.services.backendConnector.backend) return true;
+  if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns))) return true;
+  return false;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var arrayWithHoles = _arrayWithHoles;
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+var iterableToArrayLimit = _iterableToArrayLimit;
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+var arrayLikeToArray = _arrayLikeToArray;
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+var unsupportedIterableToArray = _unsupportedIterableToArray;
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+var nonIterableRest = _nonIterableRest;
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+var slicedToArray = _slicedToArray;
+
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function useTranslation(ns) {
+  var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var i18nFromProps = props.i18n;
+
+  var _ref = useContext(I18nContext) || {},
+      i18nFromContext = _ref.i18n,
+      defaultNSFromContext = _ref.defaultNS;
+
+  var i18n = i18nFromProps || i18nFromContext || getI18n();
+  if (i18n && !i18n.reportNamespaces) i18n.reportNamespaces = new ReportNamespaces();
+
+  if (!i18n) {
+    warnOnce('You will need to pass in an i18next instance by using initReactI18next');
+
+    var notReadyT = function notReadyT(k) {
+      return Array.isArray(k) ? k[k.length - 1] : k;
+    };
+
+    var retNotReady = [notReadyT, {}, false];
+    retNotReady.t = notReadyT;
+    retNotReady.i18n = {};
+    retNotReady.ready = false;
+    return retNotReady;
+  }
+
+  if (i18n.options.react && i18n.options.react.wait !== undefined) warnOnce('It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.');
+
+  var i18nOptions = _objectSpread$2(_objectSpread$2(_objectSpread$2({}, getDefaults()), i18n.options.react), props);
+
+  var useSuspense = i18nOptions.useSuspense;
+  var namespaces = ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS;
+  namespaces = typeof namespaces === 'string' ? [namespaces] : namespaces || ['translation'];
+  if (i18n.reportNamespaces.addUsedNamespaces) i18n.reportNamespaces.addUsedNamespaces(namespaces);
+  var ready = (i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(function (n) {
+    return hasLoadedNamespace(n, i18n, i18nOptions);
+  });
+
+  function getT() {
+    return {
+      t: i18n.getFixedT(null, i18nOptions.nsMode === 'fallback' ? namespaces : namespaces[0])
+    };
+  }
+
+  var _useState = useState(getT()),
+      _useState2 = slicedToArray(_useState, 2),
+      t = _useState2[0],
+      setT = _useState2[1];
+
+  var isMounted = useRef(true);
+  useEffect(function () {
+    var bindI18n = i18nOptions.bindI18n,
+        bindI18nStore = i18nOptions.bindI18nStore;
+    isMounted.current = true;
+
+    if (!ready && !useSuspense) {
+      loadNamespaces(i18n, namespaces, function () {
+        if (isMounted.current) setT(getT());
+      });
+    }
+
+    function boundReset() {
+      if (isMounted.current) setT(getT());
+    }
+
+    if (bindI18n && i18n) i18n.on(bindI18n, boundReset);
+    if (bindI18nStore && i18n) i18n.store.on(bindI18nStore, boundReset);
+    return function () {
+      isMounted.current = false;
+      if (bindI18n && i18n) bindI18n.split(' ').forEach(function (e) {
+        return i18n.off(e, boundReset);
+      });
+      if (bindI18nStore && i18n) bindI18nStore.split(' ').forEach(function (e) {
+        return i18n.store.off(e, boundReset);
+      });
+    };
+  }, [namespaces.join()]);
+  var ret = [t.t, i18n, ready];
+  ret.t = t.t;
+  ret.i18n = i18n;
+  ret.ready = ready;
+  if (ready) return ret;
+  if (!ready && !useSuspense) return ret;
+  throw new Promise(function (resolve) {
+    loadNamespaces(i18n, namespaces, function () {
+      resolve();
+    });
+  });
+}
+
 var BannerHeader = function (_a) {
     var bannerColor = _a.bannerColor, pageOrientation = _a.pageOrientation;
+    var _b = useTranslation("translation"), t = _b.t, i18n = _b.i18n;
     var headerBackground = bannerColor === "red" ? "#C72828" : bannerColor;
     var headerColor = bannerColor === "white" ? "#C72828" : "white";
     var headerWidth = pageOrientation === "landscape" ? "11in" : "8.5in";
+    var headerSize = i18n.language === "es" ? "0.6in" : "0.763in";
     return (React.createElement("div", { className: "banner-header-container", style: {
             backgroundColor: headerBackground,
             color: headerColor,
@@ -2824,7 +3154,7 @@ var BannerHeader = function (_a) {
         React.createElement("div", { className: "banner-header-agency-wrapper" },
             React.createElement("img", { src: img, alt: "agency-logo", className: "banner-header-agency-logo" })),
         React.createElement("div", null,
-            React.createElement("h1", { className: "banner-header-text" }, "MISSING")),
+            React.createElement("h1", { className: "banner-header-text", style: { fontSize: headerSize } }, t("header.missing"))),
         React.createElement("div", { className: "banner-header-qrCode" },
             React.createElement(lib, { value: "www.google.com", size: 110 }))));
 };
@@ -2844,44 +3174,48 @@ var BannerFooter = function (_a) {
 
 var SingleChildPortraitDetails = function (_a) {
     var caseData = _a.caseData, childData = _a.childData;
+    var t = useTranslation("translation").t;
     return (React.createElement("div", { className: "scp-details-table" },
         React.createElement("div", { className: "scp-details-column" },
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Missing date:"),
-                React.createElement("p", { className: "scp-child-info" }, caseData.missingDate)),
+                React.createElement("p", { className: "scp-labels" }, t("labels.missingDate")),
+                React.createElement("p", { className: "scp-child-info" }, caseData.missingDate || t("information.unknown"))),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Location:"),
+                React.createElement("p", { className: "scp-labels" }, t("labels.location")),
                 React.createElement("p", { className: "scp-child-info" },
-                    caseData.city || "Unknown",
-                    ", ",
-                    caseData.state)),
+                    caseData.city || t("information.unknown"),
+                    ",",
+                    " ",
+                    caseData.state || t("information.unknown"))),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Birthdate:"),
-                React.createElement("p", { className: "scp-child-info" }, childData.birthDate || "Unknown")),
+                React.createElement("p", { className: "scp-labels" }, t("labels.birthdate")),
+                React.createElement("p", { className: "scp-child-info" }, childData.birthDate || t("information.unknown"))),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Current Age:"),
-                React.createElement("p", { className: "scp-child-info" }, childData.age || "Unknown")),
+                React.createElement("p", { className: "scp-labels" }, t("labels.currentAge")),
+                React.createElement("p", { className: "scp-child-info" }, childData.age || t("information.unknown"))),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Sex:"),
-                React.createElement("p", { className: "scp-child-info" }, childData.sex || "Unknown"))),
+                React.createElement("p", { className: "scp-labels" }, t("labels.sex")),
+                React.createElement("p", { className: "scp-child-info" }, childData.sex || t("information.unknown")))),
         React.createElement("div", { className: "scp-details-column" },
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Height:"),
+                React.createElement("p", { className: "scp-labels" }, t("labels.height")),
                 React.createElement("p", { className: "scp-child-info" },
-                    childData.height || "Unknown",
-                    " ",
+                    childData.height || t("information.unknown"),
                     childData.heightUnit)),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Weigth:"),
-                React.createElement("p", { className: "scp-child-info" }, childData.weight || "Unknown")),
+                React.createElement("p", { className: "scp-labels" }, t("labels.weight")),
+                React.createElement("p", { className: "scp-child-info" },
+                    childData.weight || t("information.unknown"),
+                    " ",
+                    childData.weightUnit)),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Eye Color:"),
-                React.createElement("p", { className: "scp-child-info" }, childData.eyeColor || "Unknown")),
+                React.createElement("p", { className: "scp-labels" }, t("labels.eyeColor")),
+                React.createElement("p", { className: "scp-child-info" }, childData.eyeColor || t("information.unknown"))),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Hair Color:"),
-                React.createElement("p", { className: "scp-child-info" }, childData.hairColor || "Unknown")),
+                React.createElement("p", { className: "scp-labels" }, t("labels.hairColor")),
+                React.createElement("p", { className: "scp-child-info" }, childData.hairColor || t("information.unknown"))),
             React.createElement("div", { className: "scp-row" },
-                React.createElement("p", { className: "scp-labels" }, "Country:"),
+                React.createElement("p", { className: "scp-labels" }, t("labels.country")),
                 React.createElement("p", { className: "scp-child-info" }, caseData.country)))));
 };
 
@@ -2894,13 +3228,14 @@ var no_photo_found = "https://s3.us-east-2.amazonaws.com/caseview-children-asset
 
 var AbductorsCard = function (_a) {
     var bannerOrientation = _a.bannerOrientation, abductorData = _a.abductorData;
+    var t = useTranslation("translation").t;
     var portraitDimensions = {
-        width: "4.6in",
+        width: "4.3in",
         height: "1.55in",
     };
     var landscapeDimensions = {
         width: "4in",
-        height: "1.55in",
+        height: "1.65in",
     };
     var cardDimensions = bannerOrientation === "portrait" ? portraitDimensions : landscapeDimensions;
     return (React.createElement(BannerCard, { dimensions: cardDimensions },
@@ -2910,38 +3245,41 @@ var AbductorsCard = function (_a) {
             React.createElement("div", { className: "banner-abductor-details-container" },
                 React.createElement("h3", null, abductorData.fullName),
                 React.createElement("div", { className: "banner-abductor-row" },
-                    React.createElement("p", { className: "banner-abductor-label" }, "Birthdate:"),
+                    React.createElement("p", { className: "banner-abductor-label" }, t("labels.birthdate")),
                     React.createElement("p", { className: "banner-abductor-info" }, abductorData.birthDate)),
                 React.createElement("div", { className: "banner-abductor-row" },
-                    React.createElement("p", { className: "banner-abductor-label" }, "Sex:"),
+                    React.createElement("p", { className: "banner-abductor-label" }, t("labels.sex")),
                     React.createElement("p", { className: "banner-abductor-info" }, abductorData.sex)),
                 React.createElement("div", { className: "banner-abductor-row" },
-                    React.createElement("p", { className: "banner-abductor-label" }, "Height:"),
+                    React.createElement("p", { className: "banner-abductor-label" }, t("labels.height")),
                     React.createElement("p", { className: "banner-abductor-info" }, abductorData.height))))));
 };
 
 var SingleChildPortraitHeadline = function (_a) {
     var caseData = _a.caseData, childData = _a.childData;
+    var t = useTranslation().t;
     return (React.createElement("div", { className: "scpa-headline-container" },
         React.createElement("img", { src: childData.images[0], alt: "childPhotoLeft", className: "scpa-child-image" }),
         caseData.abductors.length ? (React.createElement("div", { className: "scpa-abductors-container" },
-            React.createElement("h4", null, "Companions"),
+            React.createElement("h4", null, t("labels.companions")),
             caseData.abductors.map(function (abductor, index) { return (React.createElement(AbductorsCard, { bannerOrientation: "portrait", abductorData: abductor, key: abductor.abductorId + index })); }))) : null));
 };
 
 var SingleChildPortraitBody = function (_a) {
     var caseData = _a.caseData;
     var childSelected = caseData.children[0];
+    var t = useTranslation("translation").t;
     return (React.createElement("div", { className: "scp-body-container" },
         React.createElement("div", { className: "scp-banner-headline" },
             React.createElement(SingleChildPortraitHeadline, { caseData: caseData, childData: childSelected }),
             React.createElement("div", { className: "scp-banner-title" },
                 React.createElement("h2", null, childSelected.fullName),
                 React.createElement("h3", null,
-                    "Missing from: ",
-                    caseData.city || "Unknown",
+                    t("labels.missingFrom"),
+                    caseData.city || t("information.unknown"),
                     ",",
-                    caseData.state || "Unknown"))),
+                    " ",
+                    caseData.state || t("information.unknown")))),
         React.createElement("div", { className: "scp-banner-details" },
             React.createElement(SingleChildPortraitDetails, { caseData: caseData, childData: childSelected }),
             React.createElement("div", { className: "scp-circumstances" },
@@ -2963,6 +3301,7 @@ var SingleChildPortraitBanner = function () {
 
 var LandscapeChildCard = function (_a) {
     var childrenAmount = _a.childrenAmount, childData = _a.childData;
+    var t = useTranslation("translation").t;
     var landscapeChildCardDimensions = {
         width: childrenAmount <= 3 ? "3.25in" : "2.5in",
         height: "3.7in",
@@ -2975,41 +3314,43 @@ var LandscapeChildCard = function (_a) {
                 React.createElement("h2", null, childData.fullName),
                 React.createElement("div", null,
                     React.createElement("div", { className: "mcl-child-card-row" },
-                        React.createElement("p", { className: "mcl-child-card-label" }, "Current Age:"),
-                        React.createElement("p", { className: "mcl-child-card-info" }, childData.age || "Unknown")),
+                        React.createElement("p", { className: "mcl-child-card-label" }, t("labels.currentAge")),
+                        React.createElement("p", { className: "mcl-child-card-info" }, childData.age || t("information.unknown"))),
                     React.createElement("div", { className: "mcl-child-card-row" },
-                        React.createElement("p", { className: "mcl-child-card-label" }, "Sex:"),
-                        React.createElement("p", { className: "mcl-child-card-info" }, childData.sex || "Unknown")),
+                        React.createElement("p", { className: "mcl-child-card-label" }, t("labels.sex")),
+                        React.createElement("p", { className: "mcl-child-card-info" }, childData.sex || t("information.unknown"))),
                     React.createElement("div", { className: "mcl-child-card-row" },
-                        React.createElement("p", { className: "mcl-child-card-label" }, "Height:"),
+                        React.createElement("p", { className: "mcl-child-card-label" }, t("labels.height")),
                         React.createElement("p", { className: "mcl-child-card-info" },
-                            childData.height || "Unknown",
+                            childData.height || t("information.unknown"),
                             " ",
                             childData.heightUnit)),
                     React.createElement("div", { className: "mcl-child-card-row" },
-                        React.createElement("p", { className: "mcl-child-card-label" }, "Weight:"),
+                        React.createElement("p", { className: "mcl-child-card-label" }, t("labels.weight")),
                         React.createElement("p", { className: "mcl-child-card-info" },
-                            childData.weight || "Unknown",
+                            childData.weight || t("information.unknown"),
                             " ",
                             childData.weightUnit)))))));
 };
 
 var MultipleChildLandscapeBody = function (_a) {
     var caseData = _a.caseData;
+    var t = useTranslation("translation").t;
     return (React.createElement("div", { className: "mcl-body-container" },
         React.createElement("div", { className: "mcl-cards-container" }, caseData.children.map(function (child, index) { return (React.createElement(LandscapeChildCard, { key: caseData.caseId + index, childrenAmount: caseData.children.length, childData: child })); })),
         React.createElement("div", { className: "mcl-missing-date-location" },
             React.createElement("div", { className: "mcl-column" },
                 React.createElement("div", { className: "mcl-row" },
-                    React.createElement("p", { className: "mcl-label" }, "Missing date:"),
+                    React.createElement("p", { className: "mcl-label" }, t("labels.missingDate")),
                     React.createElement("p", { className: "mcl-child-info" }, caseData.missingDate))),
             React.createElement("div", { className: "mcl-column" },
                 React.createElement("div", { className: "mcl-row" },
-                    React.createElement("p", { className: "mcl-label" }, "Location:"),
+                    React.createElement("p", { className: "mcl-label" }, t("labels.location")),
                     React.createElement("p", { className: "mcl-child-info" },
-                        caseData.city || "Unknown",
-                        ", ",
-                        caseData.state)))),
+                        caseData.city || t("information.unknown"),
+                        ",",
+                        " ",
+                        caseData.state || t("information.unknown"))))),
         React.createElement("div", { className: "mcl-circumstances" },
             React.createElement("p", null, caseData.circumstances))));
 };
@@ -3024,6 +3365,7 @@ var MultipleChildLandscapeBanner = function () {
 
 var MediumPortraitChildCard = function (_a) {
     var childData = _a.childData;
+    var t = useTranslation("translation").t;
     var mediumPortraitChildCardDimensions = {
         width: "7.986in",
         height: "1.83in",
@@ -3037,34 +3379,37 @@ var MediumPortraitChildCard = function (_a) {
                 React.createElement("div", { className: "mcp-md-card-details-table" },
                     React.createElement("div", { className: "mcp-md-child-card-column" },
                         React.createElement("div", { className: "mcp-md-child-card-row" },
-                            React.createElement("p", { className: "mcp-md-child-card-label" }, "Current Age:"),
-                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.age || "Unknown")),
+                            React.createElement("p", { className: "mcp-md-child-card-label" }, t("labels.currentAge")),
+                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.age || t("information.unknown"))),
                         React.createElement("div", { className: "mcp-md-child-card-row" },
-                            React.createElement("p", { className: "mcp-md-child-card-label" }, "Sex:"),
-                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.sex || "Unknown")),
+                            React.createElement("p", { className: "mcp-md-child-card-label" }, t("labels.sex")),
+                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.sex || t("information.unknown"))),
                         React.createElement("div", { className: "mcp-md-child-card-row" },
-                            React.createElement("p", { className: "mcp-md-child-card-label" }, "Height:"),
+                            React.createElement("p", { className: "mcp-md-child-card-label" },
+                                t("labels.height"),
+                                ":"),
                             React.createElement("p", { className: "mcp-md-child-card-info" },
-                                childData.height || "Unknown",
+                                childData.height || t("information.unknown"),
                                 " ",
                                 childData.heightUnit))),
                     React.createElement("div", { className: "mcp-md-child-card-column" },
                         React.createElement("div", { className: "mcp-md-child-card-row" },
-                            React.createElement("p", { className: "mcp-md-child-card-label" }, "Weight:"),
+                            React.createElement("p", { className: "mcp-md-child-card-label" }, t("labels.weight")),
                             React.createElement("p", { className: "mcp-md-child-card-info" },
-                                childData.weight || "Unknown",
+                                childData.weight || t("information.unknown"),
                                 " ",
                                 childData.weightUnit)),
                         React.createElement("div", { className: "mcp-md-child-card-row" },
-                            React.createElement("p", { className: "mcp-md-child-card-label" }, "Eye Color:"),
-                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.eyeColor || "Unknown")),
+                            React.createElement("p", { className: "mcp-md-child-card-label" }, t("labels.eyeColor")),
+                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.eyeColor || t("information.unknown"))),
                         React.createElement("div", { className: "mcp-md-child-card-row" },
-                            React.createElement("p", { className: "mcp-md-child-card-label" }, "Hair Color:"),
-                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.hairColor || "Unknown"))))))));
+                            React.createElement("p", { className: "mcp-md-child-card-label" }, t("labels.hairColor")),
+                            React.createElement("p", { className: "mcp-md-child-card-info" }, childData.hairColor || t("information.unknown")))))))));
 };
 
 var SmallPortraitChildCard = function (_a) {
     var childData = _a.childData;
+    var t = useTranslation("translation").t;
     var smallPortraitChildCardDimensions = {
         width: "7.986in",
         height: "1.5in",
@@ -3078,30 +3423,30 @@ var SmallPortraitChildCard = function (_a) {
                 React.createElement("div", { className: "mcp-sm-card-details-table" },
                     React.createElement("div", { className: "mcp-sm-child-card-column" },
                         React.createElement("div", { className: "mcp-sm-child-card-row" },
-                            React.createElement("p", { className: "mcp-sm-child-card-label" }, "Current Age:"),
-                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.age || "Unknown")),
+                            React.createElement("p", { className: "mcp-sm-child-card-label" }, t("labels.currentAge")),
+                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.age || t("information.unknown"))),
                         React.createElement("div", { className: "mcp-sm-child-card-row" },
-                            React.createElement("p", { className: "mcp-sm-child-card-label" }, "Sex:"),
-                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.sex || "Unknown")),
+                            React.createElement("p", { className: "mcp-sm-child-card-label" }, t("labels.sex")),
+                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.sex || t("information.unknown"))),
                         React.createElement("div", { className: "mcp-sm-child-card-row" },
-                            React.createElement("p", { className: "mcp-sm-child-card-label" }, "Height:"),
+                            React.createElement("p", { className: "mcp-sm-child-card-label" }, t("labels.height")),
                             React.createElement("p", { className: "mcp-sm-child-card-info" },
-                                childData.height || "Unknown",
+                                childData.height || t("information.unknown"),
                                 " ",
                                 childData.heightUnit))),
                     React.createElement("div", { className: "mcp-sm-child-card-column" },
                         React.createElement("div", { className: "mcp-sm-child-card-row" },
-                            React.createElement("p", { className: "mcp-sm-child-card-label" }, "Weight:"),
+                            React.createElement("p", { className: "mcp-sm-child-card-label" }, t("labels.weight")),
                             React.createElement("p", { className: "mcp-sm-child-card-info" },
-                                childData.weight || "Unknown",
+                                childData.weight || t("information.unknown"),
                                 " ",
                                 childData.weightUnit)),
                         React.createElement("div", { className: "mcp-sm-child-card-row" },
-                            React.createElement("p", { className: "mcp-sm-child-card-label" }, "Eye Color:"),
-                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.eyeColor || "Unknown")),
+                            React.createElement("p", { className: "mcp-sm-child-card-label" }, t("labels.eyeColor")),
+                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.eyeColor || t("information.unknown"))),
                         React.createElement("div", { className: "mcp-sm-child-card-row" },
-                            React.createElement("p", { className: "mcp-sm-child-card-label" }, "Hair Color:"),
-                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.hairColor || "Unknown"))))))));
+                            React.createElement("p", { className: "mcp-sm-child-card-label" }, t("labels.hairColor")),
+                            React.createElement("p", { className: "mcp-sm-child-card-info" }, childData.hairColor || t("information.unknown")))))))));
 };
 
 var MultipleChildPortraitHeadline = function (_a) {
@@ -3114,20 +3459,22 @@ var MultipleChildPortraitHeadline = function (_a) {
 
 var MultipleChildPortraitDetails = function (_a) {
     var caseData = _a.caseData;
+    var t = useTranslation("translation").t;
     return (React.createElement("div", { className: "mcp-details-container" },
         React.createElement("div", { className: "mcp-banner-details" },
             React.createElement("div", { className: "mcp-date-location-container" },
                 React.createElement("div", { className: "mcp-details-column" },
                     React.createElement("div", { className: "mcp-details-row" },
-                        React.createElement("p", { className: "mcp-details-label" }, "Missing Date:"),
+                        React.createElement("p", { className: "mcp-details-label-missingDate" }, t("labels.missingDate")),
                         React.createElement("p", { className: "mcp-details-children-info" }, caseData.missingDate))),
                 React.createElement("div", { className: "mcp-details-column" },
                     React.createElement("div", { className: "mcp-details-row" },
-                        React.createElement("p", { className: "mcp-details-label" }, "Location:"),
+                        React.createElement("p", { className: "mcp-details-label-location" }, t("labels.location")),
                         React.createElement("p", { className: "mcp-details-children-info" },
-                            caseData.city || "Unknown",
-                            ", ",
-                            caseData.state)))),
+                            caseData.city || t("information.unknown"),
+                            ",",
+                            " ",
+                            caseData.state || t("information.unknown"))))),
             React.createElement("div", { className: "mcp-circumstances" },
                 React.createElement("p", null, caseData.circumstances)))));
 };
@@ -3143,51 +3490,52 @@ var MultipleChildPortraitBanner = function () {
 
 var SingleChildLandscapeDetails = function (_a) {
     var childData = _a.childData, caseData = _a.caseData;
+    var t = useTranslation("translation").t;
     return (React.createElement("div", { className: "scl-details-table" },
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Missing date:"),
+            React.createElement("p", { className: "scl-label" }, t("labels.missingDate")),
             React.createElement("p", { className: "scl-child-info" }, caseData.missingDate)),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Location:"),
+            React.createElement("p", { className: "scl-label" }, t("labels.location")),
             React.createElement("p", { className: "scl-child-info" },
-                caseData.city || "Unknown",
-                ", ",
-                caseData.state)),
+                caseData.city || t("information.unknown"),
+                ",",
+                " ",
+                caseData.state || t("information.unknown"))),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Birthdate:"),
-            React.createElement("p", { className: "scl-child-info" }, childData.birthDate || "Unknown")),
+            React.createElement("p", { className: "scl-label" }, t("labels.birthdate")),
+            React.createElement("p", { className: "scl-child-info" }, childData.birthDate || t("information.unknown"))),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Current Age:"),
-            React.createElement("p", { className: "scl-child-info" }, childData.age || "Unknown")),
+            React.createElement("p", { className: "scl-label" }, t("labels.currentAge")),
+            React.createElement("p", { className: "scl-child-info" }, childData.age || t("information.unknown"))),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Sex:"),
-            React.createElement("p", { className: "scl-child-info" }, childData.sex || "Unknown")),
+            React.createElement("p", { className: "scl-label" }, t("labels.sex")),
+            React.createElement("p", { className: "scl-child-info" }, childData.sex || t("information.unknown"))),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Height:"),
+            React.createElement("p", { className: "scl-label" }, t("labels.height")),
             React.createElement("p", { className: "scl-child-info" },
-                childData.height || "Unknown",
+                childData.height || t("information.unknown"),
                 " ",
                 childData.heightUnit)),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Weigth:"),
+            React.createElement("p", { className: "scl-label" }, t("labels.weight")),
             React.createElement("p", { className: "scl-child-info" },
-                childData.weight || "Unknown",
+                childData.weight || t("information.unknown"),
                 " ",
                 childData.weightUnit)),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Eye Color:"),
-            React.createElement("p", { className: "scl-child-info" }, childData.eyeColor || "Unknown")),
+            React.createElement("p", { className: "scl-label" }, t("labels.eyeColor")),
+            React.createElement("p", { className: "scl-child-info" }, childData.eyeColor || t("information.unknown"))),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Hair Color:"),
-            React.createElement("p", { className: "scl-child-info" }, childData.hairColor || "Unknown")),
+            React.createElement("p", { className: "scl-label" }, t("labels.hairColor")),
+            React.createElement("p", { className: "scl-child-info" }, childData.hairColor || t("information.unknown"))),
         React.createElement("div", { className: "scl-row" },
-            React.createElement("p", { className: "scl-label" }, "Country:"),
+            React.createElement("p", { className: "scl-label" }, t("labels.country")),
             React.createElement("p", { className: "scl-child-info" }, caseData.country))));
 };
 
 var SingleChildLandscapeHeadline = function (_a) {
     var childData = _a.childData, hasAbductors = _a.hasAbductors;
-    console.log(childData.images);
     return (React.createElement("div", { className: "scl-images-container" },
         React.createElement("img", { src: childData.images[0] || no_photo_found, alt: "childPhotoLeft", className: "scl-child-image" }),
         childData.images[1] && !hasAbductors ? (React.createElement("img", { src: childData.images[1], alt: "childPhotoRight", className: "scl-child-image" })) : null));
@@ -3195,21 +3543,24 @@ var SingleChildLandscapeHeadline = function (_a) {
 
 var SingleChildLandscapeBody = function (_a) {
     var caseData = _a.caseData;
+    var t = useTranslation("translation").t;
     var childSelected = caseData.children[0];
     return (React.createElement("div", { className: "scl-body-container" },
         React.createElement("div", { className: "scl-upper-section" },
             React.createElement(SingleChildLandscapeHeadline, { childData: childSelected, hasAbductors: Boolean(caseData.abductors.length) }),
             React.createElement(SingleChildLandscapeDetails, { childData: childSelected, caseData: caseData }),
             caseData.abductors.length ? (React.createElement("div", { className: "scl-abductors-wrapper" },
-                React.createElement("h4", null, "Companions"),
+                React.createElement("h4", null, t("labels.companions")),
                 caseData.abductors.map(function (abductor, index) { return (React.createElement(AbductorsCard, { bannerOrientation: "landscape", abductorData: abductor, key: abductor.abductorId + index })); }))) : null),
         React.createElement("div", { className: "scl-banner-title" },
             React.createElement("h2", null, childSelected.fullName),
             React.createElement("h3", null,
-                "Missing from: ",
-                caseData.city || "Unknown",
-                ", ",
-                caseData.state)),
+                t("labels.missingFrom"),
+                " ",
+                caseData.city || t("information.unknown"),
+                ",",
+                " ",
+                caseData.state || t("information.unknown"))),
         React.createElement("div", { className: "scl-circumstances" },
             React.createElement("p", null, caseData.circumstances))));
 };
@@ -3221,6 +3572,2886 @@ var SingleChildLandscapeBanner = function () {
         React.createElement(SingleChildLandscapeBody, { caseData: data }),
         React.createElement(BannerFooter, { pageOrientation: "landscape" })));
 };
+
+function _typeof$1(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof$1 = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof$1 = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof$1(obj);
+}
+
+function _defineProperty$2(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _objectSpread$3(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty$2(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
+function _classCallCheck$2(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties$2(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass$2(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$2(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$2(Constructor, staticProps);
+  return Constructor;
+}
+
+function _assertThisInitialized$1(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn$1(self, call) {
+  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized$1(self);
+}
+
+function _getPrototypeOf$1(o) {
+  _getPrototypeOf$1 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf$1(o);
+}
+
+function _setPrototypeOf$1(o, p) {
+  _setPrototypeOf$1 = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf$1(o, p);
+}
+
+function _inherits$1(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf$1(subClass, superClass);
+}
+
+var consoleLogger = {
+  type: 'logger',
+  log: function log(args) {
+    this.output('log', args);
+  },
+  warn: function warn(args) {
+    this.output('warn', args);
+  },
+  error: function error(args) {
+    this.output('error', args);
+  },
+  output: function output(type, args) {
+    if (console && console[type]) console[type].apply(console, args);
+  }
+};
+
+var Logger = function () {
+  function Logger(concreteLogger) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck$2(this, Logger);
+
+    this.init(concreteLogger, options);
+  }
+
+  _createClass$2(Logger, [{
+    key: "init",
+    value: function init(concreteLogger) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      this.prefix = options.prefix || 'i18next:';
+      this.logger = concreteLogger || consoleLogger;
+      this.options = options;
+      this.debug = options.debug;
+    }
+  }, {
+    key: "setDebug",
+    value: function setDebug(bool) {
+      this.debug = bool;
+    }
+  }, {
+    key: "log",
+    value: function log() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return this.forward(args, 'log', '', true);
+    }
+  }, {
+    key: "warn",
+    value: function warn() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return this.forward(args, 'warn', '', true);
+    }
+  }, {
+    key: "error",
+    value: function error() {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return this.forward(args, 'error', '');
+    }
+  }, {
+    key: "deprecate",
+    value: function deprecate() {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return this.forward(args, 'warn', 'WARNING DEPRECATED: ', true);
+    }
+  }, {
+    key: "forward",
+    value: function forward(args, lvl, prefix, debugOnly) {
+      if (debugOnly && !this.debug) return null;
+      if (typeof args[0] === 'string') args[0] = "".concat(prefix).concat(this.prefix, " ").concat(args[0]);
+      return this.logger[lvl](args);
+    }
+  }, {
+    key: "create",
+    value: function create(moduleName) {
+      return new Logger(this.logger, _objectSpread$3({}, {
+        prefix: "".concat(this.prefix, ":").concat(moduleName, ":")
+      }, this.options));
+    }
+  }]);
+
+  return Logger;
+}();
+
+var baseLogger = new Logger();
+
+var EventEmitter = function () {
+  function EventEmitter() {
+    _classCallCheck$2(this, EventEmitter);
+
+    this.observers = {};
+  }
+
+  _createClass$2(EventEmitter, [{
+    key: "on",
+    value: function on(events, listener) {
+      var _this = this;
+
+      events.split(' ').forEach(function (event) {
+        _this.observers[event] = _this.observers[event] || [];
+
+        _this.observers[event].push(listener);
+      });
+      return this;
+    }
+  }, {
+    key: "off",
+    value: function off(event, listener) {
+      if (!this.observers[event]) return;
+
+      if (!listener) {
+        delete this.observers[event];
+        return;
+      }
+
+      this.observers[event] = this.observers[event].filter(function (l) {
+        return l !== listener;
+      });
+    }
+  }, {
+    key: "emit",
+    value: function emit(event) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      if (this.observers[event]) {
+        var cloned = [].concat(this.observers[event]);
+        cloned.forEach(function (observer) {
+          observer.apply(void 0, args);
+        });
+      }
+
+      if (this.observers['*']) {
+        var _cloned = [].concat(this.observers['*']);
+
+        _cloned.forEach(function (observer) {
+          observer.apply(observer, [event].concat(args));
+        });
+      }
+    }
+  }]);
+
+  return EventEmitter;
+}();
+
+function defer() {
+  var res;
+  var rej;
+  var promise = new Promise(function (resolve, reject) {
+    res = resolve;
+    rej = reject;
+  });
+  promise.resolve = res;
+  promise.reject = rej;
+  return promise;
+}
+function makeString(object) {
+  if (object == null) return '';
+  return '' + object;
+}
+function copy(a, s, t) {
+  a.forEach(function (m) {
+    if (s[m]) t[m] = s[m];
+  });
+}
+
+function getLastOfPath(object, path, Empty) {
+  function cleanKey(key) {
+    return key && key.indexOf('###') > -1 ? key.replace(/###/g, '.') : key;
+  }
+
+  function canNotTraverseDeeper() {
+    return !object || typeof object === 'string';
+  }
+
+  var stack = typeof path !== 'string' ? [].concat(path) : path.split('.');
+
+  while (stack.length > 1) {
+    if (canNotTraverseDeeper()) return {};
+    var key = cleanKey(stack.shift());
+    if (!object[key] && Empty) object[key] = new Empty();
+
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
+      object = object[key];
+    } else {
+      object = {};
+    }
+  }
+
+  if (canNotTraverseDeeper()) return {};
+  return {
+    obj: object,
+    k: cleanKey(stack.shift())
+  };
+}
+
+function setPath(object, path, newValue) {
+  var _getLastOfPath = getLastOfPath(object, path, Object),
+      obj = _getLastOfPath.obj,
+      k = _getLastOfPath.k;
+
+  obj[k] = newValue;
+}
+function pushPath(object, path, newValue, concat) {
+  var _getLastOfPath2 = getLastOfPath(object, path, Object),
+      obj = _getLastOfPath2.obj,
+      k = _getLastOfPath2.k;
+
+  obj[k] = obj[k] || [];
+  if (concat) obj[k] = obj[k].concat(newValue);
+  if (!concat) obj[k].push(newValue);
+}
+function getPath(object, path) {
+  var _getLastOfPath3 = getLastOfPath(object, path),
+      obj = _getLastOfPath3.obj,
+      k = _getLastOfPath3.k;
+
+  if (!obj) return undefined;
+  return obj[k];
+}
+function getPathWithDefaults(data, defaultData, key) {
+  var value = getPath(data, key);
+
+  if (value !== undefined) {
+    return value;
+  }
+
+  return getPath(defaultData, key);
+}
+function deepExtend(target, source, overwrite) {
+  for (var prop in source) {
+    if (prop !== '__proto__' && prop !== 'constructor') {
+      if (prop in target) {
+        if (typeof target[prop] === 'string' || target[prop] instanceof String || typeof source[prop] === 'string' || source[prop] instanceof String) {
+          if (overwrite) target[prop] = source[prop];
+        } else {
+          deepExtend(target[prop], source[prop], overwrite);
+        }
+      } else {
+        target[prop] = source[prop];
+      }
+    }
+  }
+
+  return target;
+}
+function regexEscape(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+}
+var _entityMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '/': '&#x2F;'
+};
+function escape(data) {
+  if (typeof data === 'string') {
+    return data.replace(/[&<>"'\/]/g, function (s) {
+      return _entityMap[s];
+    });
+  }
+
+  return data;
+}
+var isIE10 = typeof window !== 'undefined' && window.navigator && window.navigator.userAgent && window.navigator.userAgent.indexOf('MSIE') > -1;
+
+var ResourceStore = function (_EventEmitter) {
+  _inherits$1(ResourceStore, _EventEmitter);
+
+  function ResourceStore(data) {
+    var _this;
+
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+      ns: ['translation'],
+      defaultNS: 'translation'
+    };
+
+    _classCallCheck$2(this, ResourceStore);
+
+    _this = _possibleConstructorReturn$1(this, _getPrototypeOf$1(ResourceStore).call(this));
+
+    if (isIE10) {
+      EventEmitter.call(_assertThisInitialized$1(_this));
+    }
+
+    _this.data = data || {};
+    _this.options = options;
+
+    if (_this.options.keySeparator === undefined) {
+      _this.options.keySeparator = '.';
+    }
+
+    return _this;
+  }
+
+  _createClass$2(ResourceStore, [{
+    key: "addNamespaces",
+    value: function addNamespaces(ns) {
+      if (this.options.ns.indexOf(ns) < 0) {
+        this.options.ns.push(ns);
+      }
+    }
+  }, {
+    key: "removeNamespaces",
+    value: function removeNamespaces(ns) {
+      var index = this.options.ns.indexOf(ns);
+
+      if (index > -1) {
+        this.options.ns.splice(index, 1);
+      }
+    }
+  }, {
+    key: "getResource",
+    value: function getResource(lng, ns, key) {
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+      var keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
+      var path = [lng, ns];
+      if (key && typeof key !== 'string') path = path.concat(key);
+      if (key && typeof key === 'string') path = path.concat(keySeparator ? key.split(keySeparator) : key);
+
+      if (lng.indexOf('.') > -1) {
+        path = lng.split('.');
+      }
+
+      return getPath(this.data, path);
+    }
+  }, {
+    key: "addResource",
+    value: function addResource(lng, ns, key, value) {
+      var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
+        silent: false
+      };
+      var keySeparator = this.options.keySeparator;
+      if (keySeparator === undefined) keySeparator = '.';
+      var path = [lng, ns];
+      if (key) path = path.concat(keySeparator ? key.split(keySeparator) : key);
+
+      if (lng.indexOf('.') > -1) {
+        path = lng.split('.');
+        value = ns;
+        ns = path[1];
+      }
+
+      this.addNamespaces(ns);
+      setPath(this.data, path, value);
+      if (!options.silent) this.emit('added', lng, ns, key, value);
+    }
+  }, {
+    key: "addResources",
+    value: function addResources(lng, ns, resources) {
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+        silent: false
+      };
+
+      for (var m in resources) {
+        if (typeof resources[m] === 'string' || Object.prototype.toString.apply(resources[m]) === '[object Array]') this.addResource(lng, ns, m, resources[m], {
+          silent: true
+        });
+      }
+
+      if (!options.silent) this.emit('added', lng, ns, resources);
+    }
+  }, {
+    key: "addResourceBundle",
+    value: function addResourceBundle(lng, ns, resources, deep, overwrite) {
+      var options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {
+        silent: false
+      };
+      var path = [lng, ns];
+
+      if (lng.indexOf('.') > -1) {
+        path = lng.split('.');
+        deep = resources;
+        resources = ns;
+        ns = path[1];
+      }
+
+      this.addNamespaces(ns);
+      var pack = getPath(this.data, path) || {};
+
+      if (deep) {
+        deepExtend(pack, resources, overwrite);
+      } else {
+        pack = _objectSpread$3({}, pack, resources);
+      }
+
+      setPath(this.data, path, pack);
+      if (!options.silent) this.emit('added', lng, ns, resources);
+    }
+  }, {
+    key: "removeResourceBundle",
+    value: function removeResourceBundle(lng, ns) {
+      if (this.hasResourceBundle(lng, ns)) {
+        delete this.data[lng][ns];
+      }
+
+      this.removeNamespaces(ns);
+      this.emit('removed', lng, ns);
+    }
+  }, {
+    key: "hasResourceBundle",
+    value: function hasResourceBundle(lng, ns) {
+      return this.getResource(lng, ns) !== undefined;
+    }
+  }, {
+    key: "getResourceBundle",
+    value: function getResourceBundle(lng, ns) {
+      if (!ns) ns = this.options.defaultNS;
+      if (this.options.compatibilityAPI === 'v1') return _objectSpread$3({}, {}, this.getResource(lng, ns));
+      return this.getResource(lng, ns);
+    }
+  }, {
+    key: "getDataByLanguage",
+    value: function getDataByLanguage(lng) {
+      return this.data[lng];
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      return this.data;
+    }
+  }]);
+
+  return ResourceStore;
+}(EventEmitter);
+
+var postProcessor = {
+  processors: {},
+  addPostProcessor: function addPostProcessor(module) {
+    this.processors[module.name] = module;
+  },
+  handle: function handle(processors, value, key, options, translator) {
+    var _this = this;
+
+    processors.forEach(function (processor) {
+      if (_this.processors[processor]) value = _this.processors[processor].process(value, key, options, translator);
+    });
+    return value;
+  }
+};
+
+var checkedLoadedFor = {};
+
+var Translator = function (_EventEmitter) {
+  _inherits$1(Translator, _EventEmitter);
+
+  function Translator(services) {
+    var _this;
+
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck$2(this, Translator);
+
+    _this = _possibleConstructorReturn$1(this, _getPrototypeOf$1(Translator).call(this));
+
+    if (isIE10) {
+      EventEmitter.call(_assertThisInitialized$1(_this));
+    }
+
+    copy(['resourceStore', 'languageUtils', 'pluralResolver', 'interpolator', 'backendConnector', 'i18nFormat', 'utils'], services, _assertThisInitialized$1(_this));
+    _this.options = options;
+
+    if (_this.options.keySeparator === undefined) {
+      _this.options.keySeparator = '.';
+    }
+
+    _this.logger = baseLogger.create('translator');
+    return _this;
+  }
+
+  _createClass$2(Translator, [{
+    key: "changeLanguage",
+    value: function changeLanguage(lng) {
+      if (lng) this.language = lng;
+    }
+  }, {
+    key: "exists",
+    value: function exists(key) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+        interpolation: {}
+      };
+      var resolved = this.resolve(key, options);
+      return resolved && resolved.res !== undefined;
+    }
+  }, {
+    key: "extractFromKey",
+    value: function extractFromKey(key, options) {
+      var nsSeparator = options.nsSeparator !== undefined ? options.nsSeparator : this.options.nsSeparator;
+      if (nsSeparator === undefined) nsSeparator = ':';
+      var keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
+      var namespaces = options.ns || this.options.defaultNS;
+
+      if (nsSeparator && key.indexOf(nsSeparator) > -1) {
+        var m = key.match(this.interpolator.nestingRegexp);
+
+        if (m && m.length > 0) {
+          return {
+            key: key,
+            namespaces: namespaces
+          };
+        }
+
+        var parts = key.split(nsSeparator);
+        if (nsSeparator !== keySeparator || nsSeparator === keySeparator && this.options.ns.indexOf(parts[0]) > -1) namespaces = parts.shift();
+        key = parts.join(keySeparator);
+      }
+
+      if (typeof namespaces === 'string') namespaces = [namespaces];
+      return {
+        key: key,
+        namespaces: namespaces
+      };
+    }
+  }, {
+    key: "translate",
+    value: function translate(keys, options, lastKey) {
+      var _this2 = this;
+
+      if (_typeof$1(options) !== 'object' && this.options.overloadTranslationOptionHandler) {
+        options = this.options.overloadTranslationOptionHandler(arguments);
+      }
+
+      if (!options) options = {};
+      if (keys === undefined || keys === null) return '';
+      if (!Array.isArray(keys)) keys = [String(keys)];
+      var keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
+
+      var _this$extractFromKey = this.extractFromKey(keys[keys.length - 1], options),
+          key = _this$extractFromKey.key,
+          namespaces = _this$extractFromKey.namespaces;
+
+      var namespace = namespaces[namespaces.length - 1];
+      var lng = options.lng || this.language;
+      var appendNamespaceToCIMode = options.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
+
+      if (lng && lng.toLowerCase() === 'cimode') {
+        if (appendNamespaceToCIMode) {
+          var nsSeparator = options.nsSeparator || this.options.nsSeparator;
+          return namespace + nsSeparator + key;
+        }
+
+        return key;
+      }
+
+      var resolved = this.resolve(keys, options);
+      var res = resolved && resolved.res;
+      var resUsedKey = resolved && resolved.usedKey || key;
+      var resExactUsedKey = resolved && resolved.exactUsedKey || key;
+      var resType = Object.prototype.toString.apply(res);
+      var noObject = ['[object Number]', '[object Function]', '[object RegExp]'];
+      var joinArrays = options.joinArrays !== undefined ? options.joinArrays : this.options.joinArrays;
+      var handleAsObjectInI18nFormat = !this.i18nFormat || this.i18nFormat.handleAsObject;
+      var handleAsObject = typeof res !== 'string' && typeof res !== 'boolean' && typeof res !== 'number';
+
+      if (handleAsObjectInI18nFormat && res && handleAsObject && noObject.indexOf(resType) < 0 && !(typeof joinArrays === 'string' && resType === '[object Array]')) {
+        if (!options.returnObjects && !this.options.returnObjects) {
+          this.logger.warn('accessing an object - but returnObjects options is not enabled!');
+          return this.options.returnedObjectHandler ? this.options.returnedObjectHandler(resUsedKey, res, options) : "key '".concat(key, " (").concat(this.language, ")' returned an object instead of string.");
+        }
+
+        if (keySeparator) {
+          var resTypeIsArray = resType === '[object Array]';
+          var copy = resTypeIsArray ? [] : {};
+          var newKeyToUse = resTypeIsArray ? resExactUsedKey : resUsedKey;
+
+          for (var m in res) {
+            if (Object.prototype.hasOwnProperty.call(res, m)) {
+              var deepKey = "".concat(newKeyToUse).concat(keySeparator).concat(m);
+              copy[m] = this.translate(deepKey, _objectSpread$3({}, options, {
+                joinArrays: false,
+                ns: namespaces
+              }));
+              if (copy[m] === deepKey) copy[m] = res[m];
+            }
+          }
+
+          res = copy;
+        }
+      } else if (handleAsObjectInI18nFormat && typeof joinArrays === 'string' && resType === '[object Array]') {
+        res = res.join(joinArrays);
+        if (res) res = this.extendTranslation(res, keys, options, lastKey);
+      } else {
+        var usedDefault = false;
+        var usedKey = false;
+
+        if (!this.isValidLookup(res) && options.defaultValue !== undefined) {
+          usedDefault = true;
+
+          if (options.count !== undefined) {
+            var suffix = this.pluralResolver.getSuffix(lng, options.count);
+            res = options["defaultValue".concat(suffix)];
+          }
+
+          if (!res) res = options.defaultValue;
+        }
+
+        if (!this.isValidLookup(res)) {
+          usedKey = true;
+          res = key;
+        }
+
+        var updateMissing = options.defaultValue && options.defaultValue !== res && this.options.updateMissing;
+
+        if (usedKey || usedDefault || updateMissing) {
+          this.logger.log(updateMissing ? 'updateKey' : 'missingKey', lng, namespace, key, updateMissing ? options.defaultValue : res);
+
+          if (keySeparator) {
+            var fk = this.resolve(key, _objectSpread$3({}, options, {
+              keySeparator: false
+            }));
+            if (fk && fk.res) this.logger.warn('Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.');
+          }
+
+          var lngs = [];
+          var fallbackLngs = this.languageUtils.getFallbackCodes(this.options.fallbackLng, options.lng || this.language);
+
+          if (this.options.saveMissingTo === 'fallback' && fallbackLngs && fallbackLngs[0]) {
+            for (var i = 0; i < fallbackLngs.length; i++) {
+              lngs.push(fallbackLngs[i]);
+            }
+          } else if (this.options.saveMissingTo === 'all') {
+            lngs = this.languageUtils.toResolveHierarchy(options.lng || this.language);
+          } else {
+            lngs.push(options.lng || this.language);
+          }
+
+          var send = function send(l, k) {
+            if (_this2.options.missingKeyHandler) {
+              _this2.options.missingKeyHandler(l, namespace, k, updateMissing ? options.defaultValue : res, updateMissing, options);
+            } else if (_this2.backendConnector && _this2.backendConnector.saveMissing) {
+              _this2.backendConnector.saveMissing(l, namespace, k, updateMissing ? options.defaultValue : res, updateMissing, options);
+            }
+
+            _this2.emit('missingKey', l, namespace, k, res);
+          };
+
+          if (this.options.saveMissing) {
+            var needsPluralHandling = options.count !== undefined && typeof options.count !== 'string';
+
+            if (this.options.saveMissingPlurals && needsPluralHandling) {
+              lngs.forEach(function (l) {
+                var plurals = _this2.pluralResolver.getPluralFormsOfKey(l, key);
+
+                plurals.forEach(function (p) {
+                  return send([l], p);
+                });
+              });
+            } else {
+              send(lngs, key);
+            }
+          }
+        }
+
+        res = this.extendTranslation(res, keys, options, resolved, lastKey);
+        if (usedKey && res === key && this.options.appendNamespaceToMissingKey) res = "".concat(namespace, ":").concat(key);
+        if (usedKey && this.options.parseMissingKeyHandler) res = this.options.parseMissingKeyHandler(res);
+      }
+
+      return res;
+    }
+  }, {
+    key: "extendTranslation",
+    value: function extendTranslation(res, key, options, resolved, lastKey) {
+      var _this3 = this;
+
+      if (this.i18nFormat && this.i18nFormat.parse) {
+        res = this.i18nFormat.parse(res, options, resolved.usedLng, resolved.usedNS, resolved.usedKey, {
+          resolved: resolved
+        });
+      } else if (!options.skipInterpolation) {
+        if (options.interpolation) this.interpolator.init(_objectSpread$3({}, options, {
+          interpolation: _objectSpread$3({}, this.options.interpolation, options.interpolation)
+        }));
+        var skipOnVariables = options.interpolation && options.interpolation.skipOnVariables || this.options.interpolation.skipOnVariables;
+        var nestBef;
+
+        if (skipOnVariables) {
+          var nb = res.match(this.interpolator.nestingRegexp);
+          nestBef = nb && nb.length;
+        }
+
+        var data = options.replace && typeof options.replace !== 'string' ? options.replace : options;
+        if (this.options.interpolation.defaultVariables) data = _objectSpread$3({}, this.options.interpolation.defaultVariables, data);
+        res = this.interpolator.interpolate(res, data, options.lng || this.language, options);
+
+        if (skipOnVariables) {
+          var na = res.match(this.interpolator.nestingRegexp);
+          var nestAft = na && na.length;
+          if (nestBef < nestAft) options.nest = false;
+        }
+
+        if (options.nest !== false) res = this.interpolator.nest(res, function () {
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          if (lastKey && lastKey[0] === args[0] && !options.context) {
+            _this3.logger.warn("It seems you are nesting recursively key: ".concat(args[0], " in key: ").concat(key[0]));
+
+            return null;
+          }
+
+          return _this3.translate.apply(_this3, args.concat([key]));
+        }, options);
+        if (options.interpolation) this.interpolator.reset();
+      }
+
+      var postProcess = options.postProcess || this.options.postProcess;
+      var postProcessorNames = typeof postProcess === 'string' ? [postProcess] : postProcess;
+
+      if (res !== undefined && res !== null && postProcessorNames && postProcessorNames.length && options.applyPostProcessor !== false) {
+        res = postProcessor.handle(postProcessorNames, res, key, this.options && this.options.postProcessPassResolved ? _objectSpread$3({
+          i18nResolved: resolved
+        }, options) : options, this);
+      }
+
+      return res;
+    }
+  }, {
+    key: "resolve",
+    value: function resolve(keys) {
+      var _this4 = this;
+
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var found;
+      var usedKey;
+      var exactUsedKey;
+      var usedLng;
+      var usedNS;
+      if (typeof keys === 'string') keys = [keys];
+      keys.forEach(function (k) {
+        if (_this4.isValidLookup(found)) return;
+
+        var extracted = _this4.extractFromKey(k, options);
+
+        var key = extracted.key;
+        usedKey = key;
+        var namespaces = extracted.namespaces;
+        if (_this4.options.fallbackNS) namespaces = namespaces.concat(_this4.options.fallbackNS);
+        var needsPluralHandling = options.count !== undefined && typeof options.count !== 'string';
+        var needsContextHandling = options.context !== undefined && typeof options.context === 'string' && options.context !== '';
+        var codes = options.lngs ? options.lngs : _this4.languageUtils.toResolveHierarchy(options.lng || _this4.language, options.fallbackLng);
+        namespaces.forEach(function (ns) {
+          if (_this4.isValidLookup(found)) return;
+          usedNS = ns;
+
+          if (!checkedLoadedFor["".concat(codes[0], "-").concat(ns)] && _this4.utils && _this4.utils.hasLoadedNamespace && !_this4.utils.hasLoadedNamespace(usedNS)) {
+            checkedLoadedFor["".concat(codes[0], "-").concat(ns)] = true;
+
+            _this4.logger.warn("key \"".concat(usedKey, "\" for languages \"").concat(codes.join(', '), "\" won't get resolved as namespace \"").concat(usedNS, "\" was not yet loaded"), 'This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!');
+          }
+
+          codes.forEach(function (code) {
+            if (_this4.isValidLookup(found)) return;
+            usedLng = code;
+            var finalKey = key;
+            var finalKeys = [finalKey];
+
+            if (_this4.i18nFormat && _this4.i18nFormat.addLookupKeys) {
+              _this4.i18nFormat.addLookupKeys(finalKeys, key, code, ns, options);
+            } else {
+              var pluralSuffix;
+              if (needsPluralHandling) pluralSuffix = _this4.pluralResolver.getSuffix(code, options.count);
+              if (needsPluralHandling && needsContextHandling) finalKeys.push(finalKey + pluralSuffix);
+              if (needsContextHandling) finalKeys.push(finalKey += "".concat(_this4.options.contextSeparator).concat(options.context));
+              if (needsPluralHandling) finalKeys.push(finalKey += pluralSuffix);
+            }
+
+            var possibleKey;
+
+            while (possibleKey = finalKeys.pop()) {
+              if (!_this4.isValidLookup(found)) {
+                exactUsedKey = possibleKey;
+                found = _this4.getResource(code, ns, possibleKey, options);
+              }
+            }
+          });
+        });
+      });
+      return {
+        res: found,
+        usedKey: usedKey,
+        exactUsedKey: exactUsedKey,
+        usedLng: usedLng,
+        usedNS: usedNS
+      };
+    }
+  }, {
+    key: "isValidLookup",
+    value: function isValidLookup(res) {
+      return res !== undefined && !(!this.options.returnNull && res === null) && !(!this.options.returnEmptyString && res === '');
+    }
+  }, {
+    key: "getResource",
+    value: function getResource(code, ns, key) {
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+      if (this.i18nFormat && this.i18nFormat.getResource) return this.i18nFormat.getResource(code, ns, key, options);
+      return this.resourceStore.getResource(code, ns, key, options);
+    }
+  }]);
+
+  return Translator;
+}(EventEmitter);
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+var LanguageUtil = function () {
+  function LanguageUtil(options) {
+    _classCallCheck$2(this, LanguageUtil);
+
+    this.options = options;
+    this.whitelist = this.options.supportedLngs || false;
+    this.supportedLngs = this.options.supportedLngs || false;
+    this.logger = baseLogger.create('languageUtils');
+  }
+
+  _createClass$2(LanguageUtil, [{
+    key: "getScriptPartFromCode",
+    value: function getScriptPartFromCode(code) {
+      if (!code || code.indexOf('-') < 0) return null;
+      var p = code.split('-');
+      if (p.length === 2) return null;
+      p.pop();
+      if (p[p.length - 1].toLowerCase() === 'x') return null;
+      return this.formatLanguageCode(p.join('-'));
+    }
+  }, {
+    key: "getLanguagePartFromCode",
+    value: function getLanguagePartFromCode(code) {
+      if (!code || code.indexOf('-') < 0) return code;
+      var p = code.split('-');
+      return this.formatLanguageCode(p[0]);
+    }
+  }, {
+    key: "formatLanguageCode",
+    value: function formatLanguageCode(code) {
+      if (typeof code === 'string' && code.indexOf('-') > -1) {
+        var specialCases = ['hans', 'hant', 'latn', 'cyrl', 'cans', 'mong', 'arab'];
+        var p = code.split('-');
+
+        if (this.options.lowerCaseLng) {
+          p = p.map(function (part) {
+            return part.toLowerCase();
+          });
+        } else if (p.length === 2) {
+          p[0] = p[0].toLowerCase();
+          p[1] = p[1].toUpperCase();
+          if (specialCases.indexOf(p[1].toLowerCase()) > -1) p[1] = capitalize(p[1].toLowerCase());
+        } else if (p.length === 3) {
+          p[0] = p[0].toLowerCase();
+          if (p[1].length === 2) p[1] = p[1].toUpperCase();
+          if (p[0] !== 'sgn' && p[2].length === 2) p[2] = p[2].toUpperCase();
+          if (specialCases.indexOf(p[1].toLowerCase()) > -1) p[1] = capitalize(p[1].toLowerCase());
+          if (specialCases.indexOf(p[2].toLowerCase()) > -1) p[2] = capitalize(p[2].toLowerCase());
+        }
+
+        return p.join('-');
+      }
+
+      return this.options.cleanCode || this.options.lowerCaseLng ? code.toLowerCase() : code;
+    }
+  }, {
+    key: "isWhitelisted",
+    value: function isWhitelisted(code) {
+      this.logger.deprecate('languageUtils.isWhitelisted', 'function "isWhitelisted" will be renamed to "isSupportedCode" in the next major - please make sure to rename it\'s usage asap.');
+      return this.isSupportedCode(code);
+    }
+  }, {
+    key: "isSupportedCode",
+    value: function isSupportedCode(code) {
+      if (this.options.load === 'languageOnly' || this.options.nonExplicitSupportedLngs) {
+        code = this.getLanguagePartFromCode(code);
+      }
+
+      return !this.supportedLngs || !this.supportedLngs.length || this.supportedLngs.indexOf(code) > -1;
+    }
+  }, {
+    key: "getBestMatchFromCodes",
+    value: function getBestMatchFromCodes(codes) {
+      var _this = this;
+
+      if (!codes) return null;
+      var found;
+      codes.forEach(function (code) {
+        if (found) return;
+
+        var cleanedLng = _this.formatLanguageCode(code);
+
+        if (!_this.options.supportedLngs || _this.isSupportedCode(cleanedLng)) found = cleanedLng;
+      });
+
+      if (!found && this.options.supportedLngs) {
+        codes.forEach(function (code) {
+          if (found) return;
+
+          var lngOnly = _this.getLanguagePartFromCode(code);
+
+          if (_this.isSupportedCode(lngOnly)) return found = lngOnly;
+          found = _this.options.supportedLngs.find(function (supportedLng) {
+            if (supportedLng.indexOf(lngOnly) === 0) return supportedLng;
+          });
+        });
+      }
+
+      if (!found) found = this.getFallbackCodes(this.options.fallbackLng)[0];
+      return found;
+    }
+  }, {
+    key: "getFallbackCodes",
+    value: function getFallbackCodes(fallbacks, code) {
+      if (!fallbacks) return [];
+      if (typeof fallbacks === 'function') fallbacks = fallbacks(code);
+      if (typeof fallbacks === 'string') fallbacks = [fallbacks];
+      if (Object.prototype.toString.apply(fallbacks) === '[object Array]') return fallbacks;
+      if (!code) return fallbacks["default"] || [];
+      var found = fallbacks[code];
+      if (!found) found = fallbacks[this.getScriptPartFromCode(code)];
+      if (!found) found = fallbacks[this.formatLanguageCode(code)];
+      if (!found) found = fallbacks[this.getLanguagePartFromCode(code)];
+      if (!found) found = fallbacks["default"];
+      return found || [];
+    }
+  }, {
+    key: "toResolveHierarchy",
+    value: function toResolveHierarchy(code, fallbackCode) {
+      var _this2 = this;
+
+      var fallbackCodes = this.getFallbackCodes(fallbackCode || this.options.fallbackLng || [], code);
+      var codes = [];
+
+      var addCode = function addCode(c) {
+        if (!c) return;
+
+        if (_this2.isSupportedCode(c)) {
+          codes.push(c);
+        } else {
+          _this2.logger.warn("rejecting language code not found in supportedLngs: ".concat(c));
+        }
+      };
+
+      if (typeof code === 'string' && code.indexOf('-') > -1) {
+        if (this.options.load !== 'languageOnly') addCode(this.formatLanguageCode(code));
+        if (this.options.load !== 'languageOnly' && this.options.load !== 'currentOnly') addCode(this.getScriptPartFromCode(code));
+        if (this.options.load !== 'currentOnly') addCode(this.getLanguagePartFromCode(code));
+      } else if (typeof code === 'string') {
+        addCode(this.formatLanguageCode(code));
+      }
+
+      fallbackCodes.forEach(function (fc) {
+        if (codes.indexOf(fc) < 0) addCode(_this2.formatLanguageCode(fc));
+      });
+      return codes;
+    }
+  }]);
+
+  return LanguageUtil;
+}();
+
+var sets = [{
+  lngs: ['ach', 'ak', 'am', 'arn', 'br', 'fil', 'gun', 'ln', 'mfe', 'mg', 'mi', 'oc', 'pt', 'pt-BR', 'tg', 'ti', 'tr', 'uz', 'wa'],
+  nr: [1, 2],
+  fc: 1
+}, {
+  lngs: ['af', 'an', 'ast', 'az', 'bg', 'bn', 'ca', 'da', 'de', 'dev', 'el', 'en', 'eo', 'es', 'et', 'eu', 'fi', 'fo', 'fur', 'fy', 'gl', 'gu', 'ha', 'hi', 'hu', 'hy', 'ia', 'it', 'kn', 'ku', 'lb', 'mai', 'ml', 'mn', 'mr', 'nah', 'nap', 'nb', 'ne', 'nl', 'nn', 'no', 'nso', 'pa', 'pap', 'pms', 'ps', 'pt-PT', 'rm', 'sco', 'se', 'si', 'so', 'son', 'sq', 'sv', 'sw', 'ta', 'te', 'tk', 'ur', 'yo'],
+  nr: [1, 2],
+  fc: 2
+}, {
+  lngs: ['ay', 'bo', 'cgg', 'fa', 'ht', 'id', 'ja', 'jbo', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'ms', 'sah', 'su', 'th', 'tt', 'ug', 'vi', 'wo', 'zh'],
+  nr: [1],
+  fc: 3
+}, {
+  lngs: ['be', 'bs', 'cnr', 'dz', 'hr', 'ru', 'sr', 'uk'],
+  nr: [1, 2, 5],
+  fc: 4
+}, {
+  lngs: ['ar'],
+  nr: [0, 1, 2, 3, 11, 100],
+  fc: 5
+}, {
+  lngs: ['cs', 'sk'],
+  nr: [1, 2, 5],
+  fc: 6
+}, {
+  lngs: ['csb', 'pl'],
+  nr: [1, 2, 5],
+  fc: 7
+}, {
+  lngs: ['cy'],
+  nr: [1, 2, 3, 8],
+  fc: 8
+}, {
+  lngs: ['fr'],
+  nr: [1, 2],
+  fc: 9
+}, {
+  lngs: ['ga'],
+  nr: [1, 2, 3, 7, 11],
+  fc: 10
+}, {
+  lngs: ['gd'],
+  nr: [1, 2, 3, 20],
+  fc: 11
+}, {
+  lngs: ['is'],
+  nr: [1, 2],
+  fc: 12
+}, {
+  lngs: ['jv'],
+  nr: [0, 1],
+  fc: 13
+}, {
+  lngs: ['kw'],
+  nr: [1, 2, 3, 4],
+  fc: 14
+}, {
+  lngs: ['lt'],
+  nr: [1, 2, 10],
+  fc: 15
+}, {
+  lngs: ['lv'],
+  nr: [1, 2, 0],
+  fc: 16
+}, {
+  lngs: ['mk'],
+  nr: [1, 2],
+  fc: 17
+}, {
+  lngs: ['mnk'],
+  nr: [0, 1, 2],
+  fc: 18
+}, {
+  lngs: ['mt'],
+  nr: [1, 2, 11, 20],
+  fc: 19
+}, {
+  lngs: ['or'],
+  nr: [2, 1],
+  fc: 2
+}, {
+  lngs: ['ro'],
+  nr: [1, 2, 20],
+  fc: 20
+}, {
+  lngs: ['sl'],
+  nr: [5, 1, 2, 3],
+  fc: 21
+}, {
+  lngs: ['he', 'iw'],
+  nr: [1, 2, 20, 21],
+  fc: 22
+}];
+var _rulesPluralsTypes = {
+  1: function _(n) {
+    return Number(n > 1);
+  },
+  2: function _(n) {
+    return Number(n != 1);
+  },
+  3: function _(n) {
+    return 0;
+  },
+  4: function _(n) {
+    return Number(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
+  },
+  5: function _(n) {
+    return Number(n == 0 ? 0 : n == 1 ? 1 : n == 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5);
+  },
+  6: function _(n) {
+    return Number(n == 1 ? 0 : n >= 2 && n <= 4 ? 1 : 2);
+  },
+  7: function _(n) {
+    return Number(n == 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
+  },
+  8: function _(n) {
+    return Number(n == 1 ? 0 : n == 2 ? 1 : n != 8 && n != 11 ? 2 : 3);
+  },
+  9: function _(n) {
+    return Number(n >= 2);
+  },
+  10: function _(n) {
+    return Number(n == 1 ? 0 : n == 2 ? 1 : n < 7 ? 2 : n < 11 ? 3 : 4);
+  },
+  11: function _(n) {
+    return Number(n == 1 || n == 11 ? 0 : n == 2 || n == 12 ? 1 : n > 2 && n < 20 ? 2 : 3);
+  },
+  12: function _(n) {
+    return Number(n % 10 != 1 || n % 100 == 11);
+  },
+  13: function _(n) {
+    return Number(n !== 0);
+  },
+  14: function _(n) {
+    return Number(n == 1 ? 0 : n == 2 ? 1 : n == 3 ? 2 : 3);
+  },
+  15: function _(n) {
+    return Number(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
+  },
+  16: function _(n) {
+    return Number(n % 10 == 1 && n % 100 != 11 ? 0 : n !== 0 ? 1 : 2);
+  },
+  17: function _(n) {
+    return Number(n == 1 || n % 10 == 1 && n % 100 != 11 ? 0 : 1);
+  },
+  18: function _(n) {
+    return Number(n == 0 ? 0 : n == 1 ? 1 : 2);
+  },
+  19: function _(n) {
+    return Number(n == 1 ? 0 : n == 0 || n % 100 > 1 && n % 100 < 11 ? 1 : n % 100 > 10 && n % 100 < 20 ? 2 : 3);
+  },
+  20: function _(n) {
+    return Number(n == 1 ? 0 : n == 0 || n % 100 > 0 && n % 100 < 20 ? 1 : 2);
+  },
+  21: function _(n) {
+    return Number(n % 100 == 1 ? 1 : n % 100 == 2 ? 2 : n % 100 == 3 || n % 100 == 4 ? 3 : 0);
+  },
+  22: function _(n) {
+    return Number(n == 1 ? 0 : n == 2 ? 1 : (n < 0 || n > 10) && n % 10 == 0 ? 2 : 3);
+  }
+};
+
+function createRules() {
+  var rules = {};
+  sets.forEach(function (set) {
+    set.lngs.forEach(function (l) {
+      rules[l] = {
+        numbers: set.nr,
+        plurals: _rulesPluralsTypes[set.fc]
+      };
+    });
+  });
+  return rules;
+}
+
+var PluralResolver = function () {
+  function PluralResolver(languageUtils) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck$2(this, PluralResolver);
+
+    this.languageUtils = languageUtils;
+    this.options = options;
+    this.logger = baseLogger.create('pluralResolver');
+    this.rules = createRules();
+  }
+
+  _createClass$2(PluralResolver, [{
+    key: "addRule",
+    value: function addRule(lng, obj) {
+      this.rules[lng] = obj;
+    }
+  }, {
+    key: "getRule",
+    value: function getRule(code) {
+      return this.rules[code] || this.rules[this.languageUtils.getLanguagePartFromCode(code)];
+    }
+  }, {
+    key: "needsPlural",
+    value: function needsPlural(code) {
+      var rule = this.getRule(code);
+      return rule && rule.numbers.length > 1;
+    }
+  }, {
+    key: "getPluralFormsOfKey",
+    value: function getPluralFormsOfKey(code, key) {
+      var _this = this;
+
+      var ret = [];
+      var rule = this.getRule(code);
+      if (!rule) return ret;
+      rule.numbers.forEach(function (n) {
+        var suffix = _this.getSuffix(code, n);
+
+        ret.push("".concat(key).concat(suffix));
+      });
+      return ret;
+    }
+  }, {
+    key: "getSuffix",
+    value: function getSuffix(code, count) {
+      var _this2 = this;
+
+      var rule = this.getRule(code);
+
+      if (rule) {
+        var idx = rule.noAbs ? rule.plurals(count) : rule.plurals(Math.abs(count));
+        var suffix = rule.numbers[idx];
+
+        if (this.options.simplifyPluralSuffix && rule.numbers.length === 2 && rule.numbers[0] === 1) {
+          if (suffix === 2) {
+            suffix = 'plural';
+          } else if (suffix === 1) {
+            suffix = '';
+          }
+        }
+
+        var returnSuffix = function returnSuffix() {
+          return _this2.options.prepend && suffix.toString() ? _this2.options.prepend + suffix.toString() : suffix.toString();
+        };
+
+        if (this.options.compatibilityJSON === 'v1') {
+          if (suffix === 1) return '';
+          if (typeof suffix === 'number') return "_plural_".concat(suffix.toString());
+          return returnSuffix();
+        } else if (this.options.compatibilityJSON === 'v2') {
+          return returnSuffix();
+        } else if (this.options.simplifyPluralSuffix && rule.numbers.length === 2 && rule.numbers[0] === 1) {
+          return returnSuffix();
+        }
+
+        return this.options.prepend && idx.toString() ? this.options.prepend + idx.toString() : idx.toString();
+      }
+
+      this.logger.warn("no plural rule found for: ".concat(code));
+      return '';
+    }
+  }]);
+
+  return PluralResolver;
+}();
+
+var Interpolator = function () {
+  function Interpolator() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck$2(this, Interpolator);
+
+    this.logger = baseLogger.create('interpolator');
+    this.options = options;
+
+    this.format = options.interpolation && options.interpolation.format || function (value) {
+      return value;
+    };
+
+    this.init(options);
+  }
+
+  _createClass$2(Interpolator, [{
+    key: "init",
+    value: function init() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      if (!options.interpolation) options.interpolation = {
+        escapeValue: true
+      };
+      var iOpts = options.interpolation;
+      this.escape = iOpts.escape !== undefined ? iOpts.escape : escape;
+      this.escapeValue = iOpts.escapeValue !== undefined ? iOpts.escapeValue : true;
+      this.useRawValueToEscape = iOpts.useRawValueToEscape !== undefined ? iOpts.useRawValueToEscape : false;
+      this.prefix = iOpts.prefix ? regexEscape(iOpts.prefix) : iOpts.prefixEscaped || '{{';
+      this.suffix = iOpts.suffix ? regexEscape(iOpts.suffix) : iOpts.suffixEscaped || '}}';
+      this.formatSeparator = iOpts.formatSeparator ? iOpts.formatSeparator : iOpts.formatSeparator || ',';
+      this.unescapePrefix = iOpts.unescapeSuffix ? '' : iOpts.unescapePrefix || '-';
+      this.unescapeSuffix = this.unescapePrefix ? '' : iOpts.unescapeSuffix || '';
+      this.nestingPrefix = iOpts.nestingPrefix ? regexEscape(iOpts.nestingPrefix) : iOpts.nestingPrefixEscaped || regexEscape('$t(');
+      this.nestingSuffix = iOpts.nestingSuffix ? regexEscape(iOpts.nestingSuffix) : iOpts.nestingSuffixEscaped || regexEscape(')');
+      this.nestingOptionsSeparator = iOpts.nestingOptionsSeparator ? iOpts.nestingOptionsSeparator : iOpts.nestingOptionsSeparator || ',';
+      this.maxReplaces = iOpts.maxReplaces ? iOpts.maxReplaces : 1000;
+      this.alwaysFormat = iOpts.alwaysFormat !== undefined ? iOpts.alwaysFormat : false;
+      this.resetRegExp();
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      if (this.options) this.init(this.options);
+    }
+  }, {
+    key: "resetRegExp",
+    value: function resetRegExp() {
+      var regexpStr = "".concat(this.prefix, "(.+?)").concat(this.suffix);
+      this.regexp = new RegExp(regexpStr, 'g');
+      var regexpUnescapeStr = "".concat(this.prefix).concat(this.unescapePrefix, "(.+?)").concat(this.unescapeSuffix).concat(this.suffix);
+      this.regexpUnescape = new RegExp(regexpUnescapeStr, 'g');
+      var nestingRegexpStr = "".concat(this.nestingPrefix, "(.+?)").concat(this.nestingSuffix);
+      this.nestingRegexp = new RegExp(nestingRegexpStr, 'g');
+    }
+  }, {
+    key: "interpolate",
+    value: function interpolate(str, data, lng, options) {
+      var _this = this;
+
+      var match;
+      var value;
+      var replaces;
+      var defaultData = this.options && this.options.interpolation && this.options.interpolation.defaultVariables || {};
+
+      function regexSafe(val) {
+        return val.replace(/\$/g, '$$$$');
+      }
+
+      var handleFormat = function handleFormat(key) {
+        if (key.indexOf(_this.formatSeparator) < 0) {
+          var path = getPathWithDefaults(data, defaultData, key);
+          return _this.alwaysFormat ? _this.format(path, undefined, lng) : path;
+        }
+
+        var p = key.split(_this.formatSeparator);
+        var k = p.shift().trim();
+        var f = p.join(_this.formatSeparator).trim();
+        return _this.format(getPathWithDefaults(data, defaultData, k), f, lng, options);
+      };
+
+      this.resetRegExp();
+      var missingInterpolationHandler = options && options.missingInterpolationHandler || this.options.missingInterpolationHandler;
+      var skipOnVariables = options && options.interpolation && options.interpolation.skipOnVariables || this.options.interpolation.skipOnVariables;
+      var todos = [{
+        regex: this.regexpUnescape,
+        safeValue: function safeValue(val) {
+          return regexSafe(val);
+        }
+      }, {
+        regex: this.regexp,
+        safeValue: function safeValue(val) {
+          return _this.escapeValue ? regexSafe(_this.escape(val)) : regexSafe(val);
+        }
+      }];
+      todos.forEach(function (todo) {
+        replaces = 0;
+
+        while (match = todo.regex.exec(str)) {
+          value = handleFormat(match[1].trim());
+
+          if (value === undefined) {
+            if (typeof missingInterpolationHandler === 'function') {
+              var temp = missingInterpolationHandler(str, match, options);
+              value = typeof temp === 'string' ? temp : '';
+            } else if (skipOnVariables) {
+              value = match[0];
+              continue;
+            } else {
+              _this.logger.warn("missed to pass in variable ".concat(match[1], " for interpolating ").concat(str));
+
+              value = '';
+            }
+          } else if (typeof value !== 'string' && !_this.useRawValueToEscape) {
+            value = makeString(value);
+          }
+
+          str = str.replace(match[0], todo.safeValue(value));
+          todo.regex.lastIndex = 0;
+          replaces++;
+
+          if (replaces >= _this.maxReplaces) {
+            break;
+          }
+        }
+      });
+      return str;
+    }
+  }, {
+    key: "nest",
+    value: function nest(str, fc) {
+      var _this2 = this;
+
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var match;
+      var value;
+
+      var clonedOptions = _objectSpread$3({}, options);
+
+      clonedOptions.applyPostProcessor = false;
+      delete clonedOptions.defaultValue;
+
+      function handleHasOptions(key, inheritedOptions) {
+        var sep = this.nestingOptionsSeparator;
+        if (key.indexOf(sep) < 0) return key;
+        var c = key.split(new RegExp("".concat(sep, "[ ]*{")));
+        var optionsString = "{".concat(c[1]);
+        key = c[0];
+        optionsString = this.interpolate(optionsString, clonedOptions);
+        optionsString = optionsString.replace(/'/g, '"');
+
+        try {
+          clonedOptions = JSON.parse(optionsString);
+          if (inheritedOptions) clonedOptions = _objectSpread$3({}, inheritedOptions, clonedOptions);
+        } catch (e) {
+          this.logger.warn("failed parsing options string in nesting for key ".concat(key), e);
+          return "".concat(key).concat(sep).concat(optionsString);
+        }
+
+        delete clonedOptions.defaultValue;
+        return key;
+      }
+
+      while (match = this.nestingRegexp.exec(str)) {
+        var formatters = [];
+        var doReduce = false;
+
+        if (match[0].includes(this.formatSeparator) && !/{.*}/.test(match[1])) {
+          var r = match[1].split(this.formatSeparator).map(function (elem) {
+            return elem.trim();
+          });
+          match[1] = r.shift();
+          formatters = r;
+          doReduce = true;
+        }
+
+        value = fc(handleHasOptions.call(this, match[1].trim(), clonedOptions), clonedOptions);
+        if (value && match[0] === str && typeof value !== 'string') return value;
+        if (typeof value !== 'string') value = makeString(value);
+
+        if (!value) {
+          this.logger.warn("missed to resolve ".concat(match[1], " for nesting ").concat(str));
+          value = '';
+        }
+
+        if (doReduce) {
+          value = formatters.reduce(function (v, f) {
+            return _this2.format(v, f, options.lng, options);
+          }, value.trim());
+        }
+
+        str = str.replace(match[0], value);
+        this.regexp.lastIndex = 0;
+      }
+
+      return str;
+    }
+  }]);
+
+  return Interpolator;
+}();
+
+function remove(arr, what) {
+  var found = arr.indexOf(what);
+
+  while (found !== -1) {
+    arr.splice(found, 1);
+    found = arr.indexOf(what);
+  }
+}
+
+var Connector = function (_EventEmitter) {
+  _inherits$1(Connector, _EventEmitter);
+
+  function Connector(backend, store, services) {
+    var _this;
+
+    var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+    _classCallCheck$2(this, Connector);
+
+    _this = _possibleConstructorReturn$1(this, _getPrototypeOf$1(Connector).call(this));
+
+    if (isIE10) {
+      EventEmitter.call(_assertThisInitialized$1(_this));
+    }
+
+    _this.backend = backend;
+    _this.store = store;
+    _this.services = services;
+    _this.languageUtils = services.languageUtils;
+    _this.options = options;
+    _this.logger = baseLogger.create('backendConnector');
+    _this.state = {};
+    _this.queue = [];
+
+    if (_this.backend && _this.backend.init) {
+      _this.backend.init(services, options.backend, options);
+    }
+
+    return _this;
+  }
+
+  _createClass$2(Connector, [{
+    key: "queueLoad",
+    value: function queueLoad(languages, namespaces, options, callback) {
+      var _this2 = this;
+
+      var toLoad = [];
+      var pending = [];
+      var toLoadLanguages = [];
+      var toLoadNamespaces = [];
+      languages.forEach(function (lng) {
+        var hasAllNamespaces = true;
+        namespaces.forEach(function (ns) {
+          var name = "".concat(lng, "|").concat(ns);
+
+          if (!options.reload && _this2.store.hasResourceBundle(lng, ns)) {
+            _this2.state[name] = 2;
+          } else if (_this2.state[name] < 0) ; else if (_this2.state[name] === 1) {
+            if (pending.indexOf(name) < 0) pending.push(name);
+          } else {
+            _this2.state[name] = 1;
+            hasAllNamespaces = false;
+            if (pending.indexOf(name) < 0) pending.push(name);
+            if (toLoad.indexOf(name) < 0) toLoad.push(name);
+            if (toLoadNamespaces.indexOf(ns) < 0) toLoadNamespaces.push(ns);
+          }
+        });
+        if (!hasAllNamespaces) toLoadLanguages.push(lng);
+      });
+
+      if (toLoad.length || pending.length) {
+        this.queue.push({
+          pending: pending,
+          loaded: {},
+          errors: [],
+          callback: callback
+        });
+      }
+
+      return {
+        toLoad: toLoad,
+        pending: pending,
+        toLoadLanguages: toLoadLanguages,
+        toLoadNamespaces: toLoadNamespaces
+      };
+    }
+  }, {
+    key: "loaded",
+    value: function loaded(name, err, data) {
+      var s = name.split('|');
+      var lng = s[0];
+      var ns = s[1];
+      if (err) this.emit('failedLoading', lng, ns, err);
+
+      if (data) {
+        this.store.addResourceBundle(lng, ns, data);
+      }
+
+      this.state[name] = err ? -1 : 2;
+      var loaded = {};
+      this.queue.forEach(function (q) {
+        pushPath(q.loaded, [lng], ns);
+        remove(q.pending, name);
+        if (err) q.errors.push(err);
+
+        if (q.pending.length === 0 && !q.done) {
+          Object.keys(q.loaded).forEach(function (l) {
+            if (!loaded[l]) loaded[l] = [];
+
+            if (q.loaded[l].length) {
+              q.loaded[l].forEach(function (ns) {
+                if (loaded[l].indexOf(ns) < 0) loaded[l].push(ns);
+              });
+            }
+          });
+          q.done = true;
+
+          if (q.errors.length) {
+            q.callback(q.errors);
+          } else {
+            q.callback();
+          }
+        }
+      });
+      this.emit('loaded', loaded);
+      this.queue = this.queue.filter(function (q) {
+        return !q.done;
+      });
+    }
+  }, {
+    key: "read",
+    value: function read(lng, ns, fcName) {
+      var _this3 = this;
+
+      var tried = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var wait = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 350;
+      var callback = arguments.length > 5 ? arguments[5] : undefined;
+      if (!lng.length) return callback(null, {});
+      return this.backend[fcName](lng, ns, function (err, data) {
+        if (err && data && tried < 5) {
+          setTimeout(function () {
+            _this3.read.call(_this3, lng, ns, fcName, tried + 1, wait * 2, callback);
+          }, wait);
+          return;
+        }
+
+        callback(err, data);
+      });
+    }
+  }, {
+    key: "prepareLoading",
+    value: function prepareLoading(languages, namespaces) {
+      var _this4 = this;
+
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var callback = arguments.length > 3 ? arguments[3] : undefined;
+
+      if (!this.backend) {
+        this.logger.warn('No backend was added via i18next.use. Will not load resources.');
+        return callback && callback();
+      }
+
+      if (typeof languages === 'string') languages = this.languageUtils.toResolveHierarchy(languages);
+      if (typeof namespaces === 'string') namespaces = [namespaces];
+      var toLoad = this.queueLoad(languages, namespaces, options, callback);
+
+      if (!toLoad.toLoad.length) {
+        if (!toLoad.pending.length) callback();
+        return null;
+      }
+
+      toLoad.toLoad.forEach(function (name) {
+        _this4.loadOne(name);
+      });
+    }
+  }, {
+    key: "load",
+    value: function load(languages, namespaces, callback) {
+      this.prepareLoading(languages, namespaces, {}, callback);
+    }
+  }, {
+    key: "reload",
+    value: function reload(languages, namespaces, callback) {
+      this.prepareLoading(languages, namespaces, {
+        reload: true
+      }, callback);
+    }
+  }, {
+    key: "loadOne",
+    value: function loadOne(name) {
+      var _this5 = this;
+
+      var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var s = name.split('|');
+      var lng = s[0];
+      var ns = s[1];
+      this.read(lng, ns, 'read', undefined, undefined, function (err, data) {
+        if (err) _this5.logger.warn("".concat(prefix, "loading namespace ").concat(ns, " for language ").concat(lng, " failed"), err);
+        if (!err && data) _this5.logger.log("".concat(prefix, "loaded namespace ").concat(ns, " for language ").concat(lng), data);
+
+        _this5.loaded(name, err, data);
+      });
+    }
+  }, {
+    key: "saveMissing",
+    value: function saveMissing(languages, namespace, key, fallbackValue, isUpdate) {
+      var options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+
+      if (this.services.utils && this.services.utils.hasLoadedNamespace && !this.services.utils.hasLoadedNamespace(namespace)) {
+        this.logger.warn("did not save key \"".concat(key, "\" as the namespace \"").concat(namespace, "\" was not yet loaded"), 'This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!');
+        return;
+      }
+
+      if (key === undefined || key === null || key === '') return;
+
+      if (this.backend && this.backend.create) {
+        this.backend.create(languages, namespace, key, fallbackValue, null, _objectSpread$3({}, options, {
+          isUpdate: isUpdate
+        }));
+      }
+
+      if (!languages || !languages[0]) return;
+      this.store.addResource(languages[0], namespace, key, fallbackValue);
+    }
+  }]);
+
+  return Connector;
+}(EventEmitter);
+
+function get() {
+  return {
+    debug: false,
+    initImmediate: true,
+    ns: ['translation'],
+    defaultNS: ['translation'],
+    fallbackLng: ['dev'],
+    fallbackNS: false,
+    whitelist: false,
+    nonExplicitWhitelist: false,
+    supportedLngs: false,
+    nonExplicitSupportedLngs: false,
+    load: 'all',
+    preload: false,
+    simplifyPluralSuffix: true,
+    keySeparator: '.',
+    nsSeparator: ':',
+    pluralSeparator: '_',
+    contextSeparator: '_',
+    partialBundledLanguages: false,
+    saveMissing: false,
+    updateMissing: false,
+    saveMissingTo: 'fallback',
+    saveMissingPlurals: true,
+    missingKeyHandler: false,
+    missingInterpolationHandler: false,
+    postProcess: false,
+    postProcessPassResolved: false,
+    returnNull: true,
+    returnEmptyString: true,
+    returnObjects: false,
+    joinArrays: false,
+    returnedObjectHandler: false,
+    parseMissingKeyHandler: false,
+    appendNamespaceToMissingKey: false,
+    appendNamespaceToCIMode: false,
+    overloadTranslationOptionHandler: function handle(args) {
+      var ret = {};
+      if (_typeof$1(args[1]) === 'object') ret = args[1];
+      if (typeof args[1] === 'string') ret.defaultValue = args[1];
+      if (typeof args[2] === 'string') ret.tDescription = args[2];
+
+      if (_typeof$1(args[2]) === 'object' || _typeof$1(args[3]) === 'object') {
+        var options = args[3] || args[2];
+        Object.keys(options).forEach(function (key) {
+          ret[key] = options[key];
+        });
+      }
+
+      return ret;
+    },
+    interpolation: {
+      escapeValue: true,
+      format: function format(value, _format, lng, options) {
+        return value;
+      },
+      prefix: '{{',
+      suffix: '}}',
+      formatSeparator: ',',
+      unescapePrefix: '-',
+      nestingPrefix: '$t(',
+      nestingSuffix: ')',
+      nestingOptionsSeparator: ',',
+      maxReplaces: 1000,
+      skipOnVariables: false
+    }
+  };
+}
+function transformOptions(options) {
+  if (typeof options.ns === 'string') options.ns = [options.ns];
+  if (typeof options.fallbackLng === 'string') options.fallbackLng = [options.fallbackLng];
+  if (typeof options.fallbackNS === 'string') options.fallbackNS = [options.fallbackNS];
+
+  if (options.whitelist) {
+    if (options.whitelist && options.whitelist.indexOf('cimode') < 0) {
+      options.whitelist = options.whitelist.concat(['cimode']);
+    }
+
+    options.supportedLngs = options.whitelist;
+  }
+
+  if (options.nonExplicitWhitelist) {
+    options.nonExplicitSupportedLngs = options.nonExplicitWhitelist;
+  }
+
+  if (options.supportedLngs && options.supportedLngs.indexOf('cimode') < 0) {
+    options.supportedLngs = options.supportedLngs.concat(['cimode']);
+  }
+
+  return options;
+}
+
+function noop() {}
+
+var I18n = function (_EventEmitter) {
+  _inherits$1(I18n, _EventEmitter);
+
+  function I18n() {
+    var _this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var callback = arguments.length > 1 ? arguments[1] : undefined;
+
+    _classCallCheck$2(this, I18n);
+
+    _this = _possibleConstructorReturn$1(this, _getPrototypeOf$1(I18n).call(this));
+
+    if (isIE10) {
+      EventEmitter.call(_assertThisInitialized$1(_this));
+    }
+
+    _this.options = transformOptions(options);
+    _this.services = {};
+    _this.logger = baseLogger;
+    _this.modules = {
+      external: []
+    };
+
+    if (callback && !_this.isInitialized && !options.isClone) {
+      if (!_this.options.initImmediate) {
+        _this.init(options, callback);
+
+        return _possibleConstructorReturn$1(_this, _assertThisInitialized$1(_this));
+      }
+
+      setTimeout(function () {
+        _this.init(options, callback);
+      }, 0);
+    }
+
+    return _this;
+  }
+
+  _createClass$2(I18n, [{
+    key: "init",
+    value: function init() {
+      var _this2 = this;
+
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var callback = arguments.length > 1 ? arguments[1] : undefined;
+
+      if (typeof options === 'function') {
+        callback = options;
+        options = {};
+      }
+
+      if (options.whitelist && !options.supportedLngs) {
+        this.logger.deprecate('whitelist', 'option "whitelist" will be renamed to "supportedLngs" in the next major - please make sure to rename this option asap.');
+      }
+
+      if (options.nonExplicitWhitelist && !options.nonExplicitSupportedLngs) {
+        this.logger.deprecate('whitelist', 'options "nonExplicitWhitelist" will be renamed to "nonExplicitSupportedLngs" in the next major - please make sure to rename this option asap.');
+      }
+
+      this.options = _objectSpread$3({}, get(), this.options, transformOptions(options));
+      this.format = this.options.interpolation.format;
+      if (!callback) callback = noop;
+
+      function createClassOnDemand(ClassOrObject) {
+        if (!ClassOrObject) return null;
+        if (typeof ClassOrObject === 'function') return new ClassOrObject();
+        return ClassOrObject;
+      }
+
+      if (!this.options.isClone) {
+        if (this.modules.logger) {
+          baseLogger.init(createClassOnDemand(this.modules.logger), this.options);
+        } else {
+          baseLogger.init(null, this.options);
+        }
+
+        var lu = new LanguageUtil(this.options);
+        this.store = new ResourceStore(this.options.resources, this.options);
+        var s = this.services;
+        s.logger = baseLogger;
+        s.resourceStore = this.store;
+        s.languageUtils = lu;
+        s.pluralResolver = new PluralResolver(lu, {
+          prepend: this.options.pluralSeparator,
+          compatibilityJSON: this.options.compatibilityJSON,
+          simplifyPluralSuffix: this.options.simplifyPluralSuffix
+        });
+        s.interpolator = new Interpolator(this.options);
+        s.utils = {
+          hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
+        };
+        s.backendConnector = new Connector(createClassOnDemand(this.modules.backend), s.resourceStore, s, this.options);
+        s.backendConnector.on('*', function (event) {
+          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            args[_key - 1] = arguments[_key];
+          }
+
+          _this2.emit.apply(_this2, [event].concat(args));
+        });
+
+        if (this.modules.languageDetector) {
+          s.languageDetector = createClassOnDemand(this.modules.languageDetector);
+          s.languageDetector.init(s, this.options.detection, this.options);
+        }
+
+        if (this.modules.i18nFormat) {
+          s.i18nFormat = createClassOnDemand(this.modules.i18nFormat);
+          if (s.i18nFormat.init) s.i18nFormat.init(this);
+        }
+
+        this.translator = new Translator(this.services, this.options);
+        this.translator.on('*', function (event) {
+          for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+            args[_key2 - 1] = arguments[_key2];
+          }
+
+          _this2.emit.apply(_this2, [event].concat(args));
+        });
+        this.modules.external.forEach(function (m) {
+          if (m.init) m.init(_this2);
+        });
+      }
+
+      if (this.options.fallbackLng && !this.services.languageDetector && !this.options.lng) {
+        var codes = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
+        if (codes.length > 0 && codes[0] !== 'dev') this.options.lng = codes[0];
+      }
+
+      if (!this.services.languageDetector && !this.options.lng) {
+        this.logger.warn('init: no languageDetector is used and no lng is defined');
+      }
+
+      var storeApi = ['getResource', 'hasResourceBundle', 'getResourceBundle', 'getDataByLanguage'];
+      storeApi.forEach(function (fcName) {
+        _this2[fcName] = function () {
+          var _this2$store;
+
+          return (_this2$store = _this2.store)[fcName].apply(_this2$store, arguments);
+        };
+      });
+      var storeApiChained = ['addResource', 'addResources', 'addResourceBundle', 'removeResourceBundle'];
+      storeApiChained.forEach(function (fcName) {
+        _this2[fcName] = function () {
+          var _this2$store2;
+
+          (_this2$store2 = _this2.store)[fcName].apply(_this2$store2, arguments);
+
+          return _this2;
+        };
+      });
+      var deferred = defer();
+
+      var load = function load() {
+        var finish = function finish(err, t) {
+          _this2.isInitialized = true;
+          if (!_this2.options.isClone) _this2.logger.log('initialized', _this2.options);
+
+          _this2.emit('initialized', _this2.options);
+
+          deferred.resolve(t);
+          callback(err, t);
+        };
+
+        if (_this2.languages && _this2.options.compatibilityAPI !== 'v1') return finish(null, _this2.t.bind(_this2));
+
+        _this2.changeLanguage(_this2.options.lng, finish);
+      };
+
+      if (this.options.resources || !this.options.initImmediate) {
+        load();
+      } else {
+        setTimeout(load, 0);
+      }
+
+      return deferred;
+    }
+  }, {
+    key: "loadResources",
+    value: function loadResources(language) {
+      var _this3 = this;
+
+      var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
+      var usedCallback = callback;
+      var usedLng = typeof language === 'string' ? language : this.language;
+      if (typeof language === 'function') usedCallback = language;
+
+      if (!this.options.resources || this.options.partialBundledLanguages) {
+        if (usedLng && usedLng.toLowerCase() === 'cimode') return usedCallback();
+        var toLoad = [];
+
+        var append = function append(lng) {
+          if (!lng) return;
+
+          var lngs = _this3.services.languageUtils.toResolveHierarchy(lng);
+
+          lngs.forEach(function (l) {
+            if (toLoad.indexOf(l) < 0) toLoad.push(l);
+          });
+        };
+
+        if (!usedLng) {
+          var fallbacks = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
+          fallbacks.forEach(function (l) {
+            return append(l);
+          });
+        } else {
+          append(usedLng);
+        }
+
+        if (this.options.preload) {
+          this.options.preload.forEach(function (l) {
+            return append(l);
+          });
+        }
+
+        this.services.backendConnector.load(toLoad, this.options.ns, usedCallback);
+      } else {
+        usedCallback(null);
+      }
+    }
+  }, {
+    key: "reloadResources",
+    value: function reloadResources(lngs, ns, callback) {
+      var deferred = defer();
+      if (!lngs) lngs = this.languages;
+      if (!ns) ns = this.options.ns;
+      if (!callback) callback = noop;
+      this.services.backendConnector.reload(lngs, ns, function (err) {
+        deferred.resolve();
+        callback(err);
+      });
+      return deferred;
+    }
+  }, {
+    key: "use",
+    value: function use(module) {
+      if (!module) throw new Error('You are passing an undefined module! Please check the object you are passing to i18next.use()');
+      if (!module.type) throw new Error('You are passing a wrong module! Please check the object you are passing to i18next.use()');
+
+      if (module.type === 'backend') {
+        this.modules.backend = module;
+      }
+
+      if (module.type === 'logger' || module.log && module.warn && module.error) {
+        this.modules.logger = module;
+      }
+
+      if (module.type === 'languageDetector') {
+        this.modules.languageDetector = module;
+      }
+
+      if (module.type === 'i18nFormat') {
+        this.modules.i18nFormat = module;
+      }
+
+      if (module.type === 'postProcessor') {
+        postProcessor.addPostProcessor(module);
+      }
+
+      if (module.type === '3rdParty') {
+        this.modules.external.push(module);
+      }
+
+      return this;
+    }
+  }, {
+    key: "changeLanguage",
+    value: function changeLanguage(lng, callback) {
+      var _this4 = this;
+
+      this.isLanguageChangingTo = lng;
+      var deferred = defer();
+      this.emit('languageChanging', lng);
+
+      var done = function done(err, l) {
+        if (l) {
+          _this4.language = l;
+          _this4.languages = _this4.services.languageUtils.toResolveHierarchy(l);
+
+          _this4.translator.changeLanguage(l);
+
+          _this4.isLanguageChangingTo = undefined;
+
+          _this4.emit('languageChanged', l);
+
+          _this4.logger.log('languageChanged', l);
+        } else {
+          _this4.isLanguageChangingTo = undefined;
+        }
+
+        deferred.resolve(function () {
+          return _this4.t.apply(_this4, arguments);
+        });
+        if (callback) callback(err, function () {
+          return _this4.t.apply(_this4, arguments);
+        });
+      };
+
+      var setLng = function setLng(lngs) {
+        var l = typeof lngs === 'string' ? lngs : _this4.services.languageUtils.getBestMatchFromCodes(lngs);
+
+        if (l) {
+          if (!_this4.language) {
+            _this4.language = l;
+            _this4.languages = _this4.services.languageUtils.toResolveHierarchy(l);
+          }
+
+          if (!_this4.translator.language) _this4.translator.changeLanguage(l);
+          if (_this4.services.languageDetector) _this4.services.languageDetector.cacheUserLanguage(l);
+        }
+
+        _this4.loadResources(l, function (err) {
+          done(err, l);
+        });
+      };
+
+      if (!lng && this.services.languageDetector && !this.services.languageDetector.async) {
+        setLng(this.services.languageDetector.detect());
+      } else if (!lng && this.services.languageDetector && this.services.languageDetector.async) {
+        this.services.languageDetector.detect(setLng);
+      } else {
+        setLng(lng);
+      }
+
+      return deferred;
+    }
+  }, {
+    key: "getFixedT",
+    value: function getFixedT(lng, ns) {
+      var _this5 = this;
+
+      var fixedT = function fixedT(key, opts) {
+        var options;
+
+        if (_typeof$1(opts) !== 'object') {
+          for (var _len3 = arguments.length, rest = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
+            rest[_key3 - 2] = arguments[_key3];
+          }
+
+          options = _this5.options.overloadTranslationOptionHandler([key, opts].concat(rest));
+        } else {
+          options = _objectSpread$3({}, opts);
+        }
+
+        options.lng = options.lng || fixedT.lng;
+        options.lngs = options.lngs || fixedT.lngs;
+        options.ns = options.ns || fixedT.ns;
+        return _this5.t(key, options);
+      };
+
+      if (typeof lng === 'string') {
+        fixedT.lng = lng;
+      } else {
+        fixedT.lngs = lng;
+      }
+
+      fixedT.ns = ns;
+      return fixedT;
+    }
+  }, {
+    key: "t",
+    value: function t() {
+      var _this$translator;
+
+      return this.translator && (_this$translator = this.translator).translate.apply(_this$translator, arguments);
+    }
+  }, {
+    key: "exists",
+    value: function exists() {
+      var _this$translator2;
+
+      return this.translator && (_this$translator2 = this.translator).exists.apply(_this$translator2, arguments);
+    }
+  }, {
+    key: "setDefaultNamespace",
+    value: function setDefaultNamespace(ns) {
+      this.options.defaultNS = ns;
+    }
+  }, {
+    key: "hasLoadedNamespace",
+    value: function hasLoadedNamespace(ns) {
+      var _this6 = this;
+
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      if (!this.isInitialized) {
+        this.logger.warn('hasLoadedNamespace: i18next was not initialized', this.languages);
+        return false;
+      }
+
+      if (!this.languages || !this.languages.length) {
+        this.logger.warn('hasLoadedNamespace: i18n.languages were undefined or empty', this.languages);
+        return false;
+      }
+
+      var lng = this.languages[0];
+      var fallbackLng = this.options ? this.options.fallbackLng : false;
+      var lastLng = this.languages[this.languages.length - 1];
+      if (lng.toLowerCase() === 'cimode') return true;
+
+      var loadNotPending = function loadNotPending(l, n) {
+        var loadState = _this6.services.backendConnector.state["".concat(l, "|").concat(n)];
+
+        return loadState === -1 || loadState === 2;
+      };
+
+      if (options.precheck) {
+        var preResult = options.precheck(this, loadNotPending);
+        if (preResult !== undefined) return preResult;
+      }
+
+      if (this.hasResourceBundle(lng, ns)) return true;
+      if (!this.services.backendConnector.backend) return true;
+      if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns))) return true;
+      return false;
+    }
+  }, {
+    key: "loadNamespaces",
+    value: function loadNamespaces(ns, callback) {
+      var _this7 = this;
+
+      var deferred = defer();
+
+      if (!this.options.ns) {
+        callback && callback();
+        return Promise.resolve();
+      }
+
+      if (typeof ns === 'string') ns = [ns];
+      ns.forEach(function (n) {
+        if (_this7.options.ns.indexOf(n) < 0) _this7.options.ns.push(n);
+      });
+      this.loadResources(function (err) {
+        deferred.resolve();
+        if (callback) callback(err);
+      });
+      return deferred;
+    }
+  }, {
+    key: "loadLanguages",
+    value: function loadLanguages(lngs, callback) {
+      var deferred = defer();
+      if (typeof lngs === 'string') lngs = [lngs];
+      var preloaded = this.options.preload || [];
+      var newLngs = lngs.filter(function (lng) {
+        return preloaded.indexOf(lng) < 0;
+      });
+
+      if (!newLngs.length) {
+        if (callback) callback();
+        return Promise.resolve();
+      }
+
+      this.options.preload = preloaded.concat(newLngs);
+      this.loadResources(function (err) {
+        deferred.resolve();
+        if (callback) callback(err);
+      });
+      return deferred;
+    }
+  }, {
+    key: "dir",
+    value: function dir(lng) {
+      if (!lng) lng = this.languages && this.languages.length > 0 ? this.languages[0] : this.language;
+      if (!lng) return 'rtl';
+      var rtlLngs = ['ar', 'shu', 'sqr', 'ssh', 'xaa', 'yhd', 'yud', 'aao', 'abh', 'abv', 'acm', 'acq', 'acw', 'acx', 'acy', 'adf', 'ads', 'aeb', 'aec', 'afb', 'ajp', 'apc', 'apd', 'arb', 'arq', 'ars', 'ary', 'arz', 'auz', 'avl', 'ayh', 'ayl', 'ayn', 'ayp', 'bbz', 'pga', 'he', 'iw', 'ps', 'pbt', 'pbu', 'pst', 'prp', 'prd', 'ug', 'ur', 'ydd', 'yds', 'yih', 'ji', 'yi', 'hbo', 'men', 'xmn', 'fa', 'jpr', 'peo', 'pes', 'prs', 'dv', 'sam'];
+      return rtlLngs.indexOf(this.services.languageUtils.getLanguagePartFromCode(lng)) >= 0 ? 'rtl' : 'ltr';
+    }
+  }, {
+    key: "createInstance",
+    value: function createInstance() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var callback = arguments.length > 1 ? arguments[1] : undefined;
+      return new I18n(options, callback);
+    }
+  }, {
+    key: "cloneInstance",
+    value: function cloneInstance() {
+      var _this8 = this;
+
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
+
+      var mergedOptions = _objectSpread$3({}, this.options, options, {
+        isClone: true
+      });
+
+      var clone = new I18n(mergedOptions);
+      var membersToCopy = ['store', 'services', 'language'];
+      membersToCopy.forEach(function (m) {
+        clone[m] = _this8[m];
+      });
+      clone.services = _objectSpread$3({}, this.services);
+      clone.services.utils = {
+        hasLoadedNamespace: clone.hasLoadedNamespace.bind(clone)
+      };
+      clone.translator = new Translator(clone.services, clone.options);
+      clone.translator.on('*', function (event) {
+        for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+          args[_key4 - 1] = arguments[_key4];
+        }
+
+        clone.emit.apply(clone, [event].concat(args));
+      });
+      clone.init(mergedOptions, callback);
+      clone.translator.options = clone.options;
+      clone.translator.backendConnector.services.utils = {
+        hasLoadedNamespace: clone.hasLoadedNamespace.bind(clone)
+      };
+      return clone;
+    }
+  }]);
+
+  return I18n;
+}(EventEmitter);
+
+var i18next = new I18n();
+
+var header = {
+	missing: "MISSING"
+};
+var labels = {
+	missingFrom: "Missing From: ",
+	missingDate: "Missing Date:",
+	location: "Location:",
+	birthdate: "Birthdate:",
+	currentAge: "Current Age:",
+	sex: "Sex:",
+	height: "Height:",
+	weight: "Weight:",
+	eyeColor: "Eye Color:",
+	hairColor: "Hair Color:",
+	country: "Country:",
+	companions: "Companions"
+};
+var information = {
+	unknown: "Unknown"
+};
+var translationEN = {
+	header: header,
+	labels: labels,
+	information: information
+};
+
+var header$1 = {
+	missing: "DESAPARECIDO"
+};
+var labels$1 = {
+	missingFrom: "Desapareció en: ",
+	missingDate: "Desapareció el:",
+	location: "Lugar:",
+	birthdate: "Nacimiento:",
+	currentAge: "Edad Actual:",
+	sex: "Sexo:",
+	height: "Altura:",
+	weight: "Peso:",
+	eyeColor: "Ojos:",
+	hairColor: "Cabello:",
+	country: "País:",
+	companions: "Acompañantes"
+};
+var information$1 = {
+	unknown: "Desconocido"
+};
+var translationES = {
+	header: header$1,
+	labels: labels$1,
+	information: information$1
+};
+
+var arr = [];
+var each = arr.forEach;
+var slice = arr.slice;
+function defaults(obj) {
+  each.call(slice.call(arguments, 1), function (source) {
+    if (source) {
+      for (var prop in source) {
+        if (obj[prop] === undefined) obj[prop] = source[prop];
+      }
+    }
+  });
+  return obj;
+}
+
+// eslint-disable-next-line no-control-regex
+var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
+
+var serializeCookie = function serializeCookie(name, val, options) {
+  var opt = options || {};
+  opt.path = opt.path || '/';
+  var value = encodeURIComponent(val);
+  var str = name + '=' + value;
+
+  if (opt.maxAge > 0) {
+    var maxAge = opt.maxAge - 0;
+    if (isNaN(maxAge)) throw new Error('maxAge should be a Number');
+    str += '; Max-Age=' + Math.floor(maxAge);
+  }
+
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError('option domain is invalid');
+    }
+
+    str += '; Domain=' + opt.domain;
+  }
+
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError('option path is invalid');
+    }
+
+    str += '; Path=' + opt.path;
+  }
+
+  if (opt.expires) {
+    if (typeof opt.expires.toUTCString !== 'function') {
+      throw new TypeError('option expires is invalid');
+    }
+
+    str += '; Expires=' + opt.expires.toUTCString();
+  }
+
+  if (opt.httpOnly) str += '; HttpOnly';
+  if (opt.secure) str += '; Secure';
+
+  if (opt.sameSite) {
+    var sameSite = typeof opt.sameSite === 'string' ? opt.sameSite.toLowerCase() : opt.sameSite;
+
+    switch (sameSite) {
+      case true:
+        str += '; SameSite=Strict';
+        break;
+
+      case 'lax':
+        str += '; SameSite=Lax';
+        break;
+
+      case 'strict':
+        str += '; SameSite=Strict';
+        break;
+
+      case 'none':
+        str += '; SameSite=None';
+        break;
+
+      default:
+        throw new TypeError('option sameSite is invalid');
+    }
+  }
+
+  return str;
+};
+
+var cookie = {
+  create: function create(name, value, minutes, domain) {
+    var cookieOptions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
+      path: '/',
+      sameSite: 'strict'
+    };
+
+    if (minutes) {
+      cookieOptions.expires = new Date();
+      cookieOptions.expires.setTime(cookieOptions.expires.getTime() + minutes * 60 * 1000);
+    }
+
+    if (domain) cookieOptions.domain = domain;
+    document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
+  },
+  read: function read(name) {
+    var nameEQ = name + '=';
+    var ca = document.cookie.split(';');
+
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1, c.length);
+      }
+
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+
+    return null;
+  },
+  remove: function remove(name) {
+    this.create(name, '', -1);
+  }
+};
+var cookie$1 = {
+  name: 'cookie',
+  lookup: function lookup(options) {
+    var found;
+
+    if (options.lookupCookie && typeof document !== 'undefined') {
+      var c = cookie.read(options.lookupCookie);
+      if (c) found = c;
+    }
+
+    return found;
+  },
+  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+    if (options.lookupCookie && typeof document !== 'undefined') {
+      cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain, options.cookieOptions);
+    }
+  }
+};
+
+var querystring = {
+  name: 'querystring',
+  lookup: function lookup(options) {
+    var found;
+
+    if (typeof window !== 'undefined') {
+      var query = window.location.search.substring(1);
+      var params = query.split('&');
+
+      for (var i = 0; i < params.length; i++) {
+        var pos = params[i].indexOf('=');
+
+        if (pos > 0) {
+          var key = params[i].substring(0, pos);
+
+          if (key === options.lookupQuerystring) {
+            found = params[i].substring(pos + 1);
+          }
+        }
+      }
+    }
+
+    return found;
+  }
+};
+
+var hasLocalStorageSupport = null;
+
+var localStorageAvailable = function localStorageAvailable() {
+  if (hasLocalStorageSupport !== null) return hasLocalStorageSupport;
+
+  try {
+    hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
+    var testKey = 'i18next.translate.boo';
+    window.localStorage.setItem(testKey, 'foo');
+    window.localStorage.removeItem(testKey);
+  } catch (e) {
+    hasLocalStorageSupport = false;
+  }
+
+  return hasLocalStorageSupport;
+};
+
+var localStorage = {
+  name: 'localStorage',
+  lookup: function lookup(options) {
+    var found;
+
+    if (options.lookupLocalStorage && localStorageAvailable()) {
+      var lng = window.localStorage.getItem(options.lookupLocalStorage);
+      if (lng) found = lng;
+    }
+
+    return found;
+  },
+  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+    if (options.lookupLocalStorage && localStorageAvailable()) {
+      window.localStorage.setItem(options.lookupLocalStorage, lng);
+    }
+  }
+};
+
+var hasSessionStorageSupport = null;
+
+var sessionStorageAvailable = function sessionStorageAvailable() {
+  if (hasSessionStorageSupport !== null) return hasSessionStorageSupport;
+
+  try {
+    hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
+    var testKey = 'i18next.translate.boo';
+    window.sessionStorage.setItem(testKey, 'foo');
+    window.sessionStorage.removeItem(testKey);
+  } catch (e) {
+    hasSessionStorageSupport = false;
+  }
+
+  return hasSessionStorageSupport;
+};
+
+var sessionStorage = {
+  name: 'sessionStorage',
+  lookup: function lookup(options) {
+    var found;
+
+    if (options.lookupSessionStorage && sessionStorageAvailable()) {
+      var lng = window.sessionStorage.getItem(options.lookupSessionStorage);
+      if (lng) found = lng;
+    }
+
+    return found;
+  },
+  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+    if (options.lookupSessionStorage && sessionStorageAvailable()) {
+      window.sessionStorage.setItem(options.lookupSessionStorage, lng);
+    }
+  }
+};
+
+var navigator$1 = {
+  name: 'navigator',
+  lookup: function lookup(options) {
+    var found = [];
+
+    if (typeof navigator !== 'undefined') {
+      if (navigator.languages) {
+        // chrome only; not an array, so can't use .push.apply instead of iterating
+        for (var i = 0; i < navigator.languages.length; i++) {
+          found.push(navigator.languages[i]);
+        }
+      }
+
+      if (navigator.userLanguage) {
+        found.push(navigator.userLanguage);
+      }
+
+      if (navigator.language) {
+        found.push(navigator.language);
+      }
+    }
+
+    return found.length > 0 ? found : undefined;
+  }
+};
+
+var htmlTag = {
+  name: 'htmlTag',
+  lookup: function lookup(options) {
+    var found;
+    var htmlTag = options.htmlTag || (typeof document !== 'undefined' ? document.documentElement : null);
+
+    if (htmlTag && typeof htmlTag.getAttribute === 'function') {
+      found = htmlTag.getAttribute('lang');
+    }
+
+    return found;
+  }
+};
+
+var path = {
+  name: 'path',
+  lookup: function lookup(options) {
+    var found;
+
+    if (typeof window !== 'undefined') {
+      var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
+
+      if (language instanceof Array) {
+        if (typeof options.lookupFromPathIndex === 'number') {
+          if (typeof language[options.lookupFromPathIndex] !== 'string') {
+            return undefined;
+          }
+
+          found = language[options.lookupFromPathIndex].replace('/', '');
+        } else {
+          found = language[0].replace('/', '');
+        }
+      }
+    }
+
+    return found;
+  }
+};
+
+var subdomain = {
+  name: 'subdomain',
+  lookup: function lookup(options) {
+    var found;
+
+    if (typeof window !== 'undefined') {
+      var language = window.location.href.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
+
+      if (language instanceof Array) {
+        if (typeof options.lookupFromSubdomainIndex === 'number') {
+          found = language[options.lookupFromSubdomainIndex].replace('http://', '').replace('https://', '').replace('.', '');
+        } else {
+          found = language[0].replace('http://', '').replace('https://', '').replace('.', '');
+        }
+      }
+    }
+
+    return found;
+  }
+};
+
+function getDefaults$1() {
+  return {
+    order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+    lookupQuerystring: 'lng',
+    lookupCookie: 'i18next',
+    lookupLocalStorage: 'i18nextLng',
+    lookupSessionStorage: 'i18nextLng',
+    // cache user language
+    caches: ['localStorage'],
+    excludeCacheFor: ['cimode'] //cookieMinutes: 10,
+    //cookieDomain: 'myDomain'
+
+  };
+}
+
+var Browser =
+/*#__PURE__*/
+function () {
+  function Browser(services) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck$2(this, Browser);
+
+    this.type = 'languageDetector';
+    this.detectors = {};
+    this.init(services, options);
+  }
+
+  _createClass$2(Browser, [{
+    key: "init",
+    value: function init(services) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      this.services = services;
+      this.options = defaults(options, this.options || {}, getDefaults$1()); // backwards compatibility
+
+      if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
+      this.i18nOptions = i18nOptions;
+      this.addDetector(cookie$1);
+      this.addDetector(querystring);
+      this.addDetector(localStorage);
+      this.addDetector(sessionStorage);
+      this.addDetector(navigator$1);
+      this.addDetector(htmlTag);
+      this.addDetector(path);
+      this.addDetector(subdomain);
+    }
+  }, {
+    key: "addDetector",
+    value: function addDetector(detector) {
+      this.detectors[detector.name] = detector;
+    }
+  }, {
+    key: "detect",
+    value: function detect(detectionOrder) {
+      var _this = this;
+
+      if (!detectionOrder) detectionOrder = this.options.order;
+      var detected = [];
+      detectionOrder.forEach(function (detectorName) {
+        if (_this.detectors[detectorName]) {
+          var lookup = _this.detectors[detectorName].lookup(_this.options);
+
+          if (lookup && typeof lookup === 'string') lookup = [lookup];
+          if (lookup) detected = detected.concat(lookup);
+        }
+      });
+      if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
+
+      return detected.length > 0 ? detected[0] : null; // a little backward compatibility
+    }
+  }, {
+    key: "cacheUserLanguage",
+    value: function cacheUserLanguage(lng, caches) {
+      var _this2 = this;
+
+      if (!caches) caches = this.options.caches;
+      if (!caches) return;
+      if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
+      caches.forEach(function (cacheName) {
+        if (_this2.detectors[cacheName]) _this2.detectors[cacheName].cacheUserLanguage(lng, _this2.options);
+      });
+    }
+  }]);
+
+  return Browser;
+}();
+
+Browser.type = 'languageDetector';
+
+var resources = {
+    en: { translation: translationEN },
+    es: { translation: translationES },
+};
+i18next
+    .use(Browser)
+    .use(initReactI18next)
+    .init({
+    detection: {
+        lookupCookie: "next-i18next",
+    },
+    resources: resources,
+    fallbackLng: "en",
+    debug: true,
+    interpolation: {
+        escapeValue: false,
+    },
+});
 
 var _a;
 var BannerType;
@@ -3238,7 +6469,7 @@ var Banners = (_a = {},
     _a);
 var DataContext = createContext({ data: {} });
 var MissingBanners = function (_a) {
-    var data = _a.data, type = _a.type, printTrigger = _a.printTrigger;
+    var data = _a.data, type = _a.type, printTrigger = _a.printTrigger, language = _a.language;
     var componentRef = useRef(null);
     var renderBanner = useMemo(function () {
         var BannerToBeRendered = Banners[type];
@@ -3249,12 +6480,18 @@ var MissingBanners = function (_a) {
         ? "landscape"
         : "portrait";
     var bannerPrintStyles = "@media print {\n    @page {\n      size: " + orientation + ";\n    }\n  }\n  ";
-    return (React.createElement(DataContext.Provider, { value: { data: data } },
-        React.createElement(ReactToPrint, { trigger: printTrigger, content: function () { return componentRef.current; } }),
-        React.createElement("div", { style: { display: "none" } },
-            React.createElement("div", { ref: componentRef },
-                React.createElement("style", null, bannerPrintStyles),
-                renderBanner))));
+    useEffect(function () {
+        if (language) {
+            i18next.changeLanguage(language);
+        }
+    }, [language]);
+    return (React.createElement(Suspense$1, { fallback: "loading" },
+        React.createElement(DataContext.Provider, { value: { data: data } },
+            React.createElement(ReactToPrint, { trigger: printTrigger, content: function () { return componentRef.current; } }),
+            React.createElement("div", { style: { display: "none" } },
+                React.createElement("div", { ref: componentRef },
+                    React.createElement("style", null, bannerPrintStyles),
+                    renderBanner)))));
 };
 
 export { BannerType, MissingBanners };

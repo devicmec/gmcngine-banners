@@ -10,6 +10,7 @@ declare type Props = {
     data: ICase;
     type: BannerType;
     printTrigger: () => ReactElement;
+    language?: string;
 };
 export declare const DataContext: React.Context<{
     data: ICase;
