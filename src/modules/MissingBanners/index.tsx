@@ -10,14 +10,14 @@ export enum BannerType {
   SINGLE_CHILD_PORTRAIT = "SINGLE_CHILD_PORTRAIT",
   SINGLE_CHILD_LANDSCAPE = "SINGLE_CHILD_LANDSCAPE",
   MULTIPLE_CHILD_PORTRAIT = "MULTIPLE_CHILD_PORTRAIT",
-  MULTIPLE_CHILD_LANDSCAPE = "MULTIPLE_CHILD_LANDSCAPE",
+  MULTIPLE_CHILD_LANDSCAPE = "MULTIPLE_CHILD_LANDSCAPE"
 }
 
-const Banners = {
+export const Banners = {
   ["SINGLE_CHILD_PORTRAIT"]: SingleChildPortraitBanner,
   ["SINGLE_CHILD_LANDSCAPE"]: SingleChildLandscapeBanner,
   ["MULTIPLE_CHILD_PORTRAIT"]: MultipleChildPortraitBanner,
-  ["MULTIPLE_CHILD_LANDSCAPE"]: MultipleChildLandscapeBanner,
+  ["MULTIPLE_CHILD_LANDSCAPE"]: MultipleChildLandscapeBanner
 };
 
 type Props = {
@@ -64,3 +64,5 @@ const MissingBanners: FC<Props> = ({ data, type, printTrigger }) => {
 };
 
 export default MissingBanners;
+
+// yarn build y luego otra vez yalc publish, irse al public site, yalc add gmcngine, yarn , yarn dev

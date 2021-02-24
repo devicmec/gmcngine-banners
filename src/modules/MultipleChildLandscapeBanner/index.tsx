@@ -4,15 +4,19 @@ import BannerFooter from "../../shared/components/BannerFooter";
 import "./styles.css";
 import MultipleChildLandscapeBody from "./components/MultipleChildLandscapeBody";
 import useCases from "../../shared/hooks/useCases";
+import { ICase } from "../../shared/types/cases/case";
 
-type Props = {};
+type Props = {
+  caseData?: ICase;
+  className?: string;
+};
 
-const MultipleChildLandscapeBanner: FC<Props> = () => {
+const MultipleChildLandscapeBanner: FC<Props> = ({ caseData, className }) => {
   const { data } = useCases();
   return (
-    <div className="mcl-container">
+    <div className={`${className} mcl-container`}>
       <BannerHeader bannerColor="red" pageOrientation="landscape" />
-      <MultipleChildLandscapeBody caseData={data} />
+      <MultipleChildLandscapeBody caseData={caseData || data} />
       <BannerFooter pageOrientation="landscape" />
     </div>
   );

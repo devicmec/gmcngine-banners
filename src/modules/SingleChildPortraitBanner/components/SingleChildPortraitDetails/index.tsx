@@ -28,7 +28,7 @@ const SingleChildPortraitDetails: FC<Props> = ({ caseData, childData }) => {
         </div>
         <div className="scp-row">
           <p className="scp-labels">Current Age:</p>
-          <p className="scp-child-info">{childData.age || "Unknown"}</p>
+          <p className="scp-child-info">{childData.age ?? "Unknown"}</p>
         </div>
         <div className="scp-row">
           <p className="scp-labels">Sex:</p>

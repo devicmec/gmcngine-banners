@@ -5,17 +5,21 @@ import MultipleChildPortraitHeadline from "./components/MultipleChildPortraitHea
 import "./styles.css";
 import MultipleChildPortraitDetails from "./components/MultipleChildPortraitDetails";
 import useCases from "../../shared/hooks/useCases";
+import { ICase } from "../../shared/types/cases/case";
 
-type Props = {};
+type Props = {
+  caseData?: ICase;
+  className?: string;
+};
 
-const MultipleChildPortraitBanner: FC<Props> = () => {
+const MultipleChildPortraitBanner: FC<Props> = ({ caseData, className }) => {
   const { data } = useCases();
 
   return (
-    <div className="mcp-container">
+    <div className={`${className} mcp-container`}>
       <BannerHeader bannerColor="red" pageOrientation="portrait" />
-      <MultipleChildPortraitHeadline caseData={data} />
-      <MultipleChildPortraitDetails caseData={data} />
+      <MultipleChildPortraitHeadline caseData={caseData || data} />
+      <MultipleChildPortraitDetails caseData={caseData || data} />
       <BannerFooter pageOrientation="portrait" />
     </div>
   );

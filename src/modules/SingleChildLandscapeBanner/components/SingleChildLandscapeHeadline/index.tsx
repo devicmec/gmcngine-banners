@@ -10,9 +10,8 @@ type Props = {
 
 const SingleChildLandscapeHeadline: FC<Props> = ({
   childData,
-  hasAbductors,
+  hasAbductors
 }) => {
-  console.log(childData.images);
   return (
     <div className="scl-images-container">
       <img

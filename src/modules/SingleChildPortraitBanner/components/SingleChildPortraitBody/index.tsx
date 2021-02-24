@@ -7,10 +7,18 @@ import { IChild } from "../../../../shared/types/cases/children";
 
 type Props = {
   caseData: ICase;
+  childId?: string;
 };
 
-const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
-  const childSelected: IChild = caseData.children[0];
+const SingleChildPortraitBody: FC<Props> = ({ caseData, childId }) => {
+  const getChild = () => {
+    return childId
+      ? caseData.children.find(child => child.childId === childId) ||
+          caseData.children[0]
+      : caseData.children[0];
+  };
+
+  const childSelected: IChild = getChild();
 
   return (
     <div className="scp-body-container">
