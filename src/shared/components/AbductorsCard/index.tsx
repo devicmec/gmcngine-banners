@@ -17,8 +17,8 @@ const AbductorsCard: FC<Props> = ({ bannerOrientation, abductorData }) => {
     height: "1.55in",
   };
   const landscapeDimensions = {
-    width: "4in",
-    height: "1.65in",
+    width: "4.05in",
+    height: "1.55in",
   };
   const cardDimensions =
     bannerOrientation === "portrait" ? portraitDimensions : landscapeDimensions;
@@ -36,15 +36,21 @@ const AbductorsCard: FC<Props> = ({ bannerOrientation, abductorData }) => {
           <h3>{abductorData.fullName}</h3>
           <div className="banner-abductor-row">
             <p className="banner-abductor-label">{t("labels.birthdate")}</p>
-            <p className="banner-abductor-info">{abductorData.birthDate}</p>
+            <p className="banner-abductor-info">
+              {abductorData.birthDate || t("information.unknown")}
+            </p>
           </div>
           <div className="banner-abductor-row">
             <p className="banner-abductor-label">{t("labels.sex")}</p>
-            <p className="banner-abductor-info">{abductorData.sex}</p>
+            <p className="banner-abductor-info">
+              {abductorData.sex || t("information.unknown")}
+            </p>
           </div>
           <div className="banner-abductor-row">
             <p className="banner-abductor-label">{t("labels.height")}</p>
-            <p className="banner-abductor-info">{abductorData.height}</p>
+            <p className="banner-abductor-info">
+              {abductorData.height || t("information.unknown")}
+            </p>
           </div>
         </div>
       </div>

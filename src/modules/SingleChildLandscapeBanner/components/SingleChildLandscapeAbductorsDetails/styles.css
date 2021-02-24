@@ -1,0 +1,27 @@
+.scla-details-table {
+  width: 35%;
+  margin-left: 0.1in;
+}
+
+.scla-row {
+  display: flex;
+}
+
+.scla-label {
+  width: 40%;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.17in;
+  letter-spacing: 0.01in;
+}
+
+.scla-child-info {
+  font-weight: normal;
+  font-size: 0.17in;
+  letter-spacing: 0.01in;
+  width: 60%;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  text-align: right;
+}

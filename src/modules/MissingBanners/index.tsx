@@ -14,7 +14,7 @@ import MultipleChildPortraitBanner from "../MultipleChildPortraitBanner";
 import SingleChildLandscapeBanner from "../SingleChildLandscapeBanner";
 import ReactToPrint from "react-to-print";
 import i18n from "../../i18n/config";
-import i18next, { Callback } from "i18next";
+import { IAgency } from "../../shared/types/agency";
 
 export enum BannerType {
   SINGLE_CHILD_PORTRAIT = "SINGLE_CHILD_PORTRAIT",
@@ -32,14 +32,24 @@ const Banners = {
 
 type Props = {
   data: ICase;
+  agency: IAgency;
   type: BannerType;
   printTrigger: () => ReactElement;
   language?: string;
 };
 
-export const DataContext = createContext<{ data: ICase }>({ data: {} as any });
+export const DataContext = createContext<{ data: ICase; agency: IAgency }>({
+  data: {} as any,
+  agency: {} as any,
+});
 
-const MissingBanners: FC<Props> = ({ data, type, printTrigger, language }) => {
+const MissingBanners: FC<Props> = ({
+  data,
+  agency,
+  type,
+  printTrigger,
+  language,
+}) => {
   const componentRef = useRef(null);
   const renderBanner = useMemo(() => {
     const BannerToBeRendered = Banners[type];
@@ -67,7 +77,7 @@ const MissingBanners: FC<Props> = ({ data, type, printTrigger, language }) => {
 
   return (
     <Suspense fallback="loading">
-      <DataContext.Provider value={{ data }}>
+      <DataContext.Provider value={{ data, agency }}>
         <ReactToPrint
           trigger={printTrigger}
           content={() => componentRef.current}

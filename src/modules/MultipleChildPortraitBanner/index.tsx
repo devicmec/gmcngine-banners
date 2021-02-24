@@ -9,14 +9,18 @@ import useCases from "../../shared/hooks/useCases";
 type Props = {};
 
 const MultipleChildPortraitBanner: FC<Props> = () => {
-  const { data } = useCases();
+  const { data, agency } = useCases();
 
   return (
     <div className="mcp-container">
       <BannerHeader bannerColor="red" pageOrientation="portrait" />
       <MultipleChildPortraitHeadline caseData={data} />
       <MultipleChildPortraitDetails caseData={data} />
-      <BannerFooter pageOrientation="portrait" />
+      <BannerFooter
+        pageOrientation="portrait"
+        agencyData={agency}
+        caseData={data}
+      />
     </div>
   );
 };

@@ -15,7 +15,7 @@
   background-color: white;
   width: 1.388in;
   height: 1.388in;
-  border-radius: 50%;
+  border-radius: 5px;
   box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
   z-index: 1;
   display: flex;
@@ -26,7 +26,7 @@
 }
 
 .banner-header-agency-logo {
-  width: 0.9in;
+  width: 1in;
 }
 
 .banner-header-qrCode {
@@ -37,6 +37,7 @@
   width: 1.388in;
   height: 1.388in;
   box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
   z-index: 1;
   margin-right: 0.35in;
   margin-top: 0.35in;

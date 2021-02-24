@@ -1,6 +1,6 @@
 .scpa-headline-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 0.11in;
 }
 

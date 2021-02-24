@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import ncmecLogo from "../../../images/ncmecLogo.png";
+import icmecLogoStacked from "../../../images/icmecLogoStacked.png";
 import "./styles.css";
 import QRCode from "qrcode.react";
 import { useTranslation } from "react-i18next";
@@ -26,7 +26,7 @@ const BannerHeader: FC<Props> = ({ bannerColor, pageOrientation }) => {
     >
       <div className="banner-header-agency-wrapper">
         <img
-          src={ncmecLogo}
+          src={icmecLogoStacked}
           alt="agency-logo"
           className="banner-header-agency-logo"
         />

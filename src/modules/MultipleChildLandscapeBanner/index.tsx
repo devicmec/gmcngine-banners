@@ -8,12 +8,16 @@ import useCases from "../../shared/hooks/useCases";
 type Props = {};
 
 const MultipleChildLandscapeBanner: FC<Props> = () => {
-  const { data } = useCases();
+  const { data, agency } = useCases();
   return (
     <div className="mcl-container">
       <BannerHeader bannerColor="red" pageOrientation="landscape" />
       <MultipleChildLandscapeBody caseData={data} />
-      <BannerFooter pageOrientation="landscape" />
+      <BannerFooter
+        pageOrientation="landscape"
+        agencyData={agency}
+        caseData={data}
+      />
     </div>
   );
 };

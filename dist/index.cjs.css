@@ -1,3 +1,12 @@
+.scl-container {
+  height: 8.5in;
+  width: 11in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
 .mcl-container {
   height: 8.5in;
   width: 11in;
@@ -25,13 +34,38 @@
   background-color: white;
 }
 
-.scl-container {
-  height: 8.5in;
-  width: 11in;
+.banner-footer-container {
+  height: 1.194in;
+  background-color: #7a1818;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+}
+
+.banner-footer-phone-number-wrapper {
+  padding: 0 0.208in;
+}
+
+.banner-footer-agency-number {
+  color: white;
+  font-size: 0.22in;
+  letter-spacing: 0.01in;
+  font-weight: 900;
+  margin: 0.16in 0;
+}
+
+.banner-footer-gmcngine-logo {
   background-color: white;
+  width: 1.388in;
+  height: 1.388in;
+  border-radius: 5px;
+  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.35in;
+  margin-bottom: 0.5in;
 }
 
 .banner-header-container {
@@ -51,7 +85,7 @@
   background-color: white;
   width: 1.388in;
   height: 1.388in;
-  border-radius: 50%;
+  border-radius: 5px;
   box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
   z-index: 1;
   display: flex;
@@ -62,7 +96,7 @@
 }
 
 .banner-header-agency-logo {
-  width: 0.9in;
+  width: 1in;
 }
 
 .banner-header-qrCode {
@@ -73,51 +107,238 @@
   width: 1.388in;
   height: 1.388in;
   box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
   z-index: 1;
   margin-right: 0.35in;
   margin-top: 0.35in;
 }
 
-.banner-footer-container {
-  height: 1.194in;
-  background-color: #7a1818;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.banner-footer-phone-number-wrapper {
-  padding: 0 0.208in;
-}
-
-.banner-footer-ncmec-number {
-  color: white;
-  font-size: 0.27in;
-  letter-spacing: 0.01in;
-  font-weight: 900;
-  margin: 0.16in 0;
-}
-
-.banner-footer-agency-number {
-  color: white;
-  font-size: 0.22in;
-  letter-spacing: 0.01in;
-  font-weight: 900;
-  margin: 0.16in 0;
-}
-
-.banner-footer-gmcngine-logo {
-  background-color: white;
-  width: 1.388in;
-  height: 1.388in;
-  border-radius: 50%;
-  box-shadow: 0in 0.05in 0.138in rgba(0, 0, 0, 0.25);
-  z-index: 1;
+.scp-body-container {
   display: flex;
   justify-content: center;
+  align-content: center;
+  margin: 0.277in 0.277in 0.2in 0.277in;
+  flex-direction: column;
+}
+
+.scp-banner-headline {
+  margin: 0in 0in 0.194in 0in;
+  display: flex;
   align-items: center;
-  margin-right: 0.35in;
-  margin-bottom: 0.5in;
+  flex-direction: column;
+}
+
+.scp-banner-title > h2 {
+  font-size: 0.45in;
+  text-align: center;
+  font-weight: normal;
+  margin: 0;
+}
+
+.scp-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.21in;
+  margin: 0.05in 0in;
+}
+
+.scp-banner-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.scp-circumstances > p {
+  font-weight: 300;
+  font-size: 0.19in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 3em;
+}
+
+.scla-body-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.05in 0.25in 0.1in 0.25in;
+  flex-direction: column;
+  height: 5.38in;
+}
+
+.scla-upper-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.18in;
+  align-items: center;
+}
+
+.scla-abductors-wrapper {
+  margin-left: 0.15in;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.scla-abductors-wrapper > h4 {
+  margin: 0 0 0.03in 0.08in;
+  color: #c72828;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 0.2in;
+  letter-spacing: 0.01in;
+}
+
+.scla-banner-title {
+  margin-bottom: 0.08in;
+  margin-right: 3.75in;
+}
+.scla-banner-title > h2 {
+  font-size: 0.35in;
+  text-align: center;
+  font-weight: normal;
+  margin: 0.03in 0in;
+}
+
+.scla-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.2in;
+  margin: 0.05in 0in;
+}
+
+.scla-circumstances > p {
+  font-weight: 300;
+  font-size: 0.17in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  width: 10in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 3em;
+}
+
+.banner-abductor-card-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0.2in;
+  padding: 0 0.1in 0 0;
+}
+
+.banner-abductor-image-wrapper {
+  display: block;
+  margin: auto 0.15in auto 0;
+  height: 1.2in;
+  width: 1.2in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.banner-abductor-image {
+  object-fit: contain;
+  max-width: 1.2in;
+  max-height: 1.2in;
+  margin: auto;
+  display: flex;
+}
+
+.banner-abductor-details-container {
+  height: 1.6in;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0.15in 0;
+}
+
+.banner-abductor-details-container > h3 {
+  margin: 0;
+  font-size: 0.16in;
+}
+.banner-abductor-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 0.3in;
+  margin-bottom: 0.05in;
+}
+
+.banner-abductor-row > p {
+  margin: 0;
+}
+
+.banner-abductor-label {
+  font-weight: 300;
+  letter-spacing: 0.01in;
+  font-size: 0.16in;
+}
+
+.banner-abductor-info {
+  font-weight: normal;
+  font-size: 0.16in;
+  letter-spacing: 0.01in;
+  text-align: right;
+}
+
+.scl-body-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0.05in 0.25in 0.15in 0.25in;
+  flex-direction: column;
+  height: 5.38in;
+}
+
+.scl-upper-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.18in;
+}
+
+.scl-pictures-header-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 6in;
+}
+
+.scl-banner-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 0.08in;
+}
+.scl-banner-title > h2 {
+  font-size: 0.4in;
+  text-align: center;
+  font-weight: normal;
+  margin: 0.03in 0in;
+}
+
+.scl-banner-title > h3 {
+  text-align: center;
+  letter-spacing: 0.01in;
+  font-weight: 300;
+  font-size: 0.2in;
+  margin: 0.05in 0in;
+}
+
+.scl-circumstances > p {
+  font-weight: 300;
+  font-size: 0.17in;
+  letter-spacing: 0.01in;
+  margin: 0in;
+  width: 10in;
+  overflow: hidden;
+  line-height: 1.5em;
+  height: 3em;
 }
 
 .mcl-body-container {
@@ -183,6 +404,15 @@
   margin-top: 0;
 }
 
+.mcp-headline-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.15in 0 0.3in 0;
+  align-items: center;
+  justify-content: flex-start;
+  height: 6.3in;
+}
+
 .mcp-details-container {
   display: flex;
   align-items: center;
@@ -241,184 +471,6 @@
   height: 4em;
 }
 
-.scp-body-container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin: 0.277in 0.277in 0.2in 0.277in;
-  flex-direction: column;
-}
-
-.scp-banner-headline {
-  margin: 0in 0in 0.194in 0in;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.scp-banner-title > h2 {
-  font-size: 0.45in;
-  text-align: center;
-  font-weight: normal;
-  margin: 0;
-}
-
-.scp-banner-title > h3 {
-  text-align: center;
-  letter-spacing: 0.01in;
-  font-weight: 300;
-  font-size: 0.21in;
-  margin: 0.05in 0in;
-}
-
-.scp-banner-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-}
-
-.scp-circumstances > p {
-  font-weight: 300;
-  font-size: 0.19in;
-  letter-spacing: 0.01in;
-  margin: 0in;
-  overflow: hidden;
-  line-height: 1.5em;
-  height: 3em;
-}
-
-.scl-body-container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin: 0.15in 0.25in;
-  flex-direction: column;
-  height: 5.38in;
-}
-
-.scl-upper-section {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.18in;
-}
-
-.scl-abductors-wrapper {
-  margin-left: 0.15in;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.scl-abductors-wrapper > h4 {
-  margin: 0 0 0.03in 0.08in;
-  color: #c72828;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 0.2in;
-  letter-spacing: 0.01in;
-}
-
-.scl-banner-title {
-  margin-bottom: 0.08in;
-}
-.scl-banner-title > h2 {
-  font-size: 0.4in;
-  text-align: center;
-  font-weight: normal;
-  margin: 0.03in 0in;
-}
-
-.scl-banner-title > h3 {
-  text-align: center;
-  letter-spacing: 0.01in;
-  font-weight: 300;
-  font-size: 0.2in;
-  margin: 0.05in 0in;
-}
-
-.scl-circumstances > p {
-  font-weight: 300;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-  margin: 0in;
-  width: 10in;
-  overflow: hidden;
-  line-height: 1.5em;
-  height: 3em;
-}
-
-.mcp-headline-container {
-  display: flex;
-  flex-direction: column;
-  margin: 0.15in 0 0.3in 0;
-  align-items: center;
-  justify-content: flex-start;
-  height: 6.3in;
-}
-
-.banner-abductor-card-content-wrapper {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0.2in;
-  padding: 0 0.1in 0 0;
-}
-
-.banner-abductor-image-wrapper {
-  display: block;
-  margin: auto 0.15in auto 0;
-  height: 1.2in;
-  width: 1.2in;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #c4c4c4;
-}
-
-.banner-abductor-image {
-  object-fit: contain;
-  max-width: 1.2in;
-  max-height: 1.2in;
-  margin: auto;
-  display: flex;
-}
-
-.banner-abductor-details-container {
-  height: 1.6in;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.15in 0;
-}
-
-.banner-abductor-details-container > h3 {
-  margin: 0;
-  font-size: 0.16in;
-}
-.banner-abductor-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 0.28in;
-}
-
-.banner-abductor-row > p {
-  margin: 0;
-}
-
-.banner-abductor-label {
-  font-weight: 300;
-  letter-spacing: 0.01in;
-  font-size: 0.16in;
-}
-
-.banner-abductor-info {
-  font-weight: normal;
-  font-size: 0.16in;
-  letter-spacing: 0.01in;
-  text-align: right;
-}
-
 .scp-details-table {
   display: flex;
   justify-content: space-between;
@@ -452,32 +504,6 @@
   margin-bottom: 0.138in;
   margin-top: 0;
   margin-left: 0.15in;
-}
-
-.scpa-headline-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.11in;
-}
-
-.scpa-child-image {
-  margin: 0 0.277in;
-  max-height: 3.3in;
-  max-width: 3.3in;
-}
-
-.scpa-abductors-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.scpa-abductors-container > h4 {
-  margin: 0 0 0.03in 0.1in;
-  color: #c72828;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 0.27in;
-  letter-spacing: 0.01in;
 }
 
 .mcl-card-content-wrapper {
@@ -543,63 +569,103 @@
   text-align: right;
 }
 
-.mcp-md-card-content-wrapper {
+.scla-details-table {
+  width: 35%;
+  margin-left: 0.1in;
+}
+
+.scla-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.mcp-md-image-wrapper {
-  display: flex;
-  margin: auto;
-  height: 1.31in;
-  width: 1.31in;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #c4c4c4;
-}
-
-.mcp-md-child-image {
-  object-fit: contain;
-  width: 1.31in;
-  max-height: 1.31in;
-}
-
-.mcp-md-card-details-container {
-  height: 1.7in;
-  margin: 0.05in 0;
-  width: 5.5in;
-}
-
-.mcp-md-card-details-container > h2 {
-  font-size: 0.25in;
-  letter-spacing: 0.01in;
-  font-weight: normal;
-  margin: 0.15in 0;
-}
-
-.mcp-md-card-details-table {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0.2in 0 0;
-}
-.mcp-md-child-card-row {
-  display: flex;
-  width: 2.5in;
-}
-
-.mcp-md-child-card-label {
-  margin: 0.05in 0;
-  width: 1.2in;
+.scla-label {
+  width: 40%;
+  margin-bottom: 0.138in;
+  margin-top: 0;
   font-weight: 300;
+  font-size: 0.17in;
   letter-spacing: 0.01in;
 }
 
-.mcp-md-child-card-info {
-  margin: 0.05in 0;
+.scla-child-info {
   font-weight: normal;
+  font-size: 0.17in;
   letter-spacing: 0.01in;
-  width: 1.2in;
+  width: 60%;
+  margin-bottom: 0.138in;
+  margin-top: 0;
+  text-align: right;
+}
+
+.scl-images-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.scl-child-image {
+  margin: 0 0.1in;
+  max-width: 2.6in;
+  max-height: 3.5in;
+}
+
+.scpa-headline-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.11in;
+}
+
+.scpa-child-image {
+  margin: 0 0.277in;
+  max-height: 3.3in;
+  max-width: 3.3in;
+}
+
+.scpa-abductors-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.scpa-abductors-container > h4 {
+  margin: 0 0 0.03in 0.1in;
+  color: #c72828;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 0.27in;
+  letter-spacing: 0.01in;
+}
+
+.scl-details-table {
+  width: 40%;
+  height: 4.5in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 0.05in;
+}
+
+.scl-row {
+  display: flex;
+}
+
+.scl-label {
+  width: 45%;
+  margin-bottom: 0.2in;
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 0.175in;
+  letter-spacing: 0.01in;
+}
+
+.scl-child-info {
+  font-weight: normal;
+  font-size: 0.175in;
+  letter-spacing: 0.01in;
+  width: 60%;
+  margin-bottom: 0.2in;
+  margin-top: 0;
+  text-align: right;
 }
 
 .mcp-sm-card-content-wrapper {
@@ -663,43 +729,63 @@
   width: 1.2in;
 }
 
-.scl-details-table {
-  width: 35%;
-}
-.scl-row {
+.mcp-md-card-content-wrapper {
   display: flex;
-}
-
-.scl-label {
-  width: 40%;
-  margin-bottom: 0.138in;
-  margin-top: 0;
-  font-weight: 300;
-  font-size: 0.18in;
-  letter-spacing: 0.01in;
-}
-
-.scl-child-info {
-  font-weight: normal;
-  font-size: 0.18in;
-  letter-spacing: 0.01in;
-  width: 60%;
-  margin-bottom: 0.138in;
-  margin-top: 0;
-  text-align: right;
-}
-
-.scl-images-container {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  flex-grow: 1;
 }
 
-.scl-child-image {
-  margin: 0 0.1in;
-  max-width: 3in;
-  max-height: 3.5in;
+.mcp-md-image-wrapper {
+  display: flex;
+  margin: auto;
+  height: 1.31in;
+  width: 1.31in;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #c4c4c4;
+}
+
+.mcp-md-child-image {
+  object-fit: contain;
+  width: 1.31in;
+  max-height: 1.31in;
+}
+
+.mcp-md-card-details-container {
+  height: 1.7in;
+  margin: 0.05in 0;
+  width: 5.5in;
+}
+
+.mcp-md-card-details-container > h2 {
+  font-size: 0.25in;
+  letter-spacing: 0.01in;
+  font-weight: normal;
+  margin: 0.15in 0;
+}
+
+.mcp-md-card-details-table {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0.2in 0 0;
+}
+.mcp-md-child-card-row {
+  display: flex;
+  width: 2.5in;
+}
+
+.mcp-md-child-card-label {
+  margin: 0.05in 0;
+  width: 1.2in;
+  font-weight: 300;
+  letter-spacing: 0.01in;
+}
+
+.mcp-md-child-card-info {
+  margin: 0.05in 0;
+  font-weight: normal;
+  letter-spacing: 0.01in;
+  width: 1.2in;
 }
 
 .banner-card-container {
