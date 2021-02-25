@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 0.277in;
+  margin: 0.277in 0.277in 0.2in 0.277in;
   flex-direction: column;
 }
 
@@ -17,14 +17,14 @@
   font-size: 0.45in;
   text-align: center;
   font-weight: normal;
-  margin: 0.05in 0in;
+  margin: 0;
 }
 
 .scp-banner-title > h3 {
   text-align: center;
   letter-spacing: 0.01in;
   font-weight: 300;
-  font-size: 0.25in;
+  font-size: 0.21in;
   margin: 0.05in 0in;
 }
 
@@ -37,7 +37,7 @@
 
 .scp-circumstances > p {
   font-weight: 300;
-  font-size: 0.194in;
+  font-size: 0.19in;
   letter-spacing: 0.01in;
   margin: 0in;
   overflow: hidden;

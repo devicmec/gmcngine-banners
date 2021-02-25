@@ -15,7 +15,7 @@
 }
 
 .scp-labels {
-  min-width: 1.361in;
+  width: 1.48in;
   margin-bottom: 0.138in;
   margin-top: 0;
   font-weight: 300;
@@ -27,14 +27,8 @@
   font-weight: normal;
   font-size: 0.194in;
   letter-spacing: 0.01in;
-  min-width: 1.94in;
+  width: 1.94in;
   margin-bottom: 0.138in;
   margin-top: 0;
-}
-
-.scp-circumstances > p {
-  font-weight: 300;
-  font-size: 0.194in;
-  letter-spacing: 0.01in;
-  margin: 0in;
+  margin-left: 0.15in;
 }

@@ -1,0 +1,22 @@
+{
+  "header": {
+    "missing": "DESAPARECIDO"
+  },
+  "labels": {
+    "missingFrom": "Desapareció en: ",
+    "missingDate": "Desapareció el:",
+    "location": "Lugar:",
+    "birthdate": "Nacimiento:",
+    "currentAge": "Edad Actual:",
+    "sex": "Sexo:",
+    "height": "Altura:",
+    "weight": "Peso:",
+    "eyeColor": "Ojos:",
+    "hairColor": "Cabello:",
+    "country": "País:",
+    "companions": "Acompañantes"
+  },
+  "information": {
+    "unknown": "Desconocido"
+  }
+}

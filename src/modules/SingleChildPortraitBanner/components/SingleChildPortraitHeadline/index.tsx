@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 import AbductorsCard from "../../../../shared/components/AbductorsCard";
 import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const SingleChildPortraitHeadline: FC<Props> = ({ caseData, childData }) => {
+  const { t } = useTranslation();
   return (
     <div className="scpa-headline-container">
       <img
@@ -19,7 +21,7 @@ const SingleChildPortraitHeadline: FC<Props> = ({ caseData, childData }) => {
       />
       {caseData.abductors.length ? (
         <div className="scpa-abductors-container">
-          <h4>Companions</h4>
+          <h4>{t("labels.companions")}</h4>
           {caseData.abductors.map((abductor, index) => (
             <AbductorsCard
               bannerOrientation="portrait"

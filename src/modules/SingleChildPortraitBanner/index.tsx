@@ -5,25 +5,32 @@ import BannerFooter from "../../shared/components/BannerFooter";
 import SingleChildPortraitBody from "./components/SingleChildPortraitBody";
 import useCases from "../../shared/hooks/useCases";
 import { ICase } from "../../shared/types/cases/case";
+import { IAgency } from "../../shared/types/agency";
 
 type Props = {
+  agencyData?: IAgency;
   caseData?: ICase;
   className?: string;
   childId?: string;
 };
 
 const SingleChildPortraitBanner: FC<Props> = ({
+  agencyData,
   caseData,
   childId,
   className
 }) => {
-  const { data } = useCases();
+  const { agency, data } = useCases();
 
   return (
     <div className={`${className} scp-container`}>
       <BannerHeader bannerColor="red" pageOrientation="portrait" />
       <SingleChildPortraitBody caseData={caseData || data} childId={childId} />
-      <BannerFooter pageOrientation="portrait" />
+      <BannerFooter
+        pageOrientation="portrait"
+        agencyData={agencyData || agency}
+        caseData={caseData || data}
+      />
     </div>
   );
 };

@@ -1,12 +1,13 @@
 .scpa-headline-container {
   display: flex;
-  align-items: center;
-  margin-bottom: 0.15in;
+  align-items: flex-start;
+  margin-bottom: 0.11in;
 }
 
 .scpa-child-image {
   margin: 0 0.277in;
-  height: 3.472in;
+  max-height: 3.3in;
+  max-width: 3.3in;
 }
 
 .scpa-abductors-container {

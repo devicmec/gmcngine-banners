@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ICase } from "../../shared/types/cases/case";
 import { Banners } from "../MissingBanners";
 import { BannerType } from "../..";
+import { IAgency } from "../../shared/types/agency";
 
 enum PosterOrientation {
   portrait = "portrait",
@@ -11,6 +12,7 @@ enum PosterOrientation {
 export type AvailableBanners = {
   type: BannerType;
   component: React.FunctionComponent<{
+    agencyData?: IAgency;
     caseData?: ICase;
     className?: string;
     childId?: string;

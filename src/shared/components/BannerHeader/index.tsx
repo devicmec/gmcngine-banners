@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import ncmecLogo from "../../../images/ncmecLogo.png";
+import icmecLogoStacked from "../../../images/icmecLogoStacked.png";
 import "./styles.css";
 import QRCode from "qrcode.react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   bannerColor: "white" | "red";
@@ -9,10 +10,11 @@ type Props = {
 };
 
 const BannerHeader: FC<Props> = ({ bannerColor, pageOrientation }) => {
+  const { t, i18n } = useTranslation("translation");
   const headerBackground = bannerColor === "red" ? "#C72828" : bannerColor;
   const headerColor = bannerColor === "white" ? "#C72828" : "white";
   const headerWidth = pageOrientation === "landscape" ? "11in" : "8.5in";
-
+  const headerSize = i18n.language === "es" ? "0.6in" : "0.763in";
   return (
     <div
       className="banner-header-container"
@@ -24,13 +26,15 @@ const BannerHeader: FC<Props> = ({ bannerColor, pageOrientation }) => {
     >
       <div className="banner-header-agency-wrapper">
         <img
-          src={ncmecLogo}
+          src={icmecLogoStacked}
           alt="agency-logo"
           className="banner-header-agency-logo"
         />
       </div>
       <div>
-        <h1 className="banner-header-text">MISSING</h1>
+        <h1 className="banner-header-text" style={{ fontSize: headerSize }}>
+          {t("header.missing")}
+        </h1>
       </div>
       <div className="banner-header-qrCode">
         <QRCode value="www.google.com" size={110} />

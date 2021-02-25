@@ -3,6 +3,7 @@ import BannerCard from "../../../../shared/components/BannerCard";
 import "./styles.css";
 import { IChild } from "../../../../shared/types/cases/children";
 import { no_photo_found } from "../../../../shared/utils/helpers";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   childrenAmount: number;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const LandscapeChildCard: FC<Props> = ({ childrenAmount, childData }) => {
+  const { t } = useTranslation("translation");
   const landscapeChildCardDimensions = {
     width: childrenAmount <= 3 ? "3.25in" : "2.5in",
     height: "3.7in",
@@ -29,28 +31,30 @@ const LandscapeChildCard: FC<Props> = ({ childrenAmount, childData }) => {
           <h2>{childData.fullName}</h2>
           <div>
             <div className="mcl-child-card-row">
-              <p className="mcl-child-card-label">Current Age:</p>
+              <p className="mcl-child-card-label">{t("labels.currentAge")}</p>
               <p className="mcl-child-card-info">
-                {childData.age || "Unknown"}
+                {childData.age || t("information.unknown")}
               </p>
             </div>
             <div className="mcl-child-card-row">
-              <p className="mcl-child-card-label">Sex:</p>
+              <p className="mcl-child-card-label">{t("labels.sex")}</p>
               <p className="mcl-child-card-info">
-                {childData.sex || "Unknown"}
+                {childData.sex || t("information.unknown")}
               </p>
             </div>
             <div className="mcl-child-card-row">
-              <p className="mcl-child-card-label">Height:</p>
+              <p className="mcl-child-card-label">{t("labels.height")}</p>
               <p className="mcl-child-card-info">
-                {childData.height || "Unknown"} {childData.heightUnit}
+                {childData.height || t("information.unknown")}{" "}
+                {childData.heightUnit}
               </p>
             </div>
 
             <div className="mcl-child-card-row">
-              <p className="mcl-child-card-label">Weight:</p>
+              <p className="mcl-child-card-label">{t("labels.weight")}</p>
               <p className="mcl-child-card-info">
-                {childData.weight || "Unknown"} {childData.weightUnit}
+                {childData.weight || t("information.unknown")}{" "}
+                {childData.weightUnit}
               </p>
             </div>
           </div>

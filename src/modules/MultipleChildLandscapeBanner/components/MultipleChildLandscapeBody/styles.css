@@ -44,7 +44,7 @@
 }
 
 .mcl-label {
-  min-width: 1.361in;
+  width: 1.5in;
   margin-bottom: 0.138in;
   margin-top: 0;
   font-weight: 300;
@@ -56,7 +56,7 @@
   font-weight: normal;
   font-size: 0.194in;
   letter-spacing: 0.01in;
-  min-width: 1.94in;
+  width: 3in;
   margin-bottom: 0.138in;
   margin-top: 0;
 }

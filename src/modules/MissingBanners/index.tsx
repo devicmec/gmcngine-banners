@@ -1,10 +1,20 @@
-import React, { createContext, FC, ReactElement, useMemo, useRef } from "react";
+import React, {
+  createContext,
+  FC,
+  ReactElement,
+  useMemo,
+  useRef,
+  Suspense,
+  useEffect
+} from "react";
 import SingleChildPortraitBanner from "../SingleChildPortraitBanner";
 import { ICase } from "../../shared/types/cases/case";
 import MultipleChildLandscapeBanner from "../MultipleChildLandscapeBanner";
 import MultipleChildPortraitBanner from "../MultipleChildPortraitBanner";
 import SingleChildLandscapeBanner from "../SingleChildLandscapeBanner";
 import ReactToPrint from "react-to-print";
+import i18n from "../../i18n/config";
+import { IAgency } from "../../shared/types/agency";
 
 export enum BannerType {
   SINGLE_CHILD_PORTRAIT = "SINGLE_CHILD_PORTRAIT",
@@ -22,13 +32,24 @@ export const Banners = {
 
 type Props = {
   data: ICase;
+  agency: IAgency;
   type: BannerType;
   printTrigger: () => ReactElement;
+  language?: string;
 };
 
-export const DataContext = createContext<{ data: ICase }>({ data: {} as any });
+export const DataContext = createContext<{ data: ICase; agency: IAgency }>({
+  data: {} as any,
+  agency: {} as any
+});
 
-const MissingBanners: FC<Props> = ({ data, type, printTrigger }) => {
+const MissingBanners: FC<Props> = ({
+  data,
+  agency,
+  type,
+  printTrigger,
+  language
+}) => {
   const componentRef = useRef(null);
   const renderBanner = useMemo(() => {
     const BannerToBeRendered = Banners[type];
@@ -47,22 +68,29 @@ const MissingBanners: FC<Props> = ({ data, type, printTrigger }) => {
     }
   }
   `;
+
+  useEffect(() => {
+    if (language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
+
   return (
-    <DataContext.Provider value={{ data }}>
-      <ReactToPrint
-        trigger={printTrigger}
-        content={() => componentRef.current}
-      />
-      <div style={{ display: "none" }}>
-        <div ref={componentRef}>
-          <style>{bannerPrintStyles}</style>
-          {renderBanner}
+    <Suspense fallback="loading">
+      <DataContext.Provider value={{ data, agency }}>
+        <ReactToPrint
+          trigger={printTrigger}
+          content={() => componentRef.current}
+        />
+        <div style={{ display: "none" }}>
+          <div ref={componentRef}>
+            <style>{bannerPrintStyles}</style>
+            {renderBanner}
+          </div>
         </div>
-      </div>
-    </DataContext.Provider>
+      </DataContext.Provider>
+    </Suspense>
   );
 };
 
 export default MissingBanners;
-
-// yarn build y luego otra vez yalc publish, irse al public site, yalc add gmcngine, yarn , yarn dev

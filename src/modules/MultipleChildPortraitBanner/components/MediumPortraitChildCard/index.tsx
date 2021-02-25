@@ -3,12 +3,14 @@ import BannerCard from "../../../../shared/components/BannerCard";
 import "./styles.css";
 import { IChild } from "../../../../shared/types/cases/children";
 import { no_photo_found } from "../../../../shared/utils/helpers";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   childData: IChild;
 };
 
 const MediumPortraitChildCard: FC<Props> = ({ childData }) => {
+  const { t } = useTranslation("translation");
   const mediumPortraitChildCardDimensions = {
     width: "7.986in",
     height: "1.83in",
@@ -29,41 +31,49 @@ const MediumPortraitChildCard: FC<Props> = ({ childData }) => {
           <div className="mcp-md-card-details-table">
             <div className="mcp-md-child-card-column">
               <div className="mcp-md-child-card-row">
-                <p className="mcp-md-child-card-label">Current Age:</p>
+                <p className="mcp-md-child-card-label">
+                  {t("labels.currentAge")}
+                </p>
                 <p className="mcp-md-child-card-info">
-                  {childData.age || "Unknown"}
+                  {childData.age || t("information.unknown")}
                 </p>
               </div>
               <div className="mcp-md-child-card-row">
-                <p className="mcp-md-child-card-label">Sex:</p>
+                <p className="mcp-md-child-card-label">{t("labels.sex")}</p>
                 <p className="mcp-md-child-card-info">
-                  {childData.sex || "Unknown"}
+                  {childData.sex || t("information.unknown")}
                 </p>
               </div>
               <div className="mcp-md-child-card-row">
-                <p className="mcp-md-child-card-label">Height:</p>
+                <p className="mcp-md-child-card-label">{t("labels.height")}:</p>
                 <p className="mcp-md-child-card-info">
-                  {childData.height || "Unknown"} {childData.heightUnit}
+                  {childData.height || t("information.unknown")}{" "}
+                  {childData.heightUnit}
                 </p>
               </div>
             </div>
             <div className="mcp-md-child-card-column">
               <div className="mcp-md-child-card-row">
-                <p className="mcp-md-child-card-label">Weight:</p>
+                <p className="mcp-md-child-card-label">{t("labels.weight")}</p>
                 <p className="mcp-md-child-card-info">
-                  {childData.weight || "Unknown"} {childData.weightUnit}
+                  {childData.weight || t("information.unknown")}{" "}
+                  {childData.weightUnit}
                 </p>
               </div>
               <div className="mcp-md-child-card-row">
-                <p className="mcp-md-child-card-label">Eye Color:</p>
+                <p className="mcp-md-child-card-label">
+                  {t("labels.eyeColor")}
+                </p>
                 <p className="mcp-md-child-card-info">
-                  {childData.eyeColor || "Unknown"}
+                  {childData.eyeColor || t("information.unknown")}
                 </p>
               </div>
               <div className="mcp-md-child-card-row">
-                <p className="mcp-md-child-card-label">Hair Color:</p>
+                <p className="mcp-md-child-card-label">
+                  {t("labels.hairColor")}
+                </p>
                 <p className="mcp-md-child-card-info">
-                  {childData.hairColor || "Unknown"}
+                  {childData.hairColor || t("information.unknown")}
                 </p>
               </div>
             </div>
