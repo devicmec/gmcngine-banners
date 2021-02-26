@@ -1,5 +1,5 @@
 {
-  "name": "gmcngine-banners",
+  "name": "@carodelaossaff/gmcngine-banners",
   "version": "1.0.0",
   "description": "A library with all the missing children banners",
   "main": "dist/index.cjs.js",
@@ -42,5 +42,12 @@
   "peerDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@carodelaossaff"
   }
 }
