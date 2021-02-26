@@ -9,11 +9,15 @@ import SingleChildLandscapeBody from "./components/SingleChildLandscapeBody";
 type Props = {};
 
 const SingleChildLandscapeBanner: FC<Props> = () => {
-  const { data, agency } = useCases();
+  const { data, agency, qrCodeURL } = useCases();
 
   return (
     <div className="scl-container">
-      <BannerHeader bannerColor="red" pageOrientation="landscape" />
+      <BannerHeader
+        bannerColor="red"
+        pageOrientation="landscape"
+        qrCodeURL={qrCodeURL}
+      />
       {data.abductors.length ? (
         <SingleChildLandscapeAbductorsBody caseData={data} />
       ) : (

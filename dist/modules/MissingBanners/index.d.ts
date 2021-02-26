@@ -13,10 +13,12 @@ declare type Props = {
     type: BannerType;
     printTrigger: () => ReactElement;
     language?: string;
+    qrCodeURL: string;
 };
 export declare const DataContext: React.Context<{
     data: ICase;
     agency: IAgency;
+    qrCodeURL: string;
 }>;
 declare const MissingBanners: FC<Props>;
 export default MissingBanners;

@@ -3140,7 +3140,7 @@ function useTranslation(ns) {
 }
 
 var BannerHeader = function (_a) {
-    var bannerColor = _a.bannerColor, pageOrientation = _a.pageOrientation;
+    var bannerColor = _a.bannerColor, pageOrientation = _a.pageOrientation, qrCodeURL = _a.qrCodeURL;
     var _b = useTranslation("translation"), t = _b.t, i18n = _b.i18n;
     var headerBackground = bannerColor === "red" ? "#C72828" : bannerColor;
     var headerColor = bannerColor === "white" ? "#C72828" : "white";
@@ -3156,7 +3156,7 @@ var BannerHeader = function (_a) {
         React.createElement("div", null,
             React.createElement("h1", { className: "banner-header-text", style: { fontSize: headerSize } }, t("header.missing"))),
         React.createElement("div", { className: "banner-header-qrCode" },
-            React.createElement(lib, { value: "www.google.com", size: 110 }))));
+            React.createElement(lib, { value: qrCodeURL, size: 110 }))));
 };
 
 var BannerFooter = function (_a) {
@@ -3289,9 +3289,9 @@ function useCases() {
 }
 
 var SingleChildPortraitBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency;
+    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
     return (React.createElement("div", { className: "scp-container" },
-        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait" }),
+        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait", qrCodeURL: qrCodeURL }),
         React.createElement(SingleChildPortraitBody, { caseData: data }),
         React.createElement(BannerFooter, { pageOrientation: "portrait", agencyData: agency, caseData: data })));
 };
@@ -3353,9 +3353,9 @@ var MultipleChildLandscapeBody = function (_a) {
 };
 
 var MultipleChildLandscapeBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency;
+    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
     return (React.createElement("div", { className: "mcl-container" },
-        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape" }),
+        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape", qrCodeURL: qrCodeURL }),
         React.createElement(MultipleChildLandscapeBody, { caseData: data }),
         React.createElement(BannerFooter, { pageOrientation: "landscape", agencyData: agency, caseData: data })));
 };
@@ -3477,9 +3477,9 @@ var MultipleChildPortraitDetails = function (_a) {
 };
 
 var MultipleChildPortraitBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency;
+    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
     return (React.createElement("div", { className: "mcp-container" },
-        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait" }),
+        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait", qrCodeURL: qrCodeURL }),
         React.createElement(MultipleChildPortraitHeadline, { caseData: data }),
         React.createElement(MultipleChildPortraitDetails, { caseData: data }),
         React.createElement(BannerFooter, { pageOrientation: "portrait", agencyData: agency, caseData: data })));
@@ -3631,9 +3631,9 @@ var SingleChildLandscapeBody = function (_a) {
 };
 
 var SingleChildLandscapeBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency;
+    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
     return (React.createElement("div", { className: "scl-container" },
-        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape" }),
+        React.createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape", qrCodeURL: qrCodeURL }),
         data.abductors.length ? (React.createElement(SingleChildLandscapeAbductorsBody, { caseData: data })) : (React.createElement(SingleChildLandscapeBody, { caseData: data })),
         React.createElement(BannerFooter, { pageOrientation: "landscape", agencyData: agency, caseData: data })));
 };
@@ -6535,9 +6535,10 @@ var Banners = (_a = {},
 var DataContext = createContext({
     data: {},
     agency: {},
+    qrCodeURL: "",
 });
 var MissingBanners = function (_a) {
-    var data = _a.data, agency = _a.agency, type = _a.type, printTrigger = _a.printTrigger, language = _a.language;
+    var data = _a.data, agency = _a.agency, type = _a.type, printTrigger = _a.printTrigger, language = _a.language, qrCodeURL = _a.qrCodeURL;
     var componentRef = useRef(null);
     var renderBanner = useMemo(function () {
         var BannerToBeRendered = Banners[type];
@@ -6554,7 +6555,7 @@ var MissingBanners = function (_a) {
         }
     }, [language]);
     return (React.createElement(Suspense$1, { fallback: "loading" },
-        React.createElement(DataContext.Provider, { value: { data: data, agency: agency } },
+        React.createElement(DataContext.Provider, { value: { data: data, agency: agency, qrCodeURL: qrCodeURL } },
             React.createElement(ReactToPrint, { trigger: printTrigger, content: function () { return componentRef.current; } }),
             React.createElement("div", { style: { display: "none" } },
                 React.createElement("div", { ref: componentRef },

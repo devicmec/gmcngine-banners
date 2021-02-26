@@ -8,11 +8,15 @@ import useCases from "../../shared/hooks/useCases";
 type Props = {};
 
 const SingleChildPortraitBanner: FC<Props> = () => {
-  const { data, agency } = useCases();
+  const { data, agency, qrCodeURL } = useCases();
 
   return (
     <div className="scp-container">
-      <BannerHeader bannerColor="red" pageOrientation="portrait" />
+      <BannerHeader
+        bannerColor="red"
+        pageOrientation="portrait"
+        qrCodeURL={qrCodeURL}
+      />
       <SingleChildPortraitBody caseData={data} />
       <BannerFooter
         pageOrientation="portrait"

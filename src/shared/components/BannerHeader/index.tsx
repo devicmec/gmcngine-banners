@@ -7,9 +7,14 @@ import { useTranslation } from "react-i18next";
 type Props = {
   bannerColor: "white" | "red";
   pageOrientation: "landscape" | "portrait";
+  qrCodeURL: string;
 };
 
-const BannerHeader: FC<Props> = ({ bannerColor, pageOrientation }) => {
+const BannerHeader: FC<Props> = ({
+  bannerColor,
+  pageOrientation,
+  qrCodeURL,
+}) => {
   const { t, i18n } = useTranslation("translation");
   const headerBackground = bannerColor === "red" ? "#C72828" : bannerColor;
   const headerColor = bannerColor === "white" ? "#C72828" : "white";
@@ -37,7 +42,7 @@ const BannerHeader: FC<Props> = ({ bannerColor, pageOrientation }) => {
         </h1>
       </div>
       <div className="banner-header-qrCode">
-        <QRCode value="www.google.com" size={110} />
+        <QRCode value={qrCodeURL} size={110} />
       </div>
     </div>
   );
