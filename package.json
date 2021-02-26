@@ -1,5 +1,5 @@
 {
-  "name": "@carodelaossaff/gmcngine-banners",
+  "name": "@devicmec/gmcngine-banners",
   "version": "1.0.0",
   "description": "A library with all the missing children banners",
   "main": "dist/index.cjs.js",
@@ -48,6 +48,6 @@
   ],
   "typings": "dist/index.d.ts",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@carodelaossaff"
+    "registry": "https://npm.pkg.github.com/@devicmec"
   }
 }
