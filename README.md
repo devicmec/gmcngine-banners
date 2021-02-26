@@ -14,12 +14,11 @@ In the background, it uses React, react-to-print, i18next, qrcode.react and type
 
 **<MissingBanners/>**
 
-| Name           |    Type    | Description                                                              |
+| Name           |    Type    |  Description |
 | -------------- | :--------: | -----------------------------------------------------------------------: |
-| `data`         |   ICase    | The case information to display                                          |
-| `agency`       |  IAgency   | The agency information in order to get the agency logo                   |
-| `type`         | BannerType | One of the four types of banners: `SINGLE_CHILD_PORTRAIT`
-`SINGLE_CHILD_LANDSCAPE`, `MULTIPLE_CHILD_PORTRAIT` or `MULTIPLE_CHILD_LANDSCAPE` |
-| `language?`    |   string   | The language from i18next in order to translate the banners              |
+| `data`         |   ICase    | The case information to display |
+| `agency`       |  IAgency   | The agency information in order to get the agency logo |
+| `type`         | BannerType | One of the four types of banners |
+| `language?`    |   string   | The language from i18next in order to translate the banners |
 | `printTrigger` |  function  | A function that returns the component that will trigger the print prompt |
-| ` qrCodeURL`   |   string   | URL that the qrCode will redirect the user to                            |
+| ` qrCodeURL`   |   string   | URL that the qrCode will redirect the user to |
