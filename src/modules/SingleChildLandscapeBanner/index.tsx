@@ -13,19 +13,25 @@ type Props = {
   caseData?: ICase;
   className?: string;
   childId?: string;
+  shareUrl?: string;
 };
 
 const SingleChildLandscapeBanner: FC<Props> = ({
   agencyData,
   caseData,
   childId,
-  className
+  className,
+  shareUrl
 }) => {
-  const { agency, data } = useCases();
+  const { agency, data, qrCodeURL } = useCases();
 
   return (
     <div className={`${className} scl-container`}>
-      <BannerHeader bannerColor="red" pageOrientation="landscape" />
+      <BannerHeader
+        bannerColor="red"
+        pageOrientation="landscape"
+        qrCodeURL={shareUrl || qrCodeURL}
+      />
       {(caseData && caseData?.abductors?.length) || data?.abductors?.length ? (
         <SingleChildLandscapeAbductorsBody
           caseData={caseData || data}

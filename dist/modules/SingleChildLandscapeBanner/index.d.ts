@@ -7,6 +7,7 @@ declare type Props = {
     caseData?: ICase;
     className?: string;
     childId?: string;
+    shareUrl?: string;
 };
 declare const SingleChildLandscapeBanner: FC<Props>;
 export default SingleChildLandscapeBanner;

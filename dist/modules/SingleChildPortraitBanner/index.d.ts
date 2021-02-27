@@ -7,6 +7,7 @@ declare type Props = {
     caseData?: ICase;
     className?: string;
     childId?: string;
+    shareUrl?: string;
 };
 declare const SingleChildPortraitBanner: FC<Props>;
 export default SingleChildPortraitBanner;

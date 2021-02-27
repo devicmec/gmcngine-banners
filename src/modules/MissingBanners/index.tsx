@@ -36,11 +36,17 @@ type Props = {
   type: BannerType;
   printTrigger: () => ReactElement;
   language?: string;
+  qrCodeURL: string;
 };
 
-export const DataContext = createContext<{ data: ICase; agency: IAgency }>({
+export const DataContext = createContext<{
+  data: ICase;
+  agency: IAgency;
+  qrCodeURL: string;
+}>({
   data: {} as any,
-  agency: {} as any
+  agency: {} as any,
+  qrCodeURL: ""
 });
 
 const MissingBanners: FC<Props> = ({
@@ -48,7 +54,8 @@ const MissingBanners: FC<Props> = ({
   agency,
   type,
   printTrigger,
-  language
+  language,
+  qrCodeURL
 }) => {
   const componentRef = useRef(null);
   const renderBanner = useMemo(() => {
@@ -77,7 +84,7 @@ const MissingBanners: FC<Props> = ({
 
   return (
     <Suspense fallback="loading">
-      <DataContext.Provider value={{ data, agency }}>
+      <DataContext.Provider value={{ data, agency, qrCodeURL }}>
         <ReactToPrint
           trigger={printTrigger}
           content={() => componentRef.current}

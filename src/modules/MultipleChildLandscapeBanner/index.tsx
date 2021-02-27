@@ -11,17 +11,23 @@ type Props = {
   agencyData?: IAgency;
   caseData?: ICase;
   className?: string;
+  shareUrl?: string;
 };
 
 const MultipleChildLandscapeBanner: FC<Props> = ({
   agencyData,
   caseData,
-  className
+  className,
+  shareUrl
 }) => {
-  const { data, agency } = useCases();
+  const { data, agency, qrCodeURL } = useCases();
   return (
     <div className={`${className} mcl-container`}>
-      <BannerHeader bannerColor="red" pageOrientation="landscape" />
+      <BannerHeader
+        bannerColor="red"
+        pageOrientation="landscape"
+        qrCodeURL={shareUrl || qrCodeURL}
+      />
       <MultipleChildLandscapeBody caseData={caseData || data} />
       <BannerFooter
         pageOrientation="landscape"

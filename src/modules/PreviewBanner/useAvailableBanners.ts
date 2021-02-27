@@ -16,6 +16,7 @@ export type AvailableBanners = {
     caseData?: ICase;
     className?: string;
     childId?: string;
+    shareUrl?: string;
   }>;
   posterOrientation: PosterOrientation;
 };

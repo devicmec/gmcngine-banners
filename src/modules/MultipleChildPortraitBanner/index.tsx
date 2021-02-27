@@ -12,18 +12,24 @@ type Props = {
   agencyData?: IAgency;
   caseData?: ICase;
   className?: string;
+  shareUrl?: string;
 };
 
 const MultipleChildPortraitBanner: FC<Props> = ({
   agencyData,
   caseData,
-  className
+  className,
+  shareUrl
 }) => {
-  const { data, agency } = useCases();
+  const { data, agency, qrCodeURL } = useCases();
 
   return (
     <div className={`${className} mcp-container`}>
-      <BannerHeader bannerColor="red" pageOrientation="portrait" />
+      <BannerHeader
+        bannerColor="red"
+        pageOrientation="portrait"
+        qrCodeURL={shareUrl || qrCodeURL}
+      />
       <MultipleChildPortraitHeadline caseData={caseData || data} />
       <MultipleChildPortraitDetails caseData={caseData || data} />
       <BannerFooter

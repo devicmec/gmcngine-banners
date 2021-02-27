@@ -6,6 +6,7 @@ declare type Props = {
     agencyData?: IAgency;
     caseData?: ICase;
     className?: string;
+    shareUrl?: string;
 };
 declare const MultipleChildLandscapeBanner: FC<Props>;
 export default MultipleChildLandscapeBanner;

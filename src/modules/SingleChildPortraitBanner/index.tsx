@@ -12,19 +12,25 @@ type Props = {
   caseData?: ICase;
   className?: string;
   childId?: string;
+  shareUrl?: string;
 };
 
 const SingleChildPortraitBanner: FC<Props> = ({
   agencyData,
   caseData,
   childId,
-  className
+  className,
+  shareUrl
 }) => {
-  const { agency, data } = useCases();
+  const { agency, data, qrCodeURL } = useCases();
 
   return (
     <div className={`${className} scp-container`}>
-      <BannerHeader bannerColor="red" pageOrientation="portrait" />
+      <BannerHeader
+        bannerColor="red"
+        pageOrientation="portrait"
+        qrCodeURL={shareUrl || qrCodeURL}
+      />
       <SingleChildPortraitBody caseData={caseData || data} childId={childId} />
       <BannerFooter
         pageOrientation="portrait"
