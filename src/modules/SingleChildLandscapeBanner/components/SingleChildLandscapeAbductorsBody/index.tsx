@@ -6,14 +6,19 @@ import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
 import { useTranslation } from "react-i18next";
 import SingleChildLandscapeAbductorsDetails from "../SingleChildLandscapeAbductorsDetails";
+import { getChild } from "../../../../shared/utils/getChildInfo";
 
 type Props = {
   caseData: ICase;
+  childId?: string;
 };
 
-const SingleChildLandscapeAbductorsBody: FC<Props> = ({ caseData }) => {
+const SingleChildLandscapeAbductorsBody: FC<Props> = ({
+  caseData,
+  childId
+}) => {
   const { t } = useTranslation("translation");
-  const childSelected: IChild = caseData.children[0];
+  const childSelected: IChild = getChild(caseData.children, childId);
 
   return (
     <div className="scla-body-container">

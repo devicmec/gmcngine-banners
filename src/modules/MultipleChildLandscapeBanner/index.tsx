@@ -4,23 +4,35 @@ import BannerFooter from "../../shared/components/BannerFooter";
 import "./styles.css";
 import MultipleChildLandscapeBody from "./components/MultipleChildLandscapeBody";
 import useCases from "../../shared/hooks/useCases";
+import { ICase } from "../../shared/types/cases/case";
+import { IAgency } from "../../shared/types/agency";
 
-type Props = {};
+type Props = {
+  agencyData?: IAgency;
+  caseData?: ICase;
+  className?: string;
+  shareUrl?: string;
+};
 
-const MultipleChildLandscapeBanner: FC<Props> = () => {
+const MultipleChildLandscapeBanner: FC<Props> = ({
+  agencyData,
+  caseData,
+  className,
+  shareUrl
+}) => {
   const { data, agency, qrCodeURL } = useCases();
   return (
-    <div className="mcl-container">
+    <div className={`${className} mcl-container`}>
       <BannerHeader
         bannerColor="red"
         pageOrientation="landscape"
-        qrCodeURL={qrCodeURL}
+        qrCodeURL={shareUrl || qrCodeURL}
       />
-      <MultipleChildLandscapeBody caseData={data} />
+      <MultipleChildLandscapeBody caseData={caseData || data} />
       <BannerFooter
         pageOrientation="landscape"
-        agencyData={agency}
-        caseData={data}
+        agencyData={agencyData || agency}
+        caseData={caseData || data}
       />
     </div>
   );

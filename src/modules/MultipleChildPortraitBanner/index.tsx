@@ -5,25 +5,37 @@ import MultipleChildPortraitHeadline from "./components/MultipleChildPortraitHea
 import "./styles.css";
 import MultipleChildPortraitDetails from "./components/MultipleChildPortraitDetails";
 import useCases from "../../shared/hooks/useCases";
+import { ICase } from "../../shared/types/cases/case";
+import { IAgency } from "../../shared/types/agency";
 
-type Props = {};
+type Props = {
+  agencyData?: IAgency;
+  caseData?: ICase;
+  className?: string;
+  shareUrl?: string;
+};
 
-const MultipleChildPortraitBanner: FC<Props> = () => {
+const MultipleChildPortraitBanner: FC<Props> = ({
+  agencyData,
+  caseData,
+  className,
+  shareUrl
+}) => {
   const { data, agency, qrCodeURL } = useCases();
 
   return (
-    <div className="mcp-container">
+    <div className={`${className} mcp-container`}>
       <BannerHeader
         bannerColor="red"
         pageOrientation="portrait"
-        qrCodeURL={qrCodeURL}
+        qrCodeURL={shareUrl || qrCodeURL}
       />
-      <MultipleChildPortraitHeadline caseData={data} />
-      <MultipleChildPortraitDetails caseData={data} />
+      <MultipleChildPortraitHeadline caseData={caseData || data} />
+      <MultipleChildPortraitDetails caseData={caseData || data} />
       <BannerFooter
         pageOrientation="portrait"
-        agencyData={agency}
-        caseData={data}
+        agencyData={agencyData || agency}
+        caseData={caseData || data}
       />
     </div>
   );

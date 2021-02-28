@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useRef,
   Suspense,
-  useEffect,
+  useEffect
 } from "react";
 import SingleChildPortraitBanner from "../SingleChildPortraitBanner";
 import { ICase } from "../../shared/types/cases/case";
@@ -20,14 +20,14 @@ export enum BannerType {
   SINGLE_CHILD_PORTRAIT = "SINGLE_CHILD_PORTRAIT",
   SINGLE_CHILD_LANDSCAPE = "SINGLE_CHILD_LANDSCAPE",
   MULTIPLE_CHILD_PORTRAIT = "MULTIPLE_CHILD_PORTRAIT",
-  MULTIPLE_CHILD_LANDSCAPE = "MULTIPLE_CHILD_LANDSCAPE",
+  MULTIPLE_CHILD_LANDSCAPE = "MULTIPLE_CHILD_LANDSCAPE"
 }
 
-const Banners = {
+export const Banners = {
   ["SINGLE_CHILD_PORTRAIT"]: SingleChildPortraitBanner,
   ["SINGLE_CHILD_LANDSCAPE"]: SingleChildLandscapeBanner,
   ["MULTIPLE_CHILD_PORTRAIT"]: MultipleChildPortraitBanner,
-  ["MULTIPLE_CHILD_LANDSCAPE"]: MultipleChildLandscapeBanner,
+  ["MULTIPLE_CHILD_LANDSCAPE"]: MultipleChildLandscapeBanner
 };
 
 type Props = {
@@ -46,7 +46,7 @@ export const DataContext = createContext<{
 }>({
   data: {} as any,
   agency: {} as any,
-  qrCodeURL: "",
+  qrCodeURL: ""
 });
 
 const MissingBanners: FC<Props> = ({
@@ -55,7 +55,7 @@ const MissingBanners: FC<Props> = ({
   type,
   printTrigger,
   language,
-  qrCodeURL,
+  qrCodeURL
 }) => {
   const componentRef = useRef(null);
   const renderBanner = useMemo(() => {

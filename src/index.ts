@@ -1,2 +1,5 @@
 import MissingBanners, { BannerType } from "./modules/MissingBanners";
-export { MissingBanners, BannerType };
+import useAvailableBanners, {
+  AvailableBanners
+} from "./modules/PreviewBanner/useAvailableBanners";
+export { AvailableBanners, MissingBanners, BannerType, useAvailableBanners };

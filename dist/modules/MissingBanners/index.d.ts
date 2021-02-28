@@ -7,6 +7,30 @@ export declare enum BannerType {
     MULTIPLE_CHILD_PORTRAIT = "MULTIPLE_CHILD_PORTRAIT",
     MULTIPLE_CHILD_LANDSCAPE = "MULTIPLE_CHILD_LANDSCAPE"
 }
+export declare const Banners: {
+    SINGLE_CHILD_PORTRAIT: React.FC<{
+        agencyData?: IAgency | undefined;
+        caseData?: ICase | undefined;
+        className?: string | undefined;
+        childId?: string | undefined;
+    }>;
+    SINGLE_CHILD_LANDSCAPE: React.FC<{
+        agencyData?: IAgency | undefined;
+        caseData?: ICase | undefined;
+        className?: string | undefined;
+        childId?: string | undefined;
+    }>;
+    MULTIPLE_CHILD_PORTRAIT: React.FC<{
+        agencyData?: IAgency | undefined;
+        caseData?: ICase | undefined;
+        className?: string | undefined;
+    }>;
+    MULTIPLE_CHILD_LANDSCAPE: React.FC<{
+        agencyData?: IAgency | undefined;
+        caseData?: ICase | undefined;
+        className?: string | undefined;
+    }>;
+};
 declare type Props = {
     data: ICase;
     agency: IAgency;

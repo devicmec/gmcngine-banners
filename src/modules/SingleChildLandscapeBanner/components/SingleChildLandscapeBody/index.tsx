@@ -5,14 +5,16 @@ import SingleChildLandscapeHeadline from "../SingleChildLandscapeHeadline";
 import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
 import { useTranslation } from "react-i18next";
+import { getChild } from "../../../../shared/utils/getChildInfo";
 
 type Props = {
   caseData: ICase;
+  childId?: string;
 };
 
-const SingleChildLandscapeBody: FC<Props> = ({ caseData }) => {
+const SingleChildLandscapeBody: FC<Props> = ({ caseData, childId }) => {
   const { t } = useTranslation("translation");
-  const childSelected: IChild = caseData.children[0];
+  const childSelected: IChild = getChild(caseData.children, childId);
 
   return (
     <div className="scl-body-container">

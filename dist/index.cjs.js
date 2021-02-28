@@ -3271,9 +3271,15 @@ var SingleChildPortraitHeadline = function (_a) {
             caseData.abductors.map(function (abductor, index) { return (React__default['default'].createElement(AbductorsCard, { bannerOrientation: "portrait", abductorData: abductor, key: abductor.abductorId + index })); }))) : null));
 };
 
+var getChild = function (childrenData, childId) {
+    return childId
+        ? childrenData.find(function (child) { return child.childId === childId; }) || childrenData[0]
+        : childrenData[0];
+};
+
 var SingleChildPortraitBody = function (_a) {
-    var caseData = _a.caseData;
-    var childSelected = caseData.children[0];
+    var caseData = _a.caseData, childId = _a.childId;
+    var childSelected = getChild(caseData.children, childId);
     var t = useTranslation("translation").t;
     return (React__default['default'].createElement("div", { className: "scp-body-container" },
         React__default['default'].createElement("div", { className: "scp-banner-headline" },
@@ -3297,12 +3303,13 @@ function useCases() {
     return caseData;
 }
 
-var SingleChildPortraitBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
-    return (React__default['default'].createElement("div", { className: "scp-container" },
-        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait", qrCodeURL: qrCodeURL }),
-        React__default['default'].createElement(SingleChildPortraitBody, { caseData: data }),
-        React__default['default'].createElement(BannerFooter, { pageOrientation: "portrait", agencyData: agency, caseData: data })));
+var SingleChildPortraitBanner = function (_a) {
+    var agencyData = _a.agencyData, caseData = _a.caseData, childId = _a.childId, className = _a.className, shareUrl = _a.shareUrl;
+    var _b = useCases(), agency = _b.agency, data = _b.data, qrCodeURL = _b.qrCodeURL;
+    return (React__default['default'].createElement("div", { className: className + " scp-container" },
+        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait", qrCodeURL: shareUrl || qrCodeURL }),
+        React__default['default'].createElement(SingleChildPortraitBody, { caseData: caseData || data, childId: childId }),
+        React__default['default'].createElement(BannerFooter, { pageOrientation: "portrait", agencyData: agencyData || agency, caseData: caseData || data })));
 };
 
 var LandscapeChildCard = function (_a) {
@@ -3361,12 +3368,13 @@ var MultipleChildLandscapeBody = function (_a) {
             React__default['default'].createElement("p", null, caseData.circumstances))));
 };
 
-var MultipleChildLandscapeBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
-    return (React__default['default'].createElement("div", { className: "mcl-container" },
-        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape", qrCodeURL: qrCodeURL }),
-        React__default['default'].createElement(MultipleChildLandscapeBody, { caseData: data }),
-        React__default['default'].createElement(BannerFooter, { pageOrientation: "landscape", agencyData: agency, caseData: data })));
+var MultipleChildLandscapeBanner = function (_a) {
+    var agencyData = _a.agencyData, caseData = _a.caseData, className = _a.className, shareUrl = _a.shareUrl;
+    var _b = useCases(), data = _b.data, agency = _b.agency, qrCodeURL = _b.qrCodeURL;
+    return (React__default['default'].createElement("div", { className: className + " mcl-container" },
+        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape", qrCodeURL: shareUrl || qrCodeURL }),
+        React__default['default'].createElement(MultipleChildLandscapeBody, { caseData: caseData || data }),
+        React__default['default'].createElement(BannerFooter, { pageOrientation: "landscape", agencyData: agencyData || agency, caseData: caseData || data })));
 };
 
 var MediumPortraitChildCard = function (_a) {
@@ -3485,13 +3493,14 @@ var MultipleChildPortraitDetails = function (_a) {
                 React__default['default'].createElement("p", null, caseData.circumstances)))));
 };
 
-var MultipleChildPortraitBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
-    return (React__default['default'].createElement("div", { className: "mcp-container" },
-        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait", qrCodeURL: qrCodeURL }),
-        React__default['default'].createElement(MultipleChildPortraitHeadline, { caseData: data }),
-        React__default['default'].createElement(MultipleChildPortraitDetails, { caseData: data }),
-        React__default['default'].createElement(BannerFooter, { pageOrientation: "portrait", agencyData: agency, caseData: data })));
+var MultipleChildPortraitBanner = function (_a) {
+    var agencyData = _a.agencyData, caseData = _a.caseData, className = _a.className, shareUrl = _a.shareUrl;
+    var _b = useCases(), data = _b.data, agency = _b.agency, qrCodeURL = _b.qrCodeURL;
+    return (React__default['default'].createElement("div", { className: className + " mcp-container" },
+        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "portrait", qrCodeURL: shareUrl || qrCodeURL }),
+        React__default['default'].createElement(MultipleChildPortraitHeadline, { caseData: caseData || data }),
+        React__default['default'].createElement(MultipleChildPortraitDetails, { caseData: caseData || data }),
+        React__default['default'].createElement(BannerFooter, { pageOrientation: "portrait", agencyData: agencyData || agency, caseData: caseData || data })));
 };
 
 var SingleChildLandscapeHeadline = function (_a) {
@@ -3548,9 +3557,9 @@ var SingleChildLandscapeAbductorsDetails = function (_a) {
 };
 
 var SingleChildLandscapeAbductorsBody = function (_a) {
-    var caseData = _a.caseData;
+    var caseData = _a.caseData, childId = _a.childId;
     var t = useTranslation("translation").t;
-    var childSelected = caseData.children[0];
+    var childSelected = getChild(caseData.children, childId);
     return (React__default['default'].createElement("div", { className: "scla-body-container" },
         React__default['default'].createElement("div", { className: "scla-upper-section" },
             React__default['default'].createElement(SingleChildLandscapeHeadline, { childData: childSelected, hasAbductors: Boolean(caseData.abductors.length) }),
@@ -3618,9 +3627,9 @@ var SingleChildLandscapeDetails = function (_a) {
 };
 
 var SingleChildLandscapeBody = function (_a) {
-    var caseData = _a.caseData;
+    var caseData = _a.caseData, childId = _a.childId;
     var t = useTranslation("translation").t;
-    var childSelected = caseData.children[0];
+    var childSelected = getChild(caseData.children, childId);
     return (React__default['default'].createElement("div", { className: "scl-body-container" },
         React__default['default'].createElement("div", { className: "scl-upper-section" },
             React__default['default'].createElement("div", { className: "scl-pictures-header-container" },
@@ -3639,12 +3648,14 @@ var SingleChildLandscapeBody = function (_a) {
             React__default['default'].createElement("p", null, caseData.circumstances))));
 };
 
-var SingleChildLandscapeBanner = function () {
-    var _a = useCases(), data = _a.data, agency = _a.agency, qrCodeURL = _a.qrCodeURL;
-    return (React__default['default'].createElement("div", { className: "scl-container" },
-        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape", qrCodeURL: qrCodeURL }),
-        data.abductors.length ? (React__default['default'].createElement(SingleChildLandscapeAbductorsBody, { caseData: data })) : (React__default['default'].createElement(SingleChildLandscapeBody, { caseData: data })),
-        React__default['default'].createElement(BannerFooter, { pageOrientation: "landscape", agencyData: agency, caseData: data })));
+var SingleChildLandscapeBanner = function (_a) {
+    var _b, _c;
+    var agencyData = _a.agencyData, caseData = _a.caseData, childId = _a.childId, className = _a.className, shareUrl = _a.shareUrl;
+    var _d = useCases(), agency = _d.agency, data = _d.data, qrCodeURL = _d.qrCodeURL;
+    return (React__default['default'].createElement("div", { className: className + " scl-container" },
+        React__default['default'].createElement(BannerHeader, { bannerColor: "red", pageOrientation: "landscape", qrCodeURL: shareUrl || qrCodeURL }),
+        (caseData && ((_b = caseData === null || caseData === void 0 ? void 0 : caseData.abductors) === null || _b === void 0 ? void 0 : _b.length)) || ((_c = data === null || data === void 0 ? void 0 : data.abductors) === null || _c === void 0 ? void 0 : _c.length) ? (React__default['default'].createElement(SingleChildLandscapeAbductorsBody, { caseData: caseData || data, childId: childId })) : (React__default['default'].createElement(SingleChildLandscapeBody, { caseData: caseData || data, childId: childId })),
+        React__default['default'].createElement(BannerFooter, { pageOrientation: "landscape", agencyData: agencyData || agency, caseData: caseData || data })));
 };
 
 function _typeof$1(obj) {
@@ -6543,7 +6554,7 @@ var Banners = (_a = {},
 var DataContext = React.createContext({
     data: {},
     agency: {},
-    qrCodeURL: "",
+    qrCodeURL: ""
 });
 var MissingBanners = function (_a) {
     var data = _a.data, agency = _a.agency, type = _a.type, printTrigger = _a.printTrigger, language = _a.language, qrCodeURL = _a.qrCodeURL;
@@ -6571,4 +6582,71 @@ var MissingBanners = function (_a) {
                     renderBanner)))));
 };
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+var PosterOrientation;
+(function (PosterOrientation) {
+    PosterOrientation["portrait"] = "portrait";
+    PosterOrientation["landscape"] = "landscape";
+})(PosterOrientation || (PosterOrientation = {}));
+var useAvailableBanners = function (data) {
+    var _a = React.useState([]), availableBanners = _a[0], setAvailableBanners = _a[1];
+    React.useEffect(function () {
+        var childrenLength = data && data.children.length;
+        if (!childrenLength) {
+            return;
+        }
+        var bannersOptions = [
+            {
+                type: exports.BannerType.SINGLE_CHILD_PORTRAIT,
+                component: Banners[exports.BannerType.SINGLE_CHILD_PORTRAIT],
+                posterOrientation: PosterOrientation.portrait
+            },
+            {
+                type: exports.BannerType.SINGLE_CHILD_LANDSCAPE,
+                component: Banners[exports.BannerType.SINGLE_CHILD_LANDSCAPE],
+                posterOrientation: PosterOrientation.landscape
+            }
+        ];
+        if (childrenLength > 1) {
+            bannersOptions = __spreadArrays(bannersOptions, [
+                {
+                    type: exports.BannerType.MULTIPLE_CHILD_PORTRAIT,
+                    component: Banners[exports.BannerType.MULTIPLE_CHILD_PORTRAIT],
+                    posterOrientation: PosterOrientation.portrait
+                },
+                {
+                    type: exports.BannerType.MULTIPLE_CHILD_LANDSCAPE,
+                    component: Banners[exports.BannerType.MULTIPLE_CHILD_LANDSCAPE],
+                    posterOrientation: PosterOrientation.landscape
+                }
+            ]);
+        }
+        setAvailableBanners(bannersOptions);
+    }, [data]);
+    return availableBanners;
+};
+
 exports.MissingBanners = MissingBanners;
+exports.useAvailableBanners = useAvailableBanners;

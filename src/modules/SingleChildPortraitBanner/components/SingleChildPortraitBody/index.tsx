@@ -5,13 +5,15 @@ import SingleChildPortraitHeadline from "../SingleChildPortraitHeadline";
 import { ICase } from "../../../../shared/types/cases/case";
 import { IChild } from "../../../../shared/types/cases/children";
 import { useTranslation } from "react-i18next";
+import { getChild } from "../../../../shared/utils/getChildInfo";
 
 type Props = {
   caseData: ICase;
+  childId?: string;
 };
 
-const SingleChildPortraitBody: FC<Props> = ({ caseData }) => {
-  const childSelected: IChild = caseData.children[0];
+const SingleChildPortraitBody: FC<Props> = ({ caseData, childId }) => {
+  const childSelected: IChild = getChild(caseData.children, childId);
   const { t } = useTranslation("translation");
 
   return (
