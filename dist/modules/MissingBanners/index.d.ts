@@ -13,22 +13,26 @@ export declare const Banners: {
         caseData?: ICase | undefined;
         className?: string | undefined;
         childId?: string | undefined;
+        shareUrl?: string | undefined;
     }>;
     SINGLE_CHILD_LANDSCAPE: React.FC<{
         agencyData?: IAgency | undefined;
         caseData?: ICase | undefined;
         className?: string | undefined;
         childId?: string | undefined;
+        shareUrl?: string | undefined;
     }>;
     MULTIPLE_CHILD_PORTRAIT: React.FC<{
         agencyData?: IAgency | undefined;
         caseData?: ICase | undefined;
         className?: string | undefined;
+        shareUrl?: string | undefined;
     }>;
     MULTIPLE_CHILD_LANDSCAPE: React.FC<{
         agencyData?: IAgency | undefined;
         caseData?: ICase | undefined;
         className?: string | undefined;
+        shareUrl?: string | undefined;
     }>;
 };
 declare type Props = {
