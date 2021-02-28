@@ -1,6 +1,6 @@
 {
   "name": "@devicmec/gmcngine-banners",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library with all the missing children banners",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
